@@ -1,0 +1,287 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+<title>Static Call Graph - [.\obj\CH57x.axf]</title></head>
+<body><HR>
+<H1>Static Call Graph for image .\obj\CH57x.axf</H1><HR>
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Sep 08 22:19:34 2021
+<BR><P>
+<H3>Maximum Stack Usage =          0 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+Call chain for Maximum Stack Depth:</H3>
+
+<P>
+<H3>
+Mutually Recursive functions
+</H3> <LI><a href="#[3]">SVC_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[3]">SVC_Handler</a><BR>
+ <LI><a href="#[4]">PendSV_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[4]">PendSV_Handler</a><BR>
+ <LI><a href="#[5]">SysTick_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[5]">SysTick_Handler</a><BR>
+ <LI><a href="#[13]">ADC_IRQHandler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[13]">ADC_IRQHandler</a><BR>
+</UL>
+<P>
+<H3>
+Function Pointers
+</H3><UL>
+ <LI><a href="#[13]">ADC_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[a]">BB_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[d]">ETH_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[7]">GPIO_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[2]">HardFault_Handler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[15]">LED_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[b]">LLE_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[1]">NMI_Handler</a> from ch57x_int.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[4]">PendSV_Handler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[12]">RTC_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[0]">Reset_Handler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[8]">SLAVE_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[9]">SPI0_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[14]">SPI1_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[3]">SVC_Handler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[5]">SysTick_Handler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[1b]">SystemInit</a> from ch57x_clk.o(.text) referenced from startup_armcm0.o(.text)
+ <LI><a href="#[6]">TMR0_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[e]">TMR1_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[f]">TMR2_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[16]">TMR3_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[10]">UART0_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[11]">UART1_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[17]">UART2_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[18]">UART3_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[c]">USB_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[19]">WDT_IRQHandler</a> from startup_armcm0.o(.text) referenced from startup_armcm0.o(RESET)
+ <LI><a href="#[1c]">__main</a> from entry.o(.ARM.Collect$$$$00000000) referenced from startup_armcm0.o(.text)
+ <LI><a href="#[1a]">main</a> from main.o(.text) referenced from entry9a.o(.ARM.Collect$$$$0000000B)
+</UL>
+<P>
+<H3>
+Global Symbols
+</H3>
+<P><STRONG><a name="[1c]"></a>__main</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, entry.o(.ARM.Collect$$$$00000000))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(.text)
+</UL>
+<P><STRONG><a name="[1d]"></a>_main_scatterload</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, entry5.o(.ARM.Collect$$$$00000004))
+<BR><BR>[Calls]<UL><LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
+</UL>
+
+<P><STRONG><a name="[31]"></a>__main_after_scatterload</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, entry5.o(.ARM.Collect$$$$00000004))
+<BR><BR>[Called By]<UL><LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
+</UL>
+
+<P><STRONG><a name="[1a]"></a>main</STRONG> (Thumb, 156 bytes, Stack size 0 bytes, main.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWMX_CycleCfg
+<LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWMX_ACTOUT
+<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOB_ModeCfg
+<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOA_ModeCfg
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
+</UL>
+<P><STRONG><a name="[1b]"></a>SystemInit</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, ch57x_clk.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mDelayuS
+<LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PowerMonitor
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(.text)
+</UL>
+<P><STRONG><a name="[25]"></a>SetSysClock</STRONG> (Thumb, 342 bytes, Stack size 0 bytes, ch57x_clk.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
+</UL>
+
+<P><STRONG><a name="[27]"></a>GetSysClock</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, ch57x_clk.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
+</UL>
+
+<P><STRONG><a name="[29]"></a>Calibration_LSI</STRONG> (Thumb, 492 bytes, Stack size 0 bytes, ch57x_clk.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
+<LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+
+<P><STRONG><a name="[2b]"></a>RTC_InitTime</STRONG> (Thumb, 350 bytes, Stack size 0 bytes, ch57x_clk.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
+</UL>
+
+<P><STRONG><a name="[2c]"></a>RTC_GetTime</STRONG> (Thumb, 468 bytes, Stack size 0 bytes, ch57x_clk.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
+<LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+
+<P><STRONG><a name="[2e]"></a>RTC_GetCycle32k</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, ch57x_clk.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_TRIGFunCfg
+</UL>
+
+<P><STRONG><a name="[2d]"></a>RTC_TRIGFunCfg</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, ch57x_clk.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_GetCycle32k
+</UL>
+
+<P><STRONG><a name="[1f]"></a>GPIOA_ModeCfg</STRONG> (Thumb, 146 bytes, Stack size 0 bytes, ch57x_gpio.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[20]"></a>GPIOB_ModeCfg</STRONG> (Thumb, 166 bytes, Stack size 0 bytes, ch57x_gpio.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[21]"></a>PWMX_CycleCfg</STRONG> (Thumb, 150 bytes, Stack size 0 bytes, ch57x_pwm.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[22]"></a>PWMX_ACTOUT</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, ch57x_pwm.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[2f]"></a>PWR_DCDCCfg</STRONG> (Thumb, 110 bytes, Stack size 0 bytes, ch57x_pwr.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mDelayuS
+</UL>
+
+<P><STRONG><a name="[24]"></a>PowerMonitor</STRONG> (Thumb, 90 bytes, Stack size 0 bytes, ch57x_pwr.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mDelayuS
+</UL>
+<BR>[Called By]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LowPower_Halt_1 (via Veneer)
+<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
+</UL>
+
+<P><STRONG><a name="[23]"></a>mDelayuS</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, ch57x_sys.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mDelaymS
+<LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWR_DCDCCfg
+<LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PowerMonitor
+<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
+</UL>
+
+<P><STRONG><a name="[30]"></a>mDelaymS</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, ch57x_sys.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mDelayuS
+</UL>
+
+<P><STRONG><a name="[0]"></a>Reset_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[2]"></a>HardFault_Handler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[3]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[4]"></a>PendSV_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PendSV_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PendSV_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[5]"></a>SysTick_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[13]"></a>ADC_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_IRQHandler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_IRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[a]"></a>BB_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[d]"></a>ETH_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[7]"></a>GPIO_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[15]"></a>LED_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[b]"></a>LLE_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[12]"></a>RTC_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[8]"></a>SLAVE_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[9]"></a>SPI0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[14]"></a>SPI1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[6]"></a>TMR0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[e]"></a>TMR1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[f]"></a>TMR2_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[16]"></a>TMR3_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[10]"></a>UART0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[11]"></a>UART1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[17]"></a>UART2_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[18]"></a>UART3_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[c]"></a>USB_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[19]"></a>WDT_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_armcm0.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[2a]"></a>__aeabi_uidivmod</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, uidiv.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
+<LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_GetTime
+<LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calibration_LSI
+</UL>
+
+<P><STRONG><a name="[28]"></a>__aeabi_idivmod</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, idiv.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_GetTime
+<LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_InitTime
+<LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calibration_LSI
+<LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetSysClock
+</UL>
+
+<P><STRONG><a name="[1e]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main_after_scatterload
+</UL>
+<BR>[Called By]<UL><LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
+</UL>
+
+<P><STRONG><a name="[26]"></a>__ARM_common_switch8</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, ch57x_clk.o(i.__ARM_common_switch8))
+<BR><BR>[Called By]<UL><LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
+<LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWMX_CycleCfg
+<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOB_ModeCfg
+<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOA_ModeCfg
+</UL>
+
+<P><STRONG><a name="[1]"></a>NMI_Handler</STRONG> (Thumb, 146 bytes, Stack size 0 bytes, ch57x_int.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_armcm0.o(RESET)
+</UL>
+<P><STRONG><a name="[32]"></a>LowPower_Halt_1</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, ch57x_int.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PowerMonitor (via Veneer)
+</UL>
+<P>
+<H3>
+Local Symbols
+</H3><P>
+<H3>
+Undefined Global Symbols
+</H3><HR></body></html>

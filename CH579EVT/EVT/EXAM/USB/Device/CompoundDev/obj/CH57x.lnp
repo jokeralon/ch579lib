@@ -1,0 +1,20 @@
+--cpu Cortex-M0
+".\obj\main.o"
+".\obj\ch57x_adc.o"
+".\obj\ch57x_clk.o"
+".\obj\ch57x_flash.o"
+".\obj\ch57x_gpio.o"
+".\obj\ch57x_lcd.o"
+".\obj\ch57x_pwm.o"
+".\obj\ch57x_pwr.o"
+".\obj\ch57x_spi0.o"
+".\obj\ch57x_sys.o"
+".\obj\ch57x_timer0.o"
+".\obj\ch57x_uart1.o"
+".\obj\ch57x_usbdev.o"
+".\obj\ch57x_int.o"
+".\obj\startup_armcm0.o"
+--library_type=microlib --nodebug --strict --scatter ".\obj\CH57x.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\list\CH57x.map" -o .\obj\CH57x.axf

@@ -1,0 +1,6 @@
+--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O2 --apcs=interwork -I ..\APP\include -I ..\Profile\include -I ..\..\HAL\include -I ..\..\LIB -I ..\..\..\SRC\CMSIS\Include -I ..\..\..\SRC\StdPeriphDriver\inc -I ..\DAP\Include -I ..\DAP\Config
+-I.\RTE\_CH57x
+-IC:\Keil_v5\ARM\PACK\Keil\WCH57x_DFP\1.1.0\Drivers\CMSIS\Device\WCH\CH57x\Include
+-IC:\Keil_v5\ARM\CMSIS\Include
+-D__UVISION_VERSION="524" -DDEBUG -D__CC_ARM
+-o .\obj\usb_vcp.o --omf_browse .\obj\usb_vcp.crf --depend .\obj\usb_vcp.d "..\APP\usb_vcp.c"
