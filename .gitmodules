@@ -1,0 +1,6 @@
+[submodule "CH579EVT/EVT/EXAM/BLE/ch579_keyboard"]
+	path = CH579EVT/EVT/EXAM/BLE/ch579_keyboard
+	url = git@github.com:jokeralon/ch579_keyboard.git
+[submodule "CH579EVT/EVT/EXAM/BLE/CH579-Keyboard"]
+	path = CH579EVT/EVT/EXAM/BLE/CH579-Keyboard
+	url = git@github.com:jokeralon/ch579-keyboard.git
