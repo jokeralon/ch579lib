@@ -14,16 +14,16 @@
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>CH579F</Device>
+          <Device>CH579M</Device>
           <Vendor>WCH</Vendor>
           <PackID>Keil.WCH57x_DFP.1.1.0</PackID>
           <PackURL>http://wch.cn/pack</PackURL>
           <Cpu>IRAM(0x20000000,0x8000) IROM(0x00000000,0x3E800) CPUTYPE("Cortex-M0") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
-          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0CH57x -FS00 -FL03F000 -FP0($$Device:CH579F$CMSIS\Flash\CH57x.FLM))</FlashDriverDll>
+          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0CH57x -FS00 -FL03F000 -FP0($$Device:CH579M$CMSIS\Flash\CH57x.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:CH579F$Drivers\CMSIS\Device\WCH\CH57x\Include\CH579SFR.h</RegisterFile>
+          <RegisterFile>$$Device:CH579M$Drivers\CMSIS\Device\WCH\CH57x\Include\CH579SFR.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -33,7 +33,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:CH579F$CMSIS\SVD\CH579SFR.svd</SFDFile>
+          <SFDFile>$$Device:CH579M$CMSIS\SVD\CH579SFR.svd</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -53,7 +53,7 @@
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
-          <DebugInformation>0</DebugInformation>
+          <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\list\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
@@ -110,11 +110,11 @@
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
-          <SimDllArguments></SimDllArguments>
+          <SimDllArguments>  </SimDllArguments>
           <SimDlgDll>DARMCM1.DLL</SimDlgDll>
           <SimDlgDllArguments>-pCM0</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
-          <TargetDllArguments></TargetDllArguments>
+          <TargetDllArguments> </TargetDllArguments>
           <TargetDlgDll>TARMCM1.DLL</TargetDlgDll>
           <TargetDlgDllArguments>-pCM0</TargetDlgDllArguments>
         </DllOption>
@@ -138,7 +138,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -193,7 +193,7 @@
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
             <RoSelD>3</RoSelD>
-            <RwSelD>5</RwSelD>
+            <RwSelD>3</RwSelD>
             <CodeSel>0</CodeSel>
             <OptFeed>0</OptFeed>
             <NoZi1>0</NoZi1>
@@ -210,7 +210,7 @@
             <Ra2Chk>0</Ra2Chk>
             <Ra3Chk>0</Ra3Chk>
             <Im1Chk>1</Im1Chk>
-            <Im2Chk>0</Im2Chk>
+            <Im2Chk>1</Im2Chk>
             <OnChipMemories>
               <Ocm1>
                 <Type>0</Type>
@@ -300,19 +300,19 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x8000</Size>
+                <Size>0x4000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x0</Size>
+                <StartAddress>0x20004000</StartAddress>
+                <Size>0x4000</Size>
               </OCR_RVCT10>
             </OnChipMemories>
             <RvctStartVector></RvctStartVector>
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -324,7 +324,7 @@
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
@@ -336,9 +336,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>DEBUG=1</Define>
+              <Define>DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\SRC\CMSIS\Include;..\..\..\..\SRC\Startup;..\..\..\..\SRC\StdPeriphDriver\inc;..\..\USB_LIB</IncludePath>
+              <IncludePath>..\SRC\CMSIS\Include;..\SRC\Startup;..\SRC\StdPeriphDriver\inc;.\hal_driver;.\sfud_driver\inc;.\ch57x_usb_device_msc;.\ch57x_code_flash;..\..\SRC\StdPeriphDriver\inc;..\..\SRC\CMSIS\Include;..\Host\USB_LIB</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -383,24 +383,9 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
-              <FileName>EXAM1.C</FileName>
+              <FileName>Main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\EXAM1.C</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>udisk_lib</GroupName>
-          <Files>
-            <File>
-              <FileName>CH579UFI.C</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\USB_LIB\CH579UFI.C</FilePath>
-            </File>
-            <File>
-              <FileName>CH579UFI.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\USB_LIB\CH579UFI.lib</FilePath>
+              <FilePath>.\Main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -408,95 +393,114 @@
           <GroupName>peripheral</GroupName>
           <Files>
             <File>
+              <FileName>CH57x_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_adc.c</FilePath>
+            </File>
+            <File>
               <FileName>CH57x_clk.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\SRC\StdPeriphDriver\CH57x_clk.c</FilePath>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_clk.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_flash.c</FilePath>
             </File>
             <File>
               <FileName>CH57x_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\SRC\StdPeriphDriver\CH57x_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>CH57x_sys.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\SRC\StdPeriphDriver\CH57x_sys.c</FilePath>
-            </File>
-            <File>
-              <FileName>CH57x_usbhostBase.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\SRC\StdPeriphDriver\CH57x_usbhostBase.c</FilePath>
-            </File>
-            <File>
-              <FileName>CH57x_usbhostClass.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\SRC\StdPeriphDriver\CH57x_usbhostClass.c</FilePath>
-            </File>
-            <File>
-              <FileName>CH57x_uart1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\SRC\StdPeriphDriver\CH57x_uart1.c</FilePath>
-            </File>
-            <File>
-              <FileName>CH57x_pwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\SRC\StdPeriphDriver\CH57x_pwr.c</FilePath>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_gpio.c</FilePath>
             </File>
             <File>
               <FileName>CH57x_int.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\SRC\StdPeriphDriver\CH57x_int.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>9</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <uGnu>2</uGnu>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>2</vShortEn>
-                    <vShortWch>2</vShortWch>
-                    <v6Lto>2</v6Lto>
-                    <v6WtE>2</v6WtE>
-                    <v6Rtti>2</v6Rtti>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_int.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_pwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_pwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_spi0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_spi0.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_spi1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_spi1.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_sys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_sys.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_timer0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_timer0.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_timer1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_timer1.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_timer2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_timer2.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_timer3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_timer3.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_uart0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_uart0.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_uart1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_uart1.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_uart2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_uart2.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_uart3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_uart3.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_usbdev.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_usbdev.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_usbhostBase.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_usbhostBase.c</FilePath>
+            </File>
+            <File>
+              <FileName>CH57x_usbhostClass.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\SRC\StdPeriphDriver\CH57x_usbhostClass.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -506,7 +510,27 @@
             <File>
               <FileName>startup_ARMCM0.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\..\..\SRC\Startup\startup_ARMCM0.s</FilePath>
+              <FilePath>..\..\SRC\Startup\startup_ARMCM0.s</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ch57x_usb_device_msc</GroupName>
+          <Files>
+            <File>
+              <FileName>ch57x_usb_device_msc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ch57x_usb_device_msc\ch57x_usb_device_msc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ch57x_code_flash</GroupName>
+          <Files>
+            <File>
+              <FileName>ch57x_code_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ch57x_code_flash\ch57x_code_flash.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,0 +1,979 @@
+Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
+
+==============================================================================
+
+Section Cross References
+
+    exam1.o(.text) refers to printf8.o(i.__0printf$8) for __2printf
+    exam1.o(.text) refers to ch57x_clk.o(.text) for SetSysClock
+    exam1.o(.text) refers to ch57x_pwr.o(.text) for PWR_UnitModCfg
+    exam1.o(.text) refers to ch57x_sys.o(.text) for mDelaymS
+    exam1.o(.text) refers to ch57x_gpio.o(.text) for GPIOA_ModeCfg
+    exam1.o(.text) refers to ch57x_uart1.o(.text) for UART1_DefInit
+    exam1.o(.text) refers to ch57x_usbhostbase.o(.text) for USB_HostInit
+    exam1.o(.text) refers to ch579ufi.o(.text) for CH579LibInit
+    exam1.o(.text) refers to ch57x_usbhostclass.o(.text) for InitRootDevice
+    exam1.o(.text) refers to CH579MAI.o(.text) for CH579DiskReady
+    exam1.o(.text) refers to strcpy.o(.text) for strcpy
+    exam1.o(.text) refers to printf8.o(i.__0sprintf$8) for __2sprintf
+    exam1.o(.text) refers to CH579BYT.o(.text) for CH579ByteWrite
+    exam1.o(.text) refers to exam1.o(.bss) for .bss
+    exam1.o(.text) refers to ch57x_usbhostbase.o(.data) for pHOST_RX_RAM_Addr
+    exam1.o(.text) refers to ch579ufi.o(.bss) for mCmdParam
+    exam1.o(.text) refers to CH579MAI.o(.data) for CH579DiskStatus
+    exam1.o(.text) refers to exam1.o(.conststring) for .conststring
+    ch579ufi.o(.text) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    ch579ufi.o(.text) refers to CH579MAI.o(.text) for CH579BulkOnlyCmd
+    ch579ufi.o(.text) refers to ch57x_sys.o(.text) for mDelayuS
+    ch579ufi.o(.text) refers to ch57x_usbhostclass.o(.text) for HubGetPortStatus
+    ch579ufi.o(.text) refers to exam1.o(.bss) for TxBuffer
+    ch579ufi.o(.text) refers to CH579MAI.o(.data) for CH579IntStatus
+    ch57x_clk.o(.text) refers to ch57x_sys.o(.text) for mDelayuS
+    ch57x_clk.o(.text) refers to ch57x_pwr.o(.text) for PowerMonitor
+    ch57x_clk.o(.text) refers to ch57x_clk.o(i.__ARM_common_switch8) for __ARM_common_switch8
+    ch57x_clk.o(.text) refers to uidiv.o(.text) for __aeabi_uidivmod
+    ch57x_clk.o(.text) refers to idiv.o(.text) for __aeabi_idivmod
+    ch57x_gpio.o(.text) refers to ch57x_clk.o(i.__ARM_common_switch8) for __ARM_common_switch8
+    ch57x_usbhostbase.o(.text) refers to printf8.o(i.__0printf$8) for __2printf
+    ch57x_usbhostbase.o(.text) refers to ch57x_sys.o(.text) for mDelaymS
+    ch57x_usbhostbase.o(.text) refers to ch57x_usbhostbase.o(.bss) for .bss
+    ch57x_usbhostbase.o(.text) refers to ch57x_usbhostbase.o(.data) for .data
+    ch57x_usbhostbase.o(.text) refers to ch57x_usbhostbase.o(.constdata) for .constdata
+    ch57x_usbhostbase.o(.text) refers to ch57x_usbhostclass.o(.bss) for Com_Buffer
+    ch57x_usbhostclass.o(.text) refers to ch57x_usbhostbase.o(.text) for CopySetupReqPkg
+    ch57x_usbhostclass.o(.text) refers to printf8.o(i.__0printf$8) for __2printf
+    ch57x_usbhostclass.o(.text) refers to ch57x_sys.o(.text) for mDelaymS
+    ch57x_usbhostclass.o(.text) refers to ch57x_usbhostclass.o(.constdata) for .constdata
+    ch57x_usbhostclass.o(.text) refers to ch57x_usbhostclass.o(.bss) for .bss
+    ch57x_usbhostclass.o(.text) refers to ch57x_usbhostbase.o(.bss) for ThisUsbDev
+    ch57x_usbhostclass.o(.text) refers to ch57x_usbhostbase.o(.constdata) for SetupGetDevDescr
+    ch57x_usbhostclass.o(.text) refers to ch57x_usbhostbase.o(.data) for pHOST_TX_RAM_Addr
+    ch57x_uart1.o(.text) refers to ch57x_clk.o(.text) for GetSysClock
+    ch57x_uart1.o(.text) refers to uidiv.o(.text) for __aeabi_uidivmod
+    ch57x_pwr.o(.text) refers to ch57x_sys.o(.text) for mDelayuS
+    ch57x_int.o(.text) refers to ch57x_pwr.o(.text) for PowerMonitor
+    startup_armcm0.o(RESET) refers to startup_armcm0.o(.text) for Reset_Handler
+    startup_armcm0.o(RESET) refers to ch57x_int.o(.text) for NMI_Handler
+    startup_armcm0.o(.text) refers to ch57x_clk.o(.text) for SystemInit
+    startup_armcm0.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    CH579MAI.o(.text) refers to ch579ufi.o(.text) for CH579ReadSector
+    CH579MAI.o(.text) refers to CH579MAI.o(.data) for .data
+    CH579MAI.o(.text) refers to ch57x_sys.o(.text) for mDelaymS
+    CH579MAI.o(.text) refers to ch57x_usbhostbase.o(.text) for CopySetupReqPkg
+    CH579MAI.o(.text) refers to uwrite4.o(.text) for __aeabi_uwrite4
+    CH579MAI.o(.text) refers to uread4.o(.text) for __aeabi_uread4
+    CH579MAI.o(.text) refers to exam1.o(.bss) for TxBuffer
+    CH579MAI.o(.text) refers to ch579ufi.o(.bss) for mCmdParam
+    CH579BYT.o(.text) refers to CH579MAI.o(.text) for mUpdateStatus
+    CH579BYT.o(.text) refers to ch579ufi.o(.text) for CH579ReadSector
+    CH579BYT.o(.text) refers to CH579MAI.o(.data) for CH579DiskStatus
+    CH579BYT.o(.text) refers to ch579ufi.o(.bss) for mCmdParam
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    idiv.o(.text) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printfb.o(i.__0fprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0fprintf$bare) refers to ch57x_sys.o(.text) for fputc
+    printfb.o(i.__0printf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0printf$bare) refers to ch57x_sys.o(.text) for fputc
+    printfb.o(i.__0printf$bare) refers to stdout.o(.data) for __stdout
+    printfb.o(i.__0snprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0snprintf$bare) refers to printfb.o(i._snputc) for _snputc
+    printfb.o(i.__0sprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0sprintf$bare) refers to printfb.o(i._sputc) for _sputc
+    printfb.o(i.__0vfprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vfprintf$bare) refers to ch57x_sys.o(.text) for fputc
+    printfb.o(i.__0vprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vprintf$bare) refers to ch57x_sys.o(.text) for fputc
+    printfb.o(i.__0vprintf$bare) refers to stdout.o(.data) for __stdout
+    printfb.o(i.__0vsnprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vsnprintf$bare) refers to printfb.o(i._snputc) for _snputc
+    printfb.o(i.__0vsprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vsprintf$bare) refers to printfb.o(i._sputc) for _sputc
+    printf0.o(i.__0fprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0fprintf$0) refers to ch57x_sys.o(.text) for fputc
+    printf0.o(i.__0printf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0printf$0) refers to ch57x_sys.o(.text) for fputc
+    printf0.o(i.__0printf$0) refers to stdout.o(.data) for __stdout
+    printf0.o(i.__0snprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0snprintf$0) refers to printf0.o(i._snputc) for _snputc
+    printf0.o(i.__0sprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0sprintf$0) refers to printf0.o(i._sputc) for _sputc
+    printf0.o(i.__0vfprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vfprintf$0) refers to ch57x_sys.o(.text) for fputc
+    printf0.o(i.__0vprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vprintf$0) refers to ch57x_sys.o(.text) for fputc
+    printf0.o(i.__0vprintf$0) refers to stdout.o(.data) for __stdout
+    printf0.o(i.__0vsnprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vsnprintf$0) refers to printf0.o(i._snputc) for _snputc
+    printf0.o(i.__0vsprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vsprintf$0) refers to printf0.o(i._sputc) for _sputc
+    printf1.o(i.__0fprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0fprintf$1) refers to ch57x_sys.o(.text) for fputc
+    printf1.o(i.__0printf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0printf$1) refers to ch57x_sys.o(.text) for fputc
+    printf1.o(i.__0printf$1) refers to stdout.o(.data) for __stdout
+    printf1.o(i.__0snprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0snprintf$1) refers to printf1.o(i._snputc) for _snputc
+    printf1.o(i.__0sprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0sprintf$1) refers to printf1.o(i._sputc) for _sputc
+    printf1.o(i.__0vfprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vfprintf$1) refers to ch57x_sys.o(.text) for fputc
+    printf1.o(i.__0vprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vprintf$1) refers to ch57x_sys.o(.text) for fputc
+    printf1.o(i.__0vprintf$1) refers to stdout.o(.data) for __stdout
+    printf1.o(i.__0vsnprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vsnprintf$1) refers to printf1.o(i._snputc) for _snputc
+    printf1.o(i.__0vsprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vsprintf$1) refers to printf1.o(i._sputc) for _sputc
+    printf1.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf2.o(i.__0fprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0fprintf$2) refers to ch57x_sys.o(.text) for fputc
+    printf2.o(i.__0printf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0printf$2) refers to ch57x_sys.o(.text) for fputc
+    printf2.o(i.__0printf$2) refers to stdout.o(.data) for __stdout
+    printf2.o(i.__0snprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0snprintf$2) refers to printf2.o(i._snputc) for _snputc
+    printf2.o(i.__0sprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0sprintf$2) refers to printf2.o(i._sputc) for _sputc
+    printf2.o(i.__0vfprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vfprintf$2) refers to ch57x_sys.o(.text) for fputc
+    printf2.o(i.__0vprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vprintf$2) refers to ch57x_sys.o(.text) for fputc
+    printf2.o(i.__0vprintf$2) refers to stdout.o(.data) for __stdout
+    printf2.o(i.__0vsnprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vsnprintf$2) refers to printf2.o(i._snputc) for _snputc
+    printf2.o(i.__0vsprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vsprintf$2) refers to printf2.o(i._sputc) for _sputc
+    printf3.o(i.__0fprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0fprintf$3) refers to ch57x_sys.o(.text) for fputc
+    printf3.o(i.__0printf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0printf$3) refers to ch57x_sys.o(.text) for fputc
+    printf3.o(i.__0printf$3) refers to stdout.o(.data) for __stdout
+    printf3.o(i.__0snprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0snprintf$3) refers to printf3.o(i._snputc) for _snputc
+    printf3.o(i.__0sprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0sprintf$3) refers to printf3.o(i._sputc) for _sputc
+    printf3.o(i.__0vfprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vfprintf$3) refers to ch57x_sys.o(.text) for fputc
+    printf3.o(i.__0vprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vprintf$3) refers to ch57x_sys.o(.text) for fputc
+    printf3.o(i.__0vprintf$3) refers to stdout.o(.data) for __stdout
+    printf3.o(i.__0vsnprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vsnprintf$3) refers to printf3.o(i._snputc) for _snputc
+    printf3.o(i.__0vsprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vsprintf$3) refers to printf3.o(i._sputc) for _sputc
+    printf3.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf4.o(i.__0fprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0fprintf$4) refers to ch57x_sys.o(.text) for fputc
+    printf4.o(i.__0printf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0printf$4) refers to ch57x_sys.o(.text) for fputc
+    printf4.o(i.__0printf$4) refers to stdout.o(.data) for __stdout
+    printf4.o(i.__0snprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0snprintf$4) refers to printf4.o(i._snputc) for _snputc
+    printf4.o(i.__0sprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0sprintf$4) refers to printf4.o(i._sputc) for _sputc
+    printf4.o(i.__0vfprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vfprintf$4) refers to ch57x_sys.o(.text) for fputc
+    printf4.o(i.__0vprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vprintf$4) refers to ch57x_sys.o(.text) for fputc
+    printf4.o(i.__0vprintf$4) refers to stdout.o(.data) for __stdout
+    printf4.o(i.__0vsnprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vsnprintf$4) refers to printf4.o(i._snputc) for _snputc
+    printf4.o(i.__0vsprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vsprintf$4) refers to printf4.o(i._sputc) for _sputc
+    printf4.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf5.o(i.__0fprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0fprintf$5) refers to ch57x_sys.o(.text) for fputc
+    printf5.o(i.__0printf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0printf$5) refers to ch57x_sys.o(.text) for fputc
+    printf5.o(i.__0printf$5) refers to stdout.o(.data) for __stdout
+    printf5.o(i.__0snprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0snprintf$5) refers to printf5.o(i._snputc) for _snputc
+    printf5.o(i.__0sprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0sprintf$5) refers to printf5.o(i._sputc) for _sputc
+    printf5.o(i.__0vfprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vfprintf$5) refers to ch57x_sys.o(.text) for fputc
+    printf5.o(i.__0vprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vprintf$5) refers to ch57x_sys.o(.text) for fputc
+    printf5.o(i.__0vprintf$5) refers to stdout.o(.data) for __stdout
+    printf5.o(i.__0vsnprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vsnprintf$5) refers to printf5.o(i._snputc) for _snputc
+    printf5.o(i.__0vsprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vsprintf$5) refers to printf5.o(i._sputc) for _sputc
+    printf5.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf6.o(i.__0fprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0fprintf$6) refers to ch57x_sys.o(.text) for fputc
+    printf6.o(i.__0printf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0printf$6) refers to ch57x_sys.o(.text) for fputc
+    printf6.o(i.__0printf$6) refers to stdout.o(.data) for __stdout
+    printf6.o(i.__0snprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0snprintf$6) refers to printf6.o(i._snputc) for _snputc
+    printf6.o(i.__0sprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0sprintf$6) refers to printf6.o(i._sputc) for _sputc
+    printf6.o(i.__0vfprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vfprintf$6) refers to ch57x_sys.o(.text) for fputc
+    printf6.o(i.__0vprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vprintf$6) refers to ch57x_sys.o(.text) for fputc
+    printf6.o(i.__0vprintf$6) refers to stdout.o(.data) for __stdout
+    printf6.o(i.__0vsnprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vsnprintf$6) refers to printf6.o(i._snputc) for _snputc
+    printf6.o(i.__0vsprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vsprintf$6) refers to printf6.o(i._sputc) for _sputc
+    printf6.o(i._printf_core) refers to printf6.o(i._printf_pre_padding) for _printf_pre_padding
+    printf6.o(i._printf_core) refers to printf6.o(i._printf_post_padding) for _printf_post_padding
+    printf6.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf7.o(i.__0fprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0fprintf$7) refers to ch57x_sys.o(.text) for fputc
+    printf7.o(i.__0printf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0printf$7) refers to ch57x_sys.o(.text) for fputc
+    printf7.o(i.__0printf$7) refers to stdout.o(.data) for __stdout
+    printf7.o(i.__0snprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0snprintf$7) refers to printf7.o(i._snputc) for _snputc
+    printf7.o(i.__0sprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0sprintf$7) refers to printf7.o(i._sputc) for _sputc
+    printf7.o(i.__0vfprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vfprintf$7) refers to ch57x_sys.o(.text) for fputc
+    printf7.o(i.__0vprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vprintf$7) refers to ch57x_sys.o(.text) for fputc
+    printf7.o(i.__0vprintf$7) refers to stdout.o(.data) for __stdout
+    printf7.o(i.__0vsnprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vsnprintf$7) refers to printf7.o(i._snputc) for _snputc
+    printf7.o(i.__0vsprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vsprintf$7) refers to printf7.o(i._sputc) for _sputc
+    printf7.o(i._printf_core) refers to printf7.o(i._printf_pre_padding) for _printf_pre_padding
+    printf7.o(i._printf_core) refers to printf7.o(i._printf_post_padding) for _printf_post_padding
+    printf7.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf8.o(i.__0fprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0fprintf$8) refers to ch57x_sys.o(.text) for fputc
+    printf8.o(i.__0printf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0printf$8) refers to ch57x_sys.o(.text) for fputc
+    printf8.o(i.__0printf$8) refers to stdout.o(.data) for __stdout
+    printf8.o(i.__0snprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0snprintf$8) refers to printf8.o(i._snputc) for _snputc
+    printf8.o(i.__0sprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0sprintf$8) refers to printf8.o(i._sputc) for _sputc
+    printf8.o(i.__0vfprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vfprintf$8) refers to ch57x_sys.o(.text) for fputc
+    printf8.o(i.__0vprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vprintf$8) refers to ch57x_sys.o(.text) for fputc
+    printf8.o(i.__0vprintf$8) refers to stdout.o(.data) for __stdout
+    printf8.o(i.__0vsnprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vsnprintf$8) refers to printf8.o(i._snputc) for _snputc
+    printf8.o(i.__0vsprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vsprintf$8) refers to printf8.o(i._sputc) for _sputc
+    printf8.o(i._printf_core) refers to printf8.o(i._printf_pre_padding) for _printf_pre_padding
+    printf8.o(i._printf_core) refers to printf8.o(i._printf_post_padding) for _printf_post_padding
+    printf8.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printfa.o(i.__0fprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0fprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0fprintf) refers to ch57x_sys.o(.text) for fputc
+    printfa.o(i.__0printf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0printf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0printf) refers to ch57x_sys.o(.text) for fputc
+    printfa.o(i.__0printf) refers to stdout.o(.data) for __stdout
+    printfa.o(i.__0snprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0snprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0snprintf) refers to printfa.o(i._snputc) for _snputc
+    printfa.o(i.__0sprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0sprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0sprintf) refers to printfa.o(i._sputc) for _sputc
+    printfa.o(i.__0vfprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vfprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vfprintf) refers to ch57x_sys.o(.text) for fputc
+    printfa.o(i.__0vprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vprintf) refers to ch57x_sys.o(.text) for fputc
+    printfa.o(i.__0vprintf) refers to stdout.o(.data) for __stdout
+    printfa.o(i.__0vsnprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vsnprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vsnprintf) refers to printfa.o(i._snputc) for _snputc
+    printfa.o(i.__0vsprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vsprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vsprintf) refers to printfa.o(i._sputc) for _sputc
+    printfa.o(i._fp_digits) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._fp_digits) refers to dmul.o(.text) for __aeabi_dmul
+    printfa.o(i._fp_digits) refers to ddiv.o(.text) for __aeabi_ddiv
+    printfa.o(i._fp_digits) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
+    printfa.o(i._fp_digits) refers to dadd.o(.text) for __aeabi_dadd
+    printfa.o(i._fp_digits) refers to dfixul.o(.text) for __aeabi_d2ulz
+    printfa.o(i._fp_digits) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printfa.o(i._printf_core) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._printf_core) refers to printfa.o(i._printf_pre_padding) for _printf_pre_padding
+    printfa.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printfa.o(i._printf_core) refers to printfa.o(i._printf_post_padding) for _printf_post_padding
+    printfa.o(i._printf_core) refers to printfa.o(i._fp_digits) for _fp_digits
+    printfa.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printfa.o(i._printf_post_padding) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._printf_pre_padding) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._snputc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._sputc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to exam1.o(.text) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to exam1.o(.text) for main
+    uldiv.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    uldiv.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llsshr.o(.text) for __aeabi_lasr
+    dadd.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    dmul.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    ddiv.o(.text) refers to depilogue.o(.text) for _double_round
+    dfixul.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    dfixul.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+    depilogue.o(.text) refers to depilogue.o(i.__ARM_clz) for __ARM_clz
+    depilogue.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    depilogue.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing exam1.o(.rev16_text), (4 bytes).
+    Removing exam1.o(.revsh_text), (4 bytes).
+    Removing ch579ufi.o(.rev16_text), (4 bytes).
+    Removing ch579ufi.o(.revsh_text), (4 bytes).
+    Removing ch57x_clk.o(.rev16_text), (4 bytes).
+    Removing ch57x_clk.o(.revsh_text), (4 bytes).
+    Removing ch57x_gpio.o(.rev16_text), (4 bytes).
+    Removing ch57x_gpio.o(.revsh_text), (4 bytes).
+    Removing ch57x_sys.o(.rev16_text), (4 bytes).
+    Removing ch57x_sys.o(.revsh_text), (4 bytes).
+    Removing ch57x_usbhostbase.o(.rev16_text), (4 bytes).
+    Removing ch57x_usbhostbase.o(.revsh_text), (4 bytes).
+    Removing ch57x_usbhostclass.o(.rev16_text), (4 bytes).
+    Removing ch57x_usbhostclass.o(.revsh_text), (4 bytes).
+    Removing ch57x_uart1.o(.rev16_text), (4 bytes).
+    Removing ch57x_uart1.o(.revsh_text), (4 bytes).
+    Removing ch57x_pwr.o(.rev16_text), (4 bytes).
+    Removing ch57x_pwr.o(.revsh_text), (4 bytes).
+    Removing ch57x_int.o(.rev16_text), (4 bytes).
+    Removing ch57x_int.o(.revsh_text), (4 bytes).
+    Removing startup_armcm0.o(STACK), (1024 bytes).
+    Removing startup_armcm0.o(HEAP), (1024 bytes).
+    Removing dadd.o(.text), (356 bytes).
+    Removing dmul.o(.text), (208 bytes).
+    Removing ddiv.o(.text), (240 bytes).
+    Removing dfixul.o(.text), (64 bytes).
+    Removing cdrcmple.o(.text), (40 bytes).
+    Removing depilogue.o(.text), (190 bytes).
+    Removing depilogue.o(i.__ARM_clz), (46 bytes).
+
+29 unused section(s) (total 3272 bytes) removed from the image.
+
+==============================================================================
+
+Adding Veneers to the image
+
+    Adding TT veneer (12 bytes, Long) for call to 'PowerMonitor' from ch57x_int.o(.text).
+
+1 Veneer(s) (total 12 bytes) added to the image.
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    RESET                                    0x00000000   Section      144  startup_armcm0.o(RESET)
+    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
+    ../clib/microlib/division.c              0x00000000   Number         0  idiv.o ABSOLUTE
+    ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
+    ../clib/microlib/printf/stubs.s          0x00000000   Number         0  stubs.o ABSOLUTE
+    ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
+    ../clib/microlib/string/strcpy.c         0x00000000   Number         0  strcpy.o ABSOLUTE
+    ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
+    ../clib/microlib/unhosted.c              0x00000000   Number         0  uwrite4.o ABSOLUTE
+    ../clib/microlib/unhosted.c              0x00000000   Number         0  uread4.o ABSOLUTE
+    ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
+    ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
+    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
+    ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixul.o ABSOLUTE
+    ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
+    ..\..\..\..\SRC\Startup\startup_ARMCM0.s 0x00000000   Number         0  startup_armcm0.o ABSOLUTE
+    ..\..\..\..\SRC\StdPeriphDriver\CH57x_clk.c 0x00000000   Number         0  ch57x_clk.o ABSOLUTE
+    ..\..\..\..\SRC\StdPeriphDriver\CH57x_gpio.c 0x00000000   Number         0  ch57x_gpio.o ABSOLUTE
+    ..\..\..\..\SRC\StdPeriphDriver\CH57x_int.c 0x00000000   Number         0  ch57x_int.o ABSOLUTE
+    ..\..\..\..\SRC\StdPeriphDriver\CH57x_pwr.c 0x00000000   Number         0  ch57x_pwr.o ABSOLUTE
+    ..\..\..\..\SRC\StdPeriphDriver\CH57x_sys.c 0x00000000   Number         0  ch57x_sys.o ABSOLUTE
+    ..\..\..\..\SRC\StdPeriphDriver\CH57x_uart1.c 0x00000000   Number         0  ch57x_uart1.o ABSOLUTE
+    ..\..\..\..\SRC\StdPeriphDriver\CH57x_usbhostBase.c 0x00000000   Number         0  ch57x_usbhostbase.o ABSOLUTE
+    ..\..\..\..\SRC\StdPeriphDriver\CH57x_usbhostClass.c 0x00000000   Number         0  ch57x_usbhostclass.o ABSOLUTE
+    ..\..\USB_LIB\CH579UFI.C                 0x00000000   Number         0  ch579ufi.o ABSOLUTE
+    ..\\..\\..\\..\\SRC\\StdPeriphDriver\\CH57x_clk.c 0x00000000   Number         0  ch57x_clk.o ABSOLUTE
+    ..\\..\\..\\..\\SRC\\StdPeriphDriver\\CH57x_gpio.c 0x00000000   Number         0  ch57x_gpio.o ABSOLUTE
+    ..\\..\\..\\..\\SRC\\StdPeriphDriver\\CH57x_int.c 0x00000000   Number         0  ch57x_int.o ABSOLUTE
+    ..\\..\\..\\..\\SRC\\StdPeriphDriver\\CH57x_pwr.c 0x00000000   Number         0  ch57x_pwr.o ABSOLUTE
+    ..\\..\\..\\..\\SRC\\StdPeriphDriver\\CH57x_sys.c 0x00000000   Number         0  ch57x_sys.o ABSOLUTE
+    ..\\..\\..\\..\\SRC\\StdPeriphDriver\\CH57x_uart1.c 0x00000000   Number         0  ch57x_uart1.o ABSOLUTE
+    ..\\..\\..\\..\\SRC\\StdPeriphDriver\\CH57x_usbhostBase.c 0x00000000   Number         0  ch57x_usbhostbase.o ABSOLUTE
+    ..\\..\\..\\..\\SRC\\StdPeriphDriver\\CH57x_usbhostClass.c 0x00000000   Number         0  ch57x_usbhostclass.o ABSOLUTE
+    ..\\..\\USB_LIB\\CH579UFI.C              0x00000000   Number         0  ch579ufi.o ABSOLUTE
+    CH579BYT.C                               0x00000000   Number         0  CH579BYT.o ABSOLUTE
+    CH579MAI.C                               0x00000000   Number         0  CH579MAI.o ABSOLUTE
+    EXAM1.C                                  0x00000000   Number         0  exam1.o ABSOLUTE
+    EXAM1.C                                  0x00000000   Number         0  exam1.o ABSOLUTE
+    cdrcmple.s                               0x00000000   Number         0  cdrcmple.o ABSOLUTE
+    dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
+    handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
+    init.s                                   0x00000000   Number         0  init.o ABSOLUTE
+    .ARM.Collect$$$$00000000                 0x00000090   Section        0  entry.o(.ARM.Collect$$$$00000000)
+    .ARM.Collect$$$$00000001                 0x00000090   Section        4  entry2.o(.ARM.Collect$$$$00000001)
+    .ARM.Collect$$$$00000004                 0x00000094   Section        4  entry5.o(.ARM.Collect$$$$00000004)
+    .ARM.Collect$$$$00000008                 0x00000098   Section        0  entry7b.o(.ARM.Collect$$$$00000008)
+    .ARM.Collect$$$$0000000A                 0x00000098   Section        0  entry8b.o(.ARM.Collect$$$$0000000A)
+    .ARM.Collect$$$$0000000B                 0x00000098   Section        8  entry9a.o(.ARM.Collect$$$$0000000B)
+    .ARM.Collect$$$$0000000D                 0x000000a0   Section        0  entry10a.o(.ARM.Collect$$$$0000000D)
+    .ARM.Collect$$$$0000000F                 0x000000a0   Section        0  entry11a.o(.ARM.Collect$$$$0000000F)
+    .ARM.Collect$$$$00002712                 0x000000a0   Section        4  entry2.o(.ARM.Collect$$$$00002712)
+    __lit__00000000                          0x000000a0   Data           4  entry2.o(.ARM.Collect$$$$00002712)
+    .text                                    0x000000a4   Section        0  exam1.o(.text)
+    .text                                    0x00000294   Section        0  ch579ufi.o(.text)
+    .text                                    0x000004b0   Section        0  ch57x_clk.o(.text)
+    .text                                    0x00000b3c   Section        0  ch57x_gpio.o(.text)
+    .text                                    0x00000c8c   Section        0  ch57x_sys.o(.text)
+    .text                                    0x00000d90   Section        0  ch57x_usbhostbase.o(.text)
+    .text                                    0x00001284   Section        0  ch57x_usbhostclass.o(.text)
+    .text                                    0x0000162c   Section        0  ch57x_uart1.o(.text)
+    .text                                    0x000016d8   Section        0  ch57x_pwr.o(.text)
+    .text                                    0x00001870   Section       28  startup_armcm0.o(.text)
+    .text                                    0x0000188c   Section        0  CH579MAI.o(.text)
+    mReturnConnect                           0x00001c53   Thumb Code    50  CH579MAI.o(.text)
+    mBulkOnlyReset                           0x00001c85   Thumb Code    90  CH579MAI.o(.text)
+    mBulkOnlyCmdPre                          0x00001eb1   Thumb Code    64  CH579MAI.o(.text)
+    mReqDiskSense                            0x00001ef1   Thumb Code    44  CH579MAI.o(.text)
+    mGetDiskSize                             0x00001f1d   Thumb Code   146  CH579MAI.o(.text)
+    CH579s10                                 0x0000201f   Thumb Code   348  CH579MAI.o(.text)
+    .text                                    0x00002c10   Section        0  CH579BYT.o(.text)
+    CH579s25                                 0x00002c11   Thumb Code    52  CH579BYT.o(.text)
+    .text                                    0x00003010   Section        0  uidiv.o(.text)
+    .text                                    0x0000303c   Section        0  idiv.o(.text)
+    .text                                    0x00003064   Section        0  strcpy.o(.text)
+    .text                                    0x00003076   Section        0  uread4.o(.text)
+    .text                                    0x0000308a   Section        0  uwrite4.o(.text)
+    .text                                    0x0000309c   Section        0  uldiv.o(.text)
+    .text                                    0x000030fc   Section       36  init.o(.text)
+    .text                                    0x00003120   Section        0  llshl.o(.text)
+    .text                                    0x00003140   Section        0  llushr.o(.text)
+    i.__0printf$8                            0x00003164   Section        0  printf8.o(i.__0printf$8)
+    i.__0sprintf$8                           0x00003184   Section        0  printf8.o(i.__0sprintf$8)
+    i.__ARM_common_switch8                   0x000031ac   Section        0  ch57x_clk.o(i.__ARM_common_switch8)
+    i.__scatterload_copy                     0x000031c6   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x000031d4   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x000031d6   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i._printf_core                           0x000031e4   Section        0  printf8.o(i._printf_core)
+    _printf_core                             0x000031e5   Thumb Code  1020  printf8.o(i._printf_core)
+    i._printf_post_padding                   0x0000360c   Section        0  printf8.o(i._printf_post_padding)
+    _printf_post_padding                     0x0000360d   Thumb Code    32  printf8.o(i._printf_post_padding)
+    i._printf_pre_padding                    0x0000362c   Section        0  printf8.o(i._printf_pre_padding)
+    _printf_pre_padding                      0x0000362d   Thumb Code    44  printf8.o(i._printf_pre_padding)
+    i._sputc                                 0x00003658   Section        0  printf8.o(i._sputc)
+    _sputc                                   0x00003659   Thumb Code    10  printf8.o(i._sputc)
+    .constdata                               0x00003664   Section       48  ch57x_usbhostbase.o(.constdata)
+    .constdata                               0x00003694   Section       24  ch57x_usbhostclass.o(.constdata)
+    .conststring                             0x000036ac   Section       66  exam1.o(.conststring)
+    .text                                    0x20000000   Section        0  ch57x_int.o(.text)
+    .data                                    0x20000220   Section       12  ch57x_usbhostbase.o(.data)
+    .data                                    0x2000022c   Section      104  CH579MAI.o(.data)
+    .data                                    0x20000294   Section        4  stdout.o(.data)
+    .bss                                     0x20000298   Section      228  exam1.o(.bss)
+    .bss                                     0x2000037c   Section       32  ch579ufi.o(.bss)
+    .bss                                     0x2000039c   Section       14  ch57x_usbhostbase.o(.bss)
+    .bss                                     0x200003ac   Section      128  ch57x_usbhostclass.o(.bss)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv3M$S$PE$A:L22$X:L11$S22$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$ROPI$EBA8$MICROLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+    __ARM_use_no_argv                        0x00000000   Number         0  exam1.o ABSOLUTE
+    __Vectors                                0x00000000   Data           4  startup_armcm0.o(RESET)
+    _printf_a                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_c                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_charcount                        0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_d                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_e                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_f                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_flags                            0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_fp_dec                           0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_fp_hex                           0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_g                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_i                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_int_dec                          0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_l                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_lc                               0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_ll                               0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_lld                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_lli                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_llo                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_llu                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_llx                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_longlong_dec                     0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_longlong_hex                     0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_longlong_oct                     0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_ls                               0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_mbtowc                           0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_n                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_o                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_p                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_percent                          0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_pre_padding                      0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_return_value                     0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_s                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_sizespec                         0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_str                              0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_truncate_signed                  0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_truncate_unsigned                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_u                                0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_wc                               0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_wctomb                           0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_widthprec                        0x00000000   Number         0  stubs.o ABSOLUTE
+    _printf_x                                0x00000000   Number         0  stubs.o ABSOLUTE
+    __cpp_initialize__aeabi_                  - Undefined Weak Reference
+    __cxa_finalize                            - Undefined Weak Reference
+    __decompress                              - Undefined Weak Reference
+    _clock_init                               - Undefined Weak Reference
+    _microlib_exit                            - Undefined Weak Reference
+    __Vectors_End                            0x00000090   Data           0  startup_armcm0.o(RESET)
+    __Vectors_Size                           0x00000090   Number         0  startup_armcm0.o ABSOLUTE
+    __main                                   0x00000091   Thumb Code     0  entry.o(.ARM.Collect$$$$00000000)
+    _main_stk                                0x00000091   Thumb Code     0  entry2.o(.ARM.Collect$$$$00000001)
+    _main_scatterload                        0x00000095   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    __main_after_scatterload                 0x00000099   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    _main_clock                              0x00000099   Thumb Code     0  entry7b.o(.ARM.Collect$$$$00000008)
+    _main_cpp_init                           0x00000099   Thumb Code     0  entry8b.o(.ARM.Collect$$$$0000000A)
+    _main_init                               0x00000099   Thumb Code     0  entry9a.o(.ARM.Collect$$$$0000000B)
+    __rt_final_cpp                           0x000000a1   Thumb Code     0  entry10a.o(.ARM.Collect$$$$0000000D)
+    __rt_final_exit                          0x000000a1   Thumb Code     0  entry11a.o(.ARM.Collect$$$$0000000F)
+    mStopIfError                             0x000000a5   Thumb Code    18  exam1.o(.text)
+    main                                     0x000000b7   Thumb Code   302  exam1.o(.text)
+    CH579ReadSector                          0x00000295   Thumb Code   124  ch579ufi.o(.text)
+    CH579WriteSector                         0x00000311   Thumb Code   132  ch579ufi.o(.text)
+    CH579DiskConnect                         0x00000395   Thumb Code   206  ch579ufi.o(.text)
+    xFileNameEnumer                          0x00000463   Thumb Code     2  ch579ufi.o(.text)
+    CH579LibInit                             0x00000465   Thumb Code    40  ch579ufi.o(.text)
+    SystemInit                               0x000004b1   Thumb Code    38  ch57x_clk.o(.text)
+    SetSysClock                              0x000004d7   Thumb Code   174  ch57x_clk.o(.text)
+    GetSysClock                              0x00000585   Thumb Code    52  ch57x_clk.o(.text)
+    HClk32M_Select                           0x000005b9   Thumb Code    36  ch57x_clk.o(.text)
+    LClk32K_Select                           0x000005dd   Thumb Code    38  ch57x_clk.o(.text)
+    HSECFG_Current                           0x00000603   Thumb Code    30  ch57x_clk.o(.text)
+    HSECFG_Capacitance                       0x00000621   Thumb Code    28  ch57x_clk.o(.text)
+    LSECFG_Current                           0x0000063d   Thumb Code    34  ch57x_clk.o(.text)
+    LSECFG_Capacitance                       0x0000065f   Thumb Code    32  ch57x_clk.o(.text)
+    Calibration_LSI                          0x0000067f   Thumb Code   322  ch57x_clk.o(.text)
+    RTC_InitTime                             0x000007c1   Thumb Code   286  ch57x_clk.o(.text)
+    RTC_GetTime                              0x000008df   Thumb Code   350  ch57x_clk.o(.text)
+    RTC_SetCycle32k                          0x00000a3d   Thumb Code    34  ch57x_clk.o(.text)
+    RTC_GetCycle32k                          0x00000a5f   Thumb Code    12  ch57x_clk.o(.text)
+    RTC_TMRFunCfg                            0x00000a6b   Thumb Code    42  ch57x_clk.o(.text)
+    RTC_TRIGFunCfg                           0x00000a95   Thumb Code    66  ch57x_clk.o(.text)
+    RTC_ModeFunDisable                       0x00000ad7   Thumb Code    46  ch57x_clk.o(.text)
+    RTC_GetITFlag                            0x00000b05   Thumb Code    22  ch57x_clk.o(.text)
+    RTC_ClearITFlag                          0x00000b1b   Thumb Code    22  ch57x_clk.o(.text)
+    GPIOA_ModeCfg                            0x00000b3d   Thumb Code    74  ch57x_gpio.o(.text)
+    GPIOB_ModeCfg                            0x00000b87   Thumb Code    76  ch57x_gpio.o(.text)
+    GPIOA_ITModeCfg                          0x00000bd3   Thumb Code    68  ch57x_gpio.o(.text)
+    GPIOB_ITModeCfg                          0x00000c17   Thumb Code    72  ch57x_gpio.o(.text)
+    GPIOPinRemap                             0x00000c5f   Thumb Code    20  ch57x_gpio.o(.text)
+    GPIOAGPPCfg                              0x00000c73   Thumb Code    20  ch57x_gpio.o(.text)
+    SYS_GetInfoSta                           0x00000c8d   Thumb Code    26  ch57x_sys.o(.text)
+    SYS_ResetExecute                         0x00000ca7   Thumb Code    24  ch57x_sys.o(.text)
+    SYS_DisableAllIrq                        0x00000cbf   Thumb Code    18  ch57x_sys.o(.text)
+    SYS_RecoverIrq                           0x00000cd1   Thumb Code     6  ch57x_sys.o(.text)
+    SYS_GetSysTickCnt                        0x00000cd7   Thumb Code     6  ch57x_sys.o(.text)
+    WWDG_ITCfg                               0x00000cdd   Thumb Code    34  ch57x_sys.o(.text)
+    WWDG_ResetCfg                            0x00000cff   Thumb Code    34  ch57x_sys.o(.text)
+    WWDG_ClearFlag                           0x00000d21   Thumb Code    24  ch57x_sys.o(.text)
+    mDelayuS                                 0x00000d39   Thumb Code    32  ch57x_sys.o(.text)
+    mDelaymS                                 0x00000d59   Thumb Code    28  ch57x_sys.o(.text)
+    fputc                                    0x00000d75   Thumb Code    12  ch57x_sys.o(.text)
+    DisableRootHubPort                       0x00000d91   Thumb Code    10  ch57x_usbhostbase.o(.text)
+    AnalyzeRootHub                           0x00000d9b   Thumb Code    72  ch57x_usbhostbase.o(.text)
+    SetHostUsbAddr                           0x00000de3   Thumb Code    18  ch57x_usbhostbase.o(.text)
+    SetUsbSpeed                              0x00000df5   Thumb Code    36  ch57x_usbhostbase.o(.text)
+    ResetRootHubPort                         0x00000e19   Thumb Code    68  ch57x_usbhostbase.o(.text)
+    EnableRootHubPort                        0x00000e5d   Thumb Code    60  ch57x_usbhostbase.o(.text)
+    WaitUSB_Interrupt                        0x00000e99   Thumb Code    36  ch57x_usbhostbase.o(.text)
+    USBHostTransact                          0x00000ebd   Thumb Code   222  ch57x_usbhostbase.o(.text)
+    HostCtrlTransfer                         0x00000f9b   Thumb Code   318  ch57x_usbhostbase.o(.text)
+    CopySetupReqPkg                          0x000010d9   Thumb Code    22  ch57x_usbhostbase.o(.text)
+    CtrlGetDeviceDescr                       0x000010ef   Thumb Code    52  ch57x_usbhostbase.o(.text)
+    CtrlGetConfigDescr                       0x00001123   Thumb Code   138  ch57x_usbhostbase.o(.text)
+    CtrlSetUsbAddress                        0x000011ad   Thumb Code    48  ch57x_usbhostbase.o(.text)
+    CtrlSetUsbConfig                         0x000011dd   Thumb Code    32  ch57x_usbhostbase.o(.text)
+    CtrlClearEndpStall                       0x000011fd   Thumb Code    32  ch57x_usbhostbase.o(.text)
+    CtrlSetUsbIntercace                      0x0000121d   Thumb Code    32  ch57x_usbhostbase.o(.text)
+    USB_HostInit                             0x0000123d   Thumb Code    60  ch57x_usbhostbase.o(.text)
+    CtrlGetHubDescr                          0x00001285   Thumb Code    40  ch57x_usbhostclass.o(.text)
+    InitRootDevice                           0x000012ad   Thumb Code   432  ch57x_usbhostclass.o(.text)
+    CtrlGetHIDDeviceReport                   0x0000145d   Thumb Code    60  ch57x_usbhostclass.o(.text)
+    HubGetPortStatus                         0x00001499   Thumb Code    58  ch57x_usbhostclass.o(.text)
+    HubSetPortFeature                        0x000014d3   Thumb Code    40  ch57x_usbhostclass.o(.text)
+    HubClearPortFeature                      0x000014fb   Thumb Code    40  ch57x_usbhostclass.o(.text)
+    UART1_BaudRateCfg                        0x0000162d   Thumb Code    34  ch57x_uart1.o(.text)
+    UART1_DefInit                            0x0000164f   Thumb Code    30  ch57x_uart1.o(.text)
+    UART1_ByteTrigCfg                        0x0000166d   Thumb Code    16  ch57x_uart1.o(.text)
+    UART1_INTCfg                             0x0000167d   Thumb Code    28  ch57x_uart1.o(.text)
+    UART1_Reset                              0x00001699   Thumb Code     8  ch57x_uart1.o(.text)
+    UART1_SendString                         0x000016a1   Thumb Code    26  ch57x_uart1.o(.text)
+    UART1_RecvString                         0x000016bb   Thumb Code    26  ch57x_uart1.o(.text)
+    PWR_DCDCCfg                              0x000016d9   Thumb Code    60  ch57x_pwr.o(.text)
+    PWR_UnitModCfg                           0x00001715   Thumb Code    90  ch57x_pwr.o(.text)
+    PWR_PeriphClkCfg                         0x0000176f   Thumb Code    36  ch57x_pwr.o(.text)
+    PWR_PeriphWakeUpCfg                      0x00001793   Thumb Code    36  ch57x_pwr.o(.text)
+    PowerMonitor                             0x000017b7   Thumb Code    58  ch57x_pwr.o(.text)
+    LowPower_Idle                            0x000017f1   Thumb Code    14  ch57x_pwr.o(.text)
+    EnterCodeUpgrade                         0x000017ff   Thumb Code   102  ch57x_pwr.o(.text)
+    Reset_Handler                            0x00001871   Thumb Code     8  startup_armcm0.o(.text)
+    HardFault_Handler                        0x0000187b   Thumb Code     0  startup_armcm0.o(.text)
+    SVC_Handler                              0x0000187b   Thumb Code     2  startup_armcm0.o(.text)
+    PendSV_Handler                           0x0000187d   Thumb Code     2  startup_armcm0.o(.text)
+    SysTick_Handler                          0x0000187f   Thumb Code     2  startup_armcm0.o(.text)
+    ADC_IRQHandler                           0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    BB_IRQHandler                            0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    ETH_IRQHandler                           0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    GPIO_IRQHandler                          0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    LED_IRQHandler                           0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    LLE_IRQHandler                           0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    RTC_IRQHandler                           0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    SLAVE_IRQHandler                         0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    SPI0_IRQHandler                          0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    SPI1_IRQHandler                          0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    TMR0_IRQHandler                          0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    TMR1_IRQHandler                          0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    TMR2_IRQHandler                          0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    TMR3_IRQHandler                          0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    UART0_IRQHandler                         0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    UART1_IRQHandler                         0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    UART2_IRQHandler                         0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    UART3_IRQHandler                         0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    USB_IRQHandler                           0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    WDT_IRQHandler                           0x00001881   Thumb Code     0  startup_armcm0.o(.text)
+    CH579DirtyBuffer                         0x0000188d   Thumb Code    16  CH579MAI.o(.text)
+    mReadSectorFAT                           0x0000189d   Thumb Code    48  CH579MAI.o(.text)
+    mReadSectorFDT                           0x000018cd   Thumb Code    48  CH579MAI.o(.text)
+    mWriteSectorFAT                          0x000018fd   Thumb Code    38  CH579MAI.o(.text)
+    mWriteSectorFDT                          0x00001923   Thumb Code    38  CH579MAI.o(.text)
+    mSaveFatSector                           0x00001949   Thumb Code    66  CH579MAI.o(.text)
+    CH579s20                                 0x0000198b   Thumb Code   444  CH579MAI.o(.text)
+    CH579s21                                 0x00001b47   Thumb Code   208  CH579MAI.o(.text)
+    CH579s22                                 0x00001c17   Thumb Code    22  CH579MAI.o(.text)
+    mUpdateStatus                            0x00001c2d   Thumb Code    38  CH579MAI.o(.text)
+    CH579BulkOnlyCmd                         0x00001cdf   Thumb Code   466  CH579MAI.o(.text)
+    CH579AnalyzeError                        0x00001faf   Thumb Code   112  CH579MAI.o(.text)
+    CH579s11                                 0x0000217b   Thumb Code   554  CH579MAI.o(.text)
+    CH579FileOpen                            0x000023a5   Thumb Code   726  CH579MAI.o(.text)
+    mClusterToLba                            0x0000267b   Thumb Code    22  CH579MAI.o(.text)
+    mSectorLocate                            0x00002691   Thumb Code    96  CH579MAI.o(.text)
+    CH579GetVer                              0x000026f1   Thumb Code     4  CH579MAI.o(.text)
+    CH579DiskReady                           0x000026f5   Thumb Code   104  CH579MAI.o(.text)
+    CH579s13                                 0x0000275d   Thumb Code    84  CH579MAI.o(.text)
+    mModifyInfoFree                          0x000027b1   Thumb Code    50  CH579MAI.o(.text)
+    mModifyFileSize                          0x000027e3   Thumb Code    54  CH579MAI.o(.text)
+    CH579FileClose                           0x00002819   Thumb Code    90  CH579MAI.o(.text)
+    CH579FileErase                           0x00002873   Thumb Code   120  CH579MAI.o(.text)
+    CH579FileCreate                          0x000028eb   Thumb Code   418  CH579MAI.o(.text)
+    CH579FileAlloc                           0x00002a8d   Thumb Code   224  CH579MAI.o(.text)
+    CH579FileModify                          0x00002b6d   Thumb Code   126  CH579MAI.o(.text)
+    CH579FileQuery                           0x00002beb   Thumb Code    18  CH579MAI.o(.text)
+    CH579ByteLocate                          0x00002c45   Thumb Code    58  CH579BYT.o(.text)
+    CH579ByteRead                            0x00002c7f   Thumb Code   342  CH579BYT.o(.text)
+    CH579ByteWrite                           0x00002dd5   Thumb Code   504  CH579BYT.o(.text)
+    __aeabi_uidiv                            0x00003011   Thumb Code     0  uidiv.o(.text)
+    __aeabi_uidivmod                         0x00003011   Thumb Code    44  uidiv.o(.text)
+    __aeabi_idiv                             0x0000303d   Thumb Code     0  idiv.o(.text)
+    __aeabi_idivmod                          0x0000303d   Thumb Code    40  idiv.o(.text)
+    strcpy                                   0x00003065   Thumb Code    18  strcpy.o(.text)
+    __aeabi_uread4                           0x00003077   Thumb Code    20  uread4.o(.text)
+    __rt_uread4                              0x00003077   Thumb Code     0  uread4.o(.text)
+    _uread4                                  0x00003077   Thumb Code     0  uread4.o(.text)
+    __aeabi_uwrite4                          0x0000308b   Thumb Code    18  uwrite4.o(.text)
+    __rt_uwrite4                             0x0000308b   Thumb Code     0  uwrite4.o(.text)
+    _uwrite4                                 0x0000308b   Thumb Code     0  uwrite4.o(.text)
+    __aeabi_uldivmod                         0x0000309d   Thumb Code    96  uldiv.o(.text)
+    __scatterload                            0x000030fd   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x000030fd   Thumb Code     0  init.o(.text)
+    __aeabi_llsl                             0x00003121   Thumb Code    32  llshl.o(.text)
+    _ll_shift_l                              0x00003121   Thumb Code     0  llshl.o(.text)
+    __aeabi_llsr                             0x00003141   Thumb Code    34  llushr.o(.text)
+    _ll_ushift_r                             0x00003141   Thumb Code     0  llushr.o(.text)
+    __0printf$8                              0x00003165   Thumb Code    24  printf8.o(i.__0printf$8)
+    __1printf$8                              0x00003165   Thumb Code     0  printf8.o(i.__0printf$8)
+    __2printf                                0x00003165   Thumb Code     0  printf8.o(i.__0printf$8)
+    __0sprintf$8                             0x00003185   Thumb Code    36  printf8.o(i.__0sprintf$8)
+    __1sprintf$8                             0x00003185   Thumb Code     0  printf8.o(i.__0sprintf$8)
+    __2sprintf                               0x00003185   Thumb Code     0  printf8.o(i.__0sprintf$8)
+    __ARM_common_switch8                     0x000031ad   Thumb Code    26  ch57x_clk.o(i.__ARM_common_switch8)
+    __scatterload_copy                       0x000031c7   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x000031d5   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x000031d7   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    SetupGetDevDescr                         0x00003664   Data           8  ch57x_usbhostbase.o(.constdata)
+    SetupGetCfgDescr                         0x0000366c   Data           8  ch57x_usbhostbase.o(.constdata)
+    SetupSetUsbAddr                          0x00003674   Data           8  ch57x_usbhostbase.o(.constdata)
+    SetupSetUsbConfig                        0x0000367c   Data           8  ch57x_usbhostbase.o(.constdata)
+    SetupSetUsbInterface                     0x00003684   Data           8  ch57x_usbhostbase.o(.constdata)
+    SetupClrEndpStall                        0x0000368c   Data           8  ch57x_usbhostbase.o(.constdata)
+    SetupSetHIDIdle                          0x00003694   Data           8  ch57x_usbhostclass.o(.constdata)
+    SetupGetHIDDevReport                     0x0000369c   Data           8  ch57x_usbhostclass.o(.constdata)
+    SetupGetHubDescr                         0x000036a4   Data           8  ch57x_usbhostclass.o(.constdata)
+    Region$$Table$$Base                      0x000036f0   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00003720   Number         0  anon$$obj.o(Region$$Table)
+    NMI_Handler                              0x20000001   Thumb Code    98  ch57x_int.o(.text)
+    LowPower_Halt_1                          0x20000063   Thumb Code    86  ch57x_int.o(.text)
+    LowPower_Halt_2                          0x200000b9   Thumb Code   110  ch57x_int.o(.text)
+    LowPower_Sleep                           0x20000127   Thumb Code   110  ch57x_int.o(.text)
+    LowPower_Shutdown                        0x20000195   Thumb Code   112  ch57x_int.o(.text)
+    Long Thumb to Thumb Veneer to PowerMonitor 0x20000215   Thumb Code    12  anon$$obj.o(Veneer$$Code)
+    UsbDevEndp0Size                          0x20000220   Data           1  ch57x_usbhostbase.o(.data)
+    FoundNewDev                              0x20000221   Data           1  ch57x_usbhostbase.o(.data)
+    pHOST_RX_RAM_Addr                        0x20000224   Data           4  ch57x_usbhostbase.o(.data)
+    pHOST_TX_RAM_Addr                        0x20000228   Data           4  ch57x_usbhostbase.o(.data)
+    CH579IntStatus                           0x2000022c   Data           1  CH579MAI.o(.data)
+    CH579DiskStatus                          0x2000022d   Data           1  CH579MAI.o(.data)
+    CH579vDiskFat                            0x2000022e   Data           1  CH579MAI.o(.data)
+    CH579vSecPerClus                         0x2000022f   Data           1  CH579MAI.o(.data)
+    CH579vSectorSizeB                        0x20000230   Data           1  CH579MAI.o(.data)
+    CH579vCurrentLun                         0x20000231   Data           1  CH579MAI.o(.data)
+    CH579vSubClassIs6                        0x20000232   Data           1  CH579MAI.o(.data)
+    mDiskSecPerClusB                         0x20000233   Data           1  CH579MAI.o(.data)
+    mCurSecOffset                            0x20000234   Data           1  CH579MAI.o(.data)
+    mDiskInterfNumber                        0x20000235   Data           1  CH579MAI.o(.data)
+    mSaveDevEndpTog                          0x20000236   Data           1  CH579MAI.o(.data)
+    mDiskBulkInEndp                          0x20000237   Data           1  CH579MAI.o(.data)
+    mDiskBulkOutEndp                         0x20000238   Data           1  CH579MAI.o(.data)
+    mLinkEndOfClus                           0x20000239   Data           1  CH579MAI.o(.data)
+    mFatSecChanged                           0x2000023a   Data           1  CH579MAI.o(.data)
+    mFileSizeChanged                         0x2000023b   Data           1  CH579MAI.o(.data)
+    CH579vFdtOffset                          0x2000023c   Data           2  CH579MAI.o(.data)
+    CH579vSectorSize                         0x2000023e   Data           2  CH579MAI.o(.data)
+    mDiskInfoSec                             0x20000240   Data           2  CH579MAI.o(.data)
+    CH579vStartLba                           0x20000244   Data           4  CH579MAI.o(.data)
+    CH579vDiskRoot                           0x20000248   Data           4  CH579MAI.o(.data)
+    CH579vDataStart                          0x2000024c   Data           4  CH579MAI.o(.data)
+    CH579vStartCluster                       0x20000250   Data           4  CH579MAI.o(.data)
+    CH579vFileSize                           0x20000254   Data           4  CH579MAI.o(.data)
+    CH579vCurrentOffset                      0x20000258   Data           4  CH579MAI.o(.data)
+    CH579vFdtLba                             0x2000025c   Data           4  CH579MAI.o(.data)
+    CH579vLbaCurrent                         0x20000260   Data           4  CH579MAI.o(.data)
+    pDISK_BASE_BUF                           0x20000264   Data           4  CH579MAI.o(.data)
+    pDISK_FAT_BUF                            0x20000268   Data           4  CH579MAI.o(.data)
+    mLbaBufferFDT                            0x2000026c   Data           4  CH579MAI.o(.data)
+    mLbaBufferFAT                            0x20000270   Data           4  CH579MAI.o(.data)
+    mDiskFatSize                             0x20000274   Data           4  CH579MAI.o(.data)
+    mDiskRsvdSecEnd                          0x20000278   Data           4  CH579MAI.o(.data)
+    mDiskTotalClus                           0x2000027c   Data           4  CH579MAI.o(.data)
+    mCurrentCluster                          0x20000280   Data           4  CH579MAI.o(.data)
+    mLinkClusSource                          0x20000284   Data           4  CH579MAI.o(.data)
+    mCurrentName                             0x20000288   Data           4  CH579MAI.o(.data)
+    mValue                                   0x2000028c   Data           4  CH579MAI.o(.data)
+    mTempAddrPoint                           0x20000290   Data           4  CH579MAI.o(.data)
+    __stdout                                 0x20000294   Data           4  stdout.o(.data)
+    RxBuffer                                 0x20000298   Data          64  exam1.o(.bss)
+    TxBuffer                                 0x200002d8   Data          64  exam1.o(.bss)
+    buf                                      0x20000318   Data         100  exam1.o(.bss)
+    mCmdParam                                0x2000037c   Data          32  ch579ufi.o(.bss)
+    ThisUsbDev                               0x2000039c   Data          14  ch57x_usbhostbase.o(.bss)
+    Com_Buffer                               0x200003ac   Data         128  ch57x_usbhostclass.o(.bss)
+    __initial_sp                             0x20008000   Number         0  startup_armcm0.o ABSOLUTE
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x00000091
+
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x000039b8, Max: 0x0003e800, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00003720, Max: 0x0003e800, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x00000000   0x00000000   0x00000090   Data   RO           43    RESET               startup_armcm0.o
+    0x00000090   0x00000090   0x00000000   Code   RO           48  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x00000090   0x00000090   0x00000004   Code   RO          187    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x00000094   0x00000094   0x00000004   Code   RO          190    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x00000098   0x00000098   0x00000000   Code   RO          192    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x00000098   0x00000098   0x00000000   Code   RO          194    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x00000098   0x00000098   0x00000008   Code   RO          195    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x000000a0   0x000000a0   0x00000000   Code   RO          197    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
+    0x000000a0   0x000000a0   0x00000000   Code   RO          199    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
+    0x000000a0   0x000000a0   0x00000004   Code   RO          188    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x000000a4   0x000000a4   0x000001f0   Code   RO            3    .text               exam1.o
+    0x00000294   0x00000294   0x0000021c   Code   RO            8    .text               ch579ufi.o
+    0x000004b0   0x000004b0   0x0000068c   Code   RO           12    .text               ch57x_clk.o
+    0x00000b3c   0x00000b3c   0x00000150   Code   RO           17    .text               ch57x_gpio.o
+    0x00000c8c   0x00000c8c   0x00000104   Code   RO           20    .text               ch57x_sys.o
+    0x00000d90   0x00000d90   0x000004f4   Code   RO           23    .text               ch57x_usbhostbase.o
+    0x00001284   0x00001284   0x000003a8   Code   RO           29    .text               ch57x_usbhostclass.o
+    0x0000162c   0x0000162c   0x000000ac   Code   RO           34    .text               ch57x_uart1.o
+    0x000016d8   0x000016d8   0x00000198   Code   RO           37    .text               ch57x_pwr.o
+    0x00001870   0x00001870   0x0000001c   Code   RO           44    .text               startup_armcm0.o
+    0x0000188c   0x0000188c   0x00001384   Code   RO           45    .text               CH579UFI.lib(CH579MAI.o)
+    0x00002c10   0x00002c10   0x00000400   Code   RO           47    .text               CH579UFI.lib(CH579BYT.o)
+    0x00003010   0x00003010   0x0000002c   Code   RO           51    .text               mc_p.l(uidiv.o)
+    0x0000303c   0x0000303c   0x00000028   Code   RO           52    .text               mc_p.l(idiv.o)
+    0x00003064   0x00003064   0x00000012   Code   RO           53    .text               mc_p.l(strcpy.o)
+    0x00003076   0x00003076   0x00000014   Code   RO          185    .text               mc_p.l(uread4.o)
+    0x0000308a   0x0000308a   0x00000012   Code   RO          186    .text               mc_p.l(uwrite4.o)
+    0x0000309c   0x0000309c   0x00000060   Code   RO          202    .text               mc_p.l(uldiv.o)
+    0x000030fc   0x000030fc   0x00000024   Code   RO          209    .text               mc_p.l(init.o)
+    0x00003120   0x00003120   0x00000020   Code   RO          210    .text               mc_p.l(llshl.o)
+    0x00003140   0x00003140   0x00000022   Code   RO          211    .text               mc_p.l(llushr.o)
+    0x00003162   0x00003162   0x00000002   PAD
+    0x00003164   0x00003164   0x00000020   Code   RO          158    i.__0printf$8       mc_p.l(printf8.o)
+    0x00003184   0x00003184   0x00000028   Code   RO          160    i.__0sprintf$8      mc_p.l(printf8.o)
+    0x000031ac   0x000031ac   0x0000001a   Code   RO           14    i.__ARM_common_switch8  ch57x_clk.o
+    0x000031c6   0x000031c6   0x0000000e   Code   RO          217    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x000031d4   0x000031d4   0x00000002   Code   RO          218    i.__scatterload_null  mc_p.l(handlers.o)
+    0x000031d6   0x000031d6   0x0000000e   Code   RO          219    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x000031e4   0x000031e4   0x00000428   Code   RO          165    i._printf_core      mc_p.l(printf8.o)
+    0x0000360c   0x0000360c   0x00000020   Code   RO          166    i._printf_post_padding  mc_p.l(printf8.o)
+    0x0000362c   0x0000362c   0x0000002c   Code   RO          167    i._printf_pre_padding  mc_p.l(printf8.o)
+    0x00003658   0x00003658   0x0000000a   Code   RO          169    i._sputc            mc_p.l(printf8.o)
+    0x00003662   0x00003662   0x00000002   PAD
+    0x00003664   0x00003664   0x00000030   Data   RO           25    .constdata          ch57x_usbhostbase.o
+    0x00003694   0x00003694   0x00000018   Data   RO           31    .constdata          ch57x_usbhostclass.o
+    0x000036ac   0x000036ac   0x00000042   Data   RO            5    .conststring        exam1.o
+    0x000036ee   0x000036ee   0x00000002   PAD
+    0x000036f0   0x000036f0   0x00000030   Data   RO          215    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x00003720, Size: 0x0000042c, Max: 0x00008000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x00003720   0x00000214   Code   RO           40    .text               ch57x_int.o
+    0x20000214   0x00003934   0x0000000c   Ven    RO          220    Veneer$$Code        anon$$obj.o
+    0x20000220   0x00003940   0x0000000c   Data   RW           26    .data               ch57x_usbhostbase.o
+    0x2000022c   0x0000394c   0x00000068   Data   RW           46    .data               CH579UFI.lib(CH579MAI.o)
+    0x20000294   0x000039b4   0x00000004   Data   RW          201    .data               mc_p.l(stdout.o)
+    0x20000298        -       0x000000e4   Zero   RW            4    .bss                exam1.o
+    0x2000037c        -       0x00000020   Zero   RW            9    .bss                ch579ufi.o
+    0x2000039c        -       0x0000000e   Zero   RW           24    .bss                ch57x_usbhostbase.o
+    0x200003aa   0x000039b8   0x00000002   PAD
+    0x200003ac        -       0x00000080   Zero   RW           30    .bss                ch57x_usbhostclass.o
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+       540         36          0          0         32          0   ch579ufi.o
+      1702         60          0          0          0          0   ch57x_clk.o
+       336         22          0          0          0          0   ch57x_gpio.o
+       532         16          0          0          0          0   ch57x_int.o
+       408         12          0          0          0          0   ch57x_pwr.o
+       260         16          0          0          0          0   ch57x_sys.o
+       172          4          0          0          0          0   ch57x_uart1.o
+      1268         64         48         12         14          0   ch57x_usbhostbase.o
+       936        266         24          0        128          0   ch57x_usbhostclass.o
+       496        176         66          0        228          0   exam1.o
+        28         10        144          0          0          0   startup_armcm0.o
+
+    ----------------------------------------------------------------------
+      6690        686        332         12        404          0   Object Totals
+        12          4         48          0          0          0   (incl. Generated)
+         0          0          2          0          2          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Member Name
+
+      1024         68          0          0          0          0   CH579BYT.o
+      4996        120          0        104          0          0   CH579MAI.o
+         0          0          0          0          0          0   entry.o
+         0          0          0          0          0          0   entry10a.o
+         0          0          0          0          0          0   entry11a.o
+         8          4          0          0          0          0   entry2.o
+         4          0          0          0          0          0   entry5.o
+         0          0          0          0          0          0   entry7b.o
+         0          0          0          0          0          0   entry8b.o
+         8          4          0          0          0          0   entry9a.o
+        30          0          0          0          0          0   handlers.o
+        40          0          0          0          0          0   idiv.o
+        36          8          0          0          0          0   init.o
+        32          0          0          0          0          0   llshl.o
+        34          0          0          0          0          0   llushr.o
+      1222         56          0          0          0          0   printf8.o
+         0          0          0          4          0          0   stdout.o
+        18          0          0          0          0          0   strcpy.o
+        44          0          0          0          0          0   uidiv.o
+        96          0          0          0          0          0   uldiv.o
+        20          0          0          0          0          0   uread4.o
+        18          0          0          0          0          0   uwrite4.o
+
+    ----------------------------------------------------------------------
+      7634        260          0        108          0          0   Library Totals
+         4          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
+
+      6020        188          0        104          0          0   CH579UFI.lib
+      1610         72          0          4          0          0   mc_p.l
+
+    ----------------------------------------------------------------------
+      7634        260          0        108          0          0   Library Totals
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+     14324        946        332        120        404          0   Grand Totals
+     14324        946        332        120        404          0   ELF Image Totals
+     14324        946        332        120          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                14656 (  14.31kB)
+    Total RW  Size (RW Data + ZI Data)               524 (   0.51kB)
+    Total ROM Size (Code + RO Data + RW Data)      14776 (  14.43kB)
+
+==============================================================================
+

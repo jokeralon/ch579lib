@@ -1,0 +1,83 @@
+T44D4 188:269.955   SEGGER J-Link V7.82b Log File
+T44D4 188:270.284   DLL Compiled: Nov  9 2022 17:01:33
+T44D4 188:270.303   Logging started @ 2022-12-11 16:52
+T44D4 188:270.321 - 188270.330ms
+T44D4 188:270.349 JLINK_SetWarnOutHandler(...)
+T44D4 188:270.525 - 0.185ms
+T44D4 188:270.548 JLINK_OpenEx(...)
+T44D4 188:272.396   Firmware: J-Link V9 compiled May  7 2021 16:26:12
+T44D4 188:272.689   Firmware: J-Link V9 compiled May  7 2021 16:26:12
+T44D4 188:273.273   Decompressing FW timestamp took 372 us
+T44D4 188:279.099   Hardware: V9.60
+T44D4 188:279.150   S/N: 69643426
+T44D4 188:279.177   OEM: SEGGER
+T44D4 188:279.204   Feature(s): RDI, GDB, FlashDL, FlashBP, JFlash
+T44D4 188:280.203   TELNET listener socket opened on port 19021
+T44D4 188:280.463   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T44D4 188:280.607   WEBSRV Webserver running on local port 19080
+T44D4 188:298.521 - 28.001ms returns "O.K."
+T44D4 188:298.598 JLINK_GetEmuCaps()
+T44D4 188:298.606 - 0.011ms returns 0xB9FF7BBF
+T44D4 188:298.618 JLINK_TIF_GetAvailable(...)
+T44D4 188:298.757 - 0.143ms
+T44D4 188:298.767 JLINK_SetErrorOutHandler(...)
+T44D4 188:298.773 - 0.008ms
+T44D4 188:299.021 JLINK_ExecCommand("ProjectFile = "C:\Users\alon\Desktop\github\ch579lib\CH579EVT\EVT\EXAM\USB\ch57x_usb_device_msc_test\JLinkSettings.ini"", ...). 
+T44D4 188:312.495   Ref file found at: C:\Keil_v5\ARM\Segger\JLinkDevices.ref
+T44D4 188:312.653   REF file references invalid XML file: C:\Program Files\SEGGER\JLink\JLinkDevices.xml
+T44D4 188:322.014 - 23.002ms returns 0x00
+T44D4 188:322.048 JLINK_ExecCommand("Device = CH579M", ...). 
+T44D4 188:322.298   Looking for J-Link GUI Server exe at: C:\Keil_v5\ARM\Segger\JLinkGUIServer.exe
+T44D4 188:322.395   Looking for J-Link GUI Server exe at: C:\Program Files\SEGGER\JLink\JLinkGUIServer.exe
+T44D4 188:322.456   Forking J-Link GUI Server: C:\Program Files\SEGGER\JLink\JLinkGUIServer.exe
+T44D4 188:398.811   J-Link GUI Server info: "J-Link GUI server V7.82b "
+T44D4 190:126.546 - 1804.512ms returns 0xFFFFFFFF
+T44D4 190:126.893 JLINK_ExecCommand("DisableConnectionTimeout", ...). 
+T44D4 190:126.911 - 0.006ms returns 0x01
+T44D4 190:126.928 JLINK_GetHardwareVersion()
+T44D4 190:126.936 - 0.012ms returns 96000
+T44D4 190:126.946 JLINK_GetDLLVersion()
+T44D4 190:126.952 - 0.009ms returns 78202
+T44D4 190:126.960 JLINK_GetOEMString(...)
+T44D4 190:126.977 JLINK_GetFirmwareString(...)
+T44D4 190:126.986 - 0.013ms
+T44D4 190:126.997 JLINK_GetDLLVersion()
+T44D4 190:127.004 - 0.009ms returns 78202
+T44D4 190:127.012 JLINK_GetCompileDateTime()
+T44D4 190:127.019 - 0.010ms
+T44D4 190:127.029 JLINK_GetFirmwareString(...)
+T44D4 190:127.036 - 0.010ms
+T44D4 190:127.044 JLINK_GetHardwareVersion()
+T44D4 190:127.052 - 0.011ms returns 96000
+T44D4 190:127.062 JLINK_GetSN()
+T44D4 190:127.070 - 0.010ms returns 69643426
+T44D4 190:127.078 JLINK_GetOEMString(...)
+T44D4 190:127.091 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T44D4 190:127.530 - 0.449ms returns 0x00
+T44D4 190:127.550 JLINK_HasError()
+T44D4 190:127.568 JLINK_SetSpeed(5000)
+T44D4 190:127.633 - 0.072ms
+T44D4 190:128.094 JLINK_HasError()
+T44D4 190:128.109 JLINK_SetResetType(JLINKARM_RESET_TYPE_NORMAL)
+T44D4 190:128.117 - 0.010ms returns JLINKARM_RESET_TYPE_NORMAL
+T44D4 190:128.125 JLINK_Reset()
+T44D4 190:128.240   
+  ***** Error: 
+T44D4 190:128.253   No CPU core or target device has been selected. Please make sure at least the core J-Link shall connect to, is selected.
+T44D4 190:128.262 - 0.139ms
+T44D4 190:128.276 JLINK_GetId()
+T44D4 190:128.394   
+  ***** Error: 
+T44D4 190:128.412   No CPU core or target device has been selected. Please make sure at least the core J-Link shall connect to, is selected.
+T44D4 190:128.420 - 0.146ms returns 0x00000000
+T44D4 190:128.437 JLINK_GetId()
+T44D4 190:128.557   
+  ***** Error: 
+T44D4 190:128.571   No CPU core or target device has been selected. Please make sure at least the core J-Link shall connect to, is selected.
+T44D4 190:128.579 - 0.144ms returns 0x00000000
+T44D4 190:137.763 JLINK_GetFirmwareString(...)
+T44D4 190:137.783 - 0.078ms
+T44D4 190:415.704 JLINK_Close()
+T44D4 190:444.390 - 28.705ms
+T44D4 190:444.413   
+T44D4 190:444.419   Closed
