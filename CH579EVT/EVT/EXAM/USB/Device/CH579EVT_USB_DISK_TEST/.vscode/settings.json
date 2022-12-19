@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "ch57x_code_flash.h": "c",
+        "spi_flash.h": "c",
+        "ch57x_usb_device_msc.h": "c",
+        "stdlib.h": "c",
+        "diskio.h": "c"
+    }
+}

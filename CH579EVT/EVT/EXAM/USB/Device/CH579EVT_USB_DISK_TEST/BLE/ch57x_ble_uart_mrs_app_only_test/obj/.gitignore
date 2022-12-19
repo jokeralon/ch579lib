@@ -1,0 +1,7 @@
+/HAL/
+/Profile/
+/Startup/
+/StdPeriphDriver/
+/app/
+/ble_uart_service/
+/sources.mk
