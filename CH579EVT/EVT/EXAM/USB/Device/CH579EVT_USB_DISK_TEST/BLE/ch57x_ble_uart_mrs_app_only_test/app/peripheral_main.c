@@ -1,10 +1,10 @@
 /********************************** (C) COPYRIGHT *******************************
-* File Name          : main.c
-* Author             : WCH
-* Version            : V1.1
-* Date               : 2019/11/05
-* Description        : 外设从机应用主函数及任务系统初始化
-*******************************************************************************/
+ * File Name          : main.c
+ * Author             : WCH
+ * Version            : V1.1
+ * Date               : 2019/11/05
+ * Description        : 外设从机应用主函数及任务系统初始化
+ *******************************************************************************/
 
 /******************************************************************************/
 /* 头文件包含 */
@@ -14,174 +14,252 @@
 #include "spi_flash.h"
 #include "ff.h"
 
+FATFS fs;          /* FatFs文件系统对象 */
+FIL fnew;          /* 文件对象 */
+FRESULT res_flash; /* 文件操作结果 */
+UINT fnum;         /* 文件成功读写数量 */
+UINT8 uart0_read_len = 0;
+UINT8 uart0_read_flag = 0;
+UINT8 uart0_read_timeout = 0;
+UINT8 uart0_read_buf[1024] = {0};
+BYTE ReadBuffer[1024] = {0}; /* 读缓冲区 */
+BYTE WriteBuffer[] =         /* 写缓冲区*/
+    "fatfs test !!!!!!!!!!!!\r\n";
+BYTE WriteBuffer2[] = /* 写缓冲区*/
+    "asdfghjklzxcvbnmqwertyuiop\r\n";
+UINT8 buf[512];
 void DebugInit(void)
 {
 #if DEBUG == Debug_UART1
     GPIOA_SetBits(bTXD1);
     GPIOA_ModeCfg(bTXD1, GPIO_ModeOut_PP_5mA);
-    UART1_DefInit( );
+    UART1_DefInit();
 #elif DEBUG == Debug_UART0
     GPIOB_SetBits(bTXD0);
     GPIOB_ModeCfg(bTXD0, GPIO_ModeOut_PP_5mA);
-    UART0_DefInit( );
+    GPIOB_SetBits(bRXD0);
+    GPIOB_ModeCfg(bRXD0, GPIO_ModeIN_PU);
+
+    UART0_DefInit();
+    UART0_ByteTrigCfg(UART_1BYTE_TRIG);
+    UART0_INTCfg(ENABLE, RB_IER_LINE_STAT | RB_IER_RECV_RDY);
+    NVIC_EnableIRQ(UART0_IRQn);
 #endif
 }
 
-
-
-
-FATFS fs;													/* FatFs文件系统对象 */
-FIL fnew;													/* 文件对象 */
-FRESULT res_flash;                /* 文件操作结果 */
-UINT fnum;            					  /* 文件成功读写数量 */
-BYTE ReadBuffer[1024]={0};        /* 读缓冲区 */
-BYTE WriteBuffer[] =              /* 写缓冲区*/
-"fatfs test !!!!!!!!!!!!\r\n"; 
-
+void fatfs_test(UINT8 *cmd, UINT16 len)
+{
+    if (memcmp(cmd, "mount", len - 1) == 0)
+    {
+        res_flash = f_mount(&fs, "0:", 1);
+        if (res_flash == FR_OK)
+        {
+            PRINT("mount ok\n");
+        }
+    }
+    if (memcmp(cmd, "open", len - 1) == 0)
+    {
+        res_flash = f_open(&fnew, "0:open.txt", FA_CREATE_ALWAYS | FA_WRITE);
+        if (res_flash == FR_OK)
+        {
+            PRINT("open ok\n");
+        }
+    }
+    if (memcmp(cmd, "write", len - 1) == 0)
+    {
+        res_flash = f_write(&fnew, WriteBuffer2, sizeof(WriteBuffer2), &fnum);
+        if (res_flash == FR_OK)
+        {
+            PRINT("write ok\n");
+            PRINT("this file written ok, number of data: %d\n", fnum);
+        }
+        f_close(&fnew);
+    }
+}
+UINT8 work[4096];
 int main()
 {
     SetSysClock( CLK_SOURCE_HSE_32MHz );
-    PWR_UnitModCfg( ENABLE, UNIT_SYS_PLL );
-    DelayMs(500);
-
+    PWR_UnitModCfg( ENABLE, UNIT_SYS_PLL );		// ��PLL
+    DelayMs(5);
+    
     DebugInit();
+    
     PRINT( "Start @ChipID=%02X\n", R8_CHIP_ID );
-
-    UINT16    i;
     
-    res_flash = f_mount(&fs,"0:",1);
+    // spi_flash_init();
+    // EraseExternalAllFlash_SPI();
 
-/*----------------------- 格式化测试 -----------------*/  
-	/* 如果没有文件系统就格式化创建创建文件系统 */
-	if(res_flash == FR_NO_FILESYSTEM)
-	{
-		PRINT("》FLASH还没有文件系统，即将进行格式化...\r\n");
-    /* 格式化 */
-		res_flash=f_mkfs("0:",0,0, NULL, 0);		
+    // PRINT("erase ok\n");
+    // while (1)
+    // {
+    //     ;
+    // }
 
-        PRINT("f_mkfs ret: %d\n", res_flash);					
+    res_flash = f_mount(&fs, "0:", 1);
 
-		if(res_flash == FR_OK)
-		{
-			PRINT("》FLASH已成功格式化文件系统。\r\n");
-      /* 格式化后，先取消挂载 */
-			res_flash = f_mount(NULL,"0:",1);			
-      /* 重新挂载	*/			
-			res_flash = f_mount(&fs,"0:",1);
-		}
-		else
-		{
-			PRINT("《《格式化失败。》》\r\n");
-			while(1);
-		}
-	}
-  else if(res_flash!=FR_OK)
-  {
-    PRINT("！！外部Flash挂载文件系统失败。(%d)\r\n",res_flash);
-    PRINT("！！可能原因：SPI Flash初始化不成功。\r\n");
-		while(1);
-  }
-  else
-  {
-    PRINT("》文件系统挂载成功，可以进行读写测试\r\n");
-  }
-  
-/*----------------------- 文件系统测试：写测试 -------------------*/
-	/* 打开文件，每次都以新建的形式打开，属性为可写 */
-	PRINT("\r\n****** 即将进行文件写入测试... ******\r\n");	
-	res_flash = f_open(&fnew, "0:test.txt",FA_CREATE_ALWAYS | FA_WRITE );
-	if ( res_flash == FR_OK )
-	{
-		PRINT("》打开/创建FatFs读写测试文件.txt文件成功，向文件写入数据。\r\n");
-    /* 将指定存储区内容写入到文件内 */
-		res_flash=f_write(&fnew,WriteBuffer,sizeof(WriteBuffer),&fnum);
-    if(res_flash==FR_OK)
+    /*----------------------- 格式化测试 -----------------*/
+    /* 如果没有文件系统就格式化创建创建文件系统 */
+    if (res_flash == FR_NO_FILESYSTEM)
     {
-      PRINT("》文件写入成功，写入字节数据：%d\n",fnum);
-      PRINT("》向文件写入的数据为：\r\n%s\r\n",WriteBuffer);
+        PRINT("FLASH does not have a file system yet, it will be formatted soon ...\r\n");
+        /* 格式化 */
+        res_flash=f_mkfs("0:",FM_FAT,0, work, sizeof(work));
+
+        PRINT("f_mkfs ret: %d\n", res_flash);
+
+        if (res_flash == FR_OK)
+        {
+            PRINT("FLASH have a file system yet\r\n");
+            /* 格式化后，先取消挂载 */
+            res_flash = f_mount(NULL, "0:", 1);
+            /* 重新挂载	*/
+            res_flash = f_mount(&fs, "0:", 1);
+        }
+        else
+        {
+            PRINT("FLASH format error\r\n");
+            while (1)
+                ;
+        }
+    }
+    else if (res_flash != FR_OK)
+    {
+        PRINT("external FLASH mount file system error, code :%d\r\n", res_flash);
+        while (1)
+            ;
     }
     else
     {
-      PRINT("！！文件写入失败：(%d)\n",res_flash);
-    }    
-		/* 不再读写，关闭文件 */
+        PRINT("file system mount ok, Read and write tests are available");
+    }
+
+    /*----------------------- 文件系统测试：写测试 -------------------*/
+    /* 打开文件，每次都以新建的形式打开，属性为可写 */
+    PRINT("\r\n****** File write test is about to be performed... ******\r\n");
+    res_flash = f_open(&fnew, "0:test.txt", FA_CREATE_ALWAYS | FA_WRITE);
+    if (res_flash == FR_OK)
+    {
+        PRINT("open/create FatFs read/write test file, \"test.txt\" create ok, write date to this file\r\n");
+        /* 将指定存储区内容写入到文件内 */
+        res_flash = f_write(&fnew, WriteBuffer, sizeof(WriteBuffer), &fnum);
+        if (res_flash == FR_OK)
+        {
+            PRINT("this file written ok, number of data: %d\n", fnum);
+            PRINT("writed data as: \r\n%s\r\n", WriteBuffer);
+        }
+        else
+        {
+            PRINT("write file error, code: %d\n", res_flash);
+        }
+        /* 不再读写，关闭文件 */
+        f_close(&fnew);
+    }
+    else
+    {
+        PRINT("open/create file error\r\n");
+    }
+
+    /*------------------- 文件系统测试：读测试 --------------------------*/
+    PRINT("****** File read test coming... ******\r\n");
+    res_flash = f_open(&fnew, "0:test.txt", FA_OPEN_EXISTING | FA_READ);
+    if (res_flash == FR_OK)
+    {
+        PRINT("open file ok\r\n");
+        res_flash = f_read(&fnew, ReadBuffer, sizeof(ReadBuffer), &fnum);
+        if (res_flash == FR_OK)
+        {
+            PRINT("The file was read successfully. Byte data was read: %d\r\n", fnum);
+            PRINT("The file data obtained by reading is:\r\n%s \r\n", ReadBuffer);
+        }
+        else
+        {
+            PRINT("read file error, code: %d\n", res_flash);
+        }
+    }
+    else
+    {
+        PRINT("open file error\r\n");
+    }
+    /* 不再读写，关闭文件 */
     f_close(&fnew);
-	}
-	else
-	{	
-		PRINT("！！打开/创建文件失败。\r\n");
-	}
-	
-/*------------------- 文件系统测试：读测试 --------------------------*/
-	PRINT("****** 即将进行文件读取测试... ******\r\n");
-	res_flash = f_open(&fnew, "0:test.txt",FA_OPEN_EXISTING | FA_READ); 	 
-	if(res_flash == FR_OK)
-	{
-		PRINT("》打开文件成功。\r\n");
-		res_flash = f_read(&fnew, ReadBuffer, sizeof(ReadBuffer), &fnum); 
-    if(res_flash==FR_OK)
-    {
-      PRINT("》文件读取成功,读到字节数据：%d\r\n",fnum);
-      PRINT("》读取得的文件数据为：\r\n%s \r\n", ReadBuffer);	
-    }
-    else
-    {
-      PRINT("！！文件读取失败：(%d)\n",res_flash);
-    }		
-	}
-	else
-	{
-		PRINT("！！打开文件失败。\r\n");
-	}
-	/* 不再读写，关闭文件 */
-	f_close(&fnew);	
-  
-	/* 不再使用文件系统，取消挂载文件系统 */
-	f_mount(NULL,"0:",1);
-  
-  /* 操作完成，停机 */
-	while(1)
-	{
-	}
 
-    // PRINT("SPI1 Flash demo start ...\n");
-    
-    // for(i=0; i!=512; i++)
-    // {
-    //     send_buf[i] = i;
-    // }
-
-    // EraseExternal4KFlash_SPI(0);
-    // BlukWriteExternalFlash_SPI( 0,512,send_buf);
-    // BlukReadExternalFlash_SPI( 0,512,read_buf );
-
-
-    // PRINT("send_buf: =================================\r\n");
-    // for(i=0; i!=512; i++)
-    // {
-    //     PRINT("%02x ",(UINT8)send_buf[i]);
-    // }
-    // PRINT("done\n");
-
-    
-
-    // PRINT("read_buf: =================================\r\n");
-    // for(i=0; i!=512; i++)
-    // {
-    //     PRINT("%02x ",(UINT8)read_buf[i]);
-    // }
-    // PRINT("done\n");
+    /* 不再使用文件系统，取消挂载文件系统 */
+    f_mount(NULL, "0:", 1);
 
     pEP0_RAM_Addr = EP0_Databuf;
     pEP1_RAM_Addr = EP1_Databuf;
     USB_DeviceInit();
-    NVIC_EnableIRQ( USB_IRQn );
+    NVIC_EnableIRQ(USB_IRQn);
 
-
-    while(1){
-
-
-
+    while (1)
+    {
+        if (uart0_read_flag == 1)
+        {
+            UART0_SendString(uart0_read_buf, uart0_read_len);
+            fatfs_test(uart0_read_buf, uart0_read_len);
+            uart0_read_len = 0;
+            uart0_read_flag = 0;
+        }
+        else
+        {
+            DelayMs(20);
+            uart0_read_timeout++;
+            if (uart0_read_timeout > 10)
+            {
+                uart0_read_timeout = 0;
+                memset(uart0_read_buf, '\0', sizeof(uart0_read_buf));
+                uart0_read_len = 0;
+                uart0_read_flag = 0;
+            }
+        }
     }
 }
+
+void UART0_IRQHandler(void)
+{
+    UINT8 i;
+    switch (UART0_GetITFlag())
+    {
+    case UART_II_LINE_STAT: // 线路状态错误
+        UART0_GetLinSTA();
+        PRINT("UART0 LINE ERROR");
+        break;
+
+    case UART_II_RECV_RDY: // 数据达到设置触发点
+                           // for(i=0; i!=trigB; i++)
+                           // {
+                           //     uart0_read_buf[i] = UART0_RecvByte();
+                           //     UART0_SendByte(uart0_read_buf[i]);
+                           // }
+
+        uart0_read_buf[uart0_read_len] = UART0_RecvByte();
+        if ((uart0_read_len < 1024) && (uart0_read_flag == 0))
+        {
+            if (uart0_read_buf[uart0_read_len] == '\n')
+            {
+                uart0_read_flag = 1;
+                return;
+            }
+            uart0_read_len++;
+        }
+        break;
+
+    case UART_II_RECV_TOUT: // 接收超时，暂时一帧数据接收完成
+        // memset(uart0_read_buf, '\0', sizeof(uart0_read_buf));
+        // i = UART0_RecvString(uart0_read_buf);
+        // UART0_SendString( uart0_read_buf, i );
+        break;
+
+    case UART_II_THR_EMPTY: // 发送缓存区空，可继续发送
+        break;
+
+    case UART_II_MODEM_CHG: // 只支持串口0
+        break;
+
+    default:
+        break;
+    }
+}
+
 /******************************** endfile @ main ******************************/

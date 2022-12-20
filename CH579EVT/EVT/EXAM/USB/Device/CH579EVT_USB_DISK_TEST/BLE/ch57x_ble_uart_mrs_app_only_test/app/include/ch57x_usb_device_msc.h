@@ -19,7 +19,9 @@
 #endif
 
 #ifdef EXTERNAL_FLASH
-#define DISK_SEC_NUM   2048              //0x00000200       //总扇区数  共100物理扇区
+// #define DISK_SEC_NUM   1538              //6MB       //总扇区数  共100物理扇区
+#define DISK_SEC_NUM   2048              //8MB       //总扇区数  共100物理扇区
+
 #define DISK_SEC_LAST  DISK_SEC_NUM-1   //最后一个逻辑扇区地址
 #define DISK_SEC_LEN   0x00001000       //扇区大小  每个扇区4096字节大小
 #endif

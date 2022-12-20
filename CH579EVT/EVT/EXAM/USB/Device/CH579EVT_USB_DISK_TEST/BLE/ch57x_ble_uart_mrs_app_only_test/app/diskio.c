@@ -31,7 +31,6 @@ DSTATUS disk_status(
 	BYTE pdrv /* Physical drive nmuber to identify the drive */
 )
 {
-	PRINT("disk_status\n");
 	DSTATUS stat;
 	int result;
 
@@ -88,7 +87,6 @@ DSTATUS disk_initialize(
 	DSTATUS stat;
 	int result;
 	DSTATUS status = STA_NOINIT;	
-	PRINT("disk_initialize\n");
 
 	switch (pdrv)
 	{
@@ -114,8 +112,6 @@ DSTATUS disk_initialize(
 		// 	return stat;
 
 	case DEV_SPI:
-
-		PRINT("spi_flash_init end\n");
 		spi_flash_init();
 		status = disk_status(DEV_SPI);
 		break;
@@ -136,8 +132,6 @@ DRESULT disk_read(
 	UINT count	  /* Number of sectors to read */
 )
 {
-	PRINT("disk_read\n");
-
 	DRESULT res;
 	int result;
 
@@ -191,8 +185,6 @@ DRESULT disk_write(
 	UINT count		  /* Number of sectors to write */
 )
 {
-	PRINT("disk_write\n");
-
 	DRESULT res;
 	int result;
 
@@ -244,8 +236,6 @@ DRESULT disk_ioctl(
 	void *buff /* Buffer to send/receive control data */
 )
 {
-	PRINT("disk_ioctl cmd: %d\n", cmd);
-
 	// DRESULT res;
 	// int result;
 
@@ -276,7 +266,8 @@ DRESULT disk_ioctl(
 		{
 		/* 扇区数量：1536*4096/1024/1024=6(MB) */
 		case GET_SECTOR_COUNT:
-			*(DWORD *)buff = 1536;
+			// *(DWORD *)buff = 1536;
+			*(DWORD *)buff = 2048;
 			break;
 		/* 扇区大小  */
 		case GET_SECTOR_SIZE:
@@ -296,27 +287,16 @@ DRESULT disk_ioctl(
 
 void spi_disk_read(UINT8 *buff, UINT32 sector, UINT16 count)
 {
-	PRINT("spi_disk_read sector: %d, count: %d\n", sector, count);
-	
 	BlukReadExternalFlash_SPI(sector, count, (PUINT8)buff);
-	PRINT("read end\n");
 }
 
 void spi_disk_write(UINT8 *buff, UINT32 sector, UINT16 count)
 {
-	PRINT("spi_disk_write sector: %d, count: %d\n", sector, count);
-
 	BlukWriteExternalFlash_SPI(sector, count, (PUINT8)buff);
-
-	PRINT("write end\n");
 
 	DelayMs(20);
 }
 void spi_disk_erase(UINT32 sector)
 {
-	PRINT("spi_disk_erase sector: %d\n", sector);
-
 	EraseExternal4KFlash_SPI(sector);
-
-	PRINT("erase end\n");
 }

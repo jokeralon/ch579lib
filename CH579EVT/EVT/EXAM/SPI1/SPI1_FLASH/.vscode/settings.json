@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "SPIFlash.C": "cpp",
+        "SPIFlash.H": "cpp"
+    }
+}

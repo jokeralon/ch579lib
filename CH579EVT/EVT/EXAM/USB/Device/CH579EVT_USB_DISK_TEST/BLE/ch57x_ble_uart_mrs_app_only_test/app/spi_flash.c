@@ -194,15 +194,13 @@ void BlukWriteExternalFlash_SPI(UINT32 StarAddr, UINT16 Len, PUINT8 SendBuffer)
  *******************************************************************************/
 void ReadExternalFlash_SPI(UINT32 StarAddr, UINT16 Len, PUINT8 RcvBuffer)
 {
-    PRINT("spi_disk_read sector: %d, count: %d\n", StarAddr, Len);
-
-        SPI0_CS_LOW();
-        SPI0_MasterSendByte(CMD_READ_DATA);                 // 读命令
-        SPI0_MasterSendByte(((StarAddr & 0xFFFFFF) >> 16)); // 发送3字节地址
-        SPI0_MasterSendByte(((StarAddr & 0xFFFF) >> 8));
-        SPI0_MasterSendByte(StarAddr & 0xFF);
-        SPI0_MasterRecv(RcvBuffer, Len);
-        SPI0_CS_HIGH();
+    SPI0_CS_LOW();
+    SPI0_MasterSendByte(CMD_READ_DATA);                 // 读命令
+    SPI0_MasterSendByte(((StarAddr & 0xFFFFFF) >> 16)); // 发送3字节地址
+    SPI0_MasterSendByte(((StarAddr & 0xFFFF) >> 8));
+    SPI0_MasterSendByte(StarAddr & 0xFF);
+    SPI0_MasterRecv(RcvBuffer, Len);
+    SPI0_CS_HIGH();
 }
 /*******************************************************************************
 * Function Name  : BlukReadExternalFlash_SPI

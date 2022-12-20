@@ -15,14 +15,8 @@ RM := rm -rf
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
-ifneq ($(strip $(ASM_UPPER_DEPS)),)
--include $(ASM_UPPER_DEPS)
-endif
 ifneq ($(strip $(ASM_DEPS)),)
 -include $(ASM_DEPS)
-endif
-ifneq ($(strip $(S_DEPS)),)
--include $(S_DEPS)
 endif
 ifneq ($(strip $(S_UPPER_DEPS)),)
 -include $(S_UPPER_DEPS)
@@ -50,21 +44,35 @@ all: ch57x_ble_uart_mrs_app_only_test.elf secondary-outputs
 
 # Tool invocations
 ch57x_ble_uart_mrs_app_only_test.elf: $(OBJS) $(USER_OBJS)
-	@	@	arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -mthumb-interwork -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common  -g -T "C:\Users\alon\Desktop\github\iot-fan_at_cnblogs\CH577_CH578_CH579\AN\CH579EVT_USB_DISK_TEST\BLE\ch57x_ble_uart_mrs_app_only_test\ld\CH579.ld" -nostartfiles -Xlinker --gc-sections -Xlinker --print-memory-usage -Wl,-Map,"ch57x_ble_uart_mrs_app_only_test.map" --specs=nano.specs --specs=nosys.specs -o "ch57x_ble_uart_mrs_app_only_test.elf" $(OBJS) $(USER_OBJS) $(LIBS)
-	@	@
+	@echo 'Building target: $@'
+	@echo 'Invoking: GNU ARM Cross C Linker'
+	arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -mthumb-interwork -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common  -g -T "C:\Users\alon\Desktop\github\ch579lib\CH579EVT\EVT\EXAM\USB\Device\CH579EVT_USB_DISK_TEST\BLE\ch57x_ble_uart_mrs_app_only_test\ld\CH579.ld" -nostartfiles -Xlinker --gc-sections -Xlinker --print-memory-usage -Wl,-Map,"ch57x_ble_uart_mrs_app_only_test.map" --specs=nano.specs --specs=nosys.specs -o "ch57x_ble_uart_mrs_app_only_test.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Finished building target: $@'
+	@echo ' '
+
 ch57x_ble_uart_mrs_app_only_test.hex: ch57x_ble_uart_mrs_app_only_test.elf
-	@	arm-none-eabi-objcopy -O ihex "ch57x_ble_uart_mrs_app_only_test.elf"  "ch57x_ble_uart_mrs_app_only_test.hex"
-	@	@
+	@echo 'Invoking: GNU ARM Cross Create Flash Image'
+	arm-none-eabi-objcopy -O ihex "ch57x_ble_uart_mrs_app_only_test.elf"  "ch57x_ble_uart_mrs_app_only_test.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 ch57x_ble_uart_mrs_app_only_test.lst: ch57x_ble_uart_mrs_app_only_test.elf
-	@	arm-none-eabi-objdump --source --all-headers --demangle --disassemble --line-numbers --wide "ch57x_ble_uart_mrs_app_only_test.elf" > "ch57x_ble_uart_mrs_app_only_test.lst"
-	@	@
+	@echo 'Invoking: GNU ARM Cross Create Listing'
+	arm-none-eabi-objdump --source --all-headers --demangle --disassemble --line-numbers --wide "ch57x_ble_uart_mrs_app_only_test.elf" > "ch57x_ble_uart_mrs_app_only_test.lst"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 ch57x_ble_uart_mrs_app_only_test.siz: ch57x_ble_uart_mrs_app_only_test.elf
-	@	arm-none-eabi-size --format=berkeley "ch57x_ble_uart_mrs_app_only_test.elf"
-	@	@
+	@echo 'Invoking: GNU ARM Cross Print Size'
+	arm-none-eabi-size --format=berkeley "ch57x_ble_uart_mrs_app_only_test.elf"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) $(ASM_UPPER_DEPS)$(OBJS)$(SECONDARY_FLASH)$(SECONDARY_LIST)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS) ch57x_ble_uart_mrs_app_only_test.elf
-	-@
+	-$(RM) $(OBJS)$(SECONDARY_FLASH)$(SECONDARY_LIST)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_UPPER_DEPS)$(C_DEPS) ch57x_ble_uart_mrs_app_only_test.elf
+	-@echo ' '
+
 secondary-outputs: $(SECONDARY_FLASH) $(SECONDARY_LIST) $(SECONDARY_SIZE)
 
 .PHONY: all clean dependents

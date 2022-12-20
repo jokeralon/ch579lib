@@ -3,7 +3,7 @@
 * Author             : WCH
 * Version            : V1.0
 * Date               : 2018/12/15
-* Description 		 : ����1�շ���ʾ
+* Description 		 : 串口1收发演示
 *******************************************************************************/
 
 #include "CH57x_common.h"
@@ -18,18 +18,18 @@ int main()
 {
     UINT8 len;
     
-/* ���ô���1��������IO��ģʽ�������ô��� */   
+/* 配置串口1：先配置IO口模式，再配置串口 */   
     GPIOA_SetBits(GPIO_Pin_9);
-    GPIOA_ModeCfg(GPIO_Pin_8, GPIO_ModeIN_PU);			// RXD-������������
-    GPIOA_ModeCfg(GPIO_Pin_9, GPIO_ModeOut_PP_5mA);		// TXD-�������������ע������IO������ߵ�ƽ
+    GPIOA_ModeCfg(GPIO_Pin_8, GPIO_ModeIN_PU);			// RXD-配置上拉输入
+    GPIOA_ModeCfg(GPIO_Pin_9, GPIO_ModeOut_PP_5mA);		// TXD-配置推挽输出，注意先让IO口输出高电平
     UART1_DefInit();
     
-#if 1       // ���Դ��ڷ����ַ���
+#if 1       // 测试串口发送字符串
     UART1_SendString( TxBuff, sizeof(TxBuff) );
 
 #endif   
 
-#if 1       // ��ѯ��ʽ���������ݺ��ͳ�ȥ
+#if 1       // 查询方式：接收数据后发送出去
     while(1)
     {
         len = UART1_RecvString(RxBuff);
@@ -41,7 +41,7 @@ int main()
     
 #endif    
 
-#if 0      // �жϷ�ʽ���������ݺ��ͳ�ȥ
+#if 0      // 中断方式：接收数据后发送出去
     UART1_ByteTrigCfg( UART_7BYTE_TRIG );
     trigB = 7;
     UART1_INTCfg( ENABLE, RB_IER_RECV_RDY|RB_IER_LINE_STAT );
@@ -58,11 +58,11 @@ void UART1_IRQHandler(void)
     
     switch( UART1_GetITFlag() )
     {
-        case UART_II_LINE_STAT:        // ��·״̬����
+        case UART_II_LINE_STAT:        // 线路状态错误
             UART1_GetLinSTA();
             break;
         
-        case UART_II_RECV_RDY:          // ���ݴﵽ���ô�����
+        case UART_II_RECV_RDY:          // 数据达到设置触发点
             for(i=0; i!=trigB; i++)
             {
                 RxBuff[i] = UART1_RecvByte();
@@ -70,15 +70,15 @@ void UART1_IRQHandler(void)
             }
             break;
         
-        case UART_II_RECV_TOUT:         // ���ճ�ʱ����ʱһ֡���ݽ������
+        case UART_II_RECV_TOUT:         // 接收超时，暂时一帧数据接收完成
             i = UART1_RecvString(RxBuff);
             UART1_SendString( RxBuff, i ); 
             break;
         
-        case UART_II_THR_EMPTY:         // ���ͻ������գ��ɼ�������
+        case UART_II_THR_EMPTY:         // 发送缓存区空，可继续发送
             break;
         
-        case UART_II_MODEM_CHG:         // ֻ֧�ִ���0
+        case UART_II_MODEM_CHG:         // 只支持串口0
             break;
         
         default:

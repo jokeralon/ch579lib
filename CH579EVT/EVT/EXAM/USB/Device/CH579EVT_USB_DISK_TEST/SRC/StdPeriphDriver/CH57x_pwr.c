@@ -11,10 +11,10 @@
 
 /*******************************************************************************
 * Function Name  : PWR_DCDCCfg
-* Description    : �����ڲ�DC/DC��Դ�����ڽ�Լϵͳ����
+* Description    : 启用内部DC/DC电源，用于节约系统功耗
 * Input          : s:  
-                    ENABLE  - ��DCDC��Դ
-                    DISABLE - �ر�DCDC��Դ   				
+                    ENABLE  - 打开DCDC电源
+                    DISABLE - 关闭DCDC电源   				
 * Return         : None
 *******************************************************************************/
 void PWR_DCDCCfg( UINT8 s )
@@ -23,7 +23,7 @@ void PWR_DCDCCfg( UINT8 s )
     {		
         R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
         R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-        R16_POWER_PLAN &= ~(RB_PWR_DCDC_EN|RB_PWR_DCDC_PRE);		// ��· DC/DC 
+        R16_POWER_PLAN &= ~(RB_PWR_DCDC_EN|RB_PWR_DCDC_PRE);		// 旁路 DC/DC 
         R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG0;		
     }
     else
@@ -41,17 +41,17 @@ void PWR_DCDCCfg( UINT8 s )
 
 /*******************************************************************************
 * Function Name  : PWR_UnitModCfg
-* Description    : �ɿص�Ԫģ��ĵ�Դ����
+* Description    : 可控单元模块的电源控制
 * Input          : s:  
-                    ENABLE  - ��   
-                    DISABLE - �ر�
+                    ENABLE  - 打开   
+                    DISABLE - 关闭
                    unit:
                     please refer to unit of controllable power supply 				
 * Return         : None
 *******************************************************************************/
 void PWR_UnitModCfg( UINT8 s, UINT8 unit )
 {
-    if(s == DISABLE)		//�ر�
+    if(s == DISABLE)		//关闭
     {
     	R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     	R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
@@ -59,7 +59,7 @@ void PWR_UnitModCfg( UINT8 s, UINT8 unit )
         R8_HFCK_PWR_CTRL &= ~(unit&0x1c);
         R8_CK32K_CONFIG &= ~(unit&0x03);
     }
-    else					//��
+    else					//打开
     {
     	R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     	R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
@@ -72,10 +72,10 @@ void PWR_UnitModCfg( UINT8 s, UINT8 unit )
 
 /*******************************************************************************
 * Function Name  : PWR_PeriphClkCfg
-* Description    : ����ʱ�ӿ���λ
+* Description    : 外设时钟控制位
 * Input          : s:  
-                    ENABLE  - ������ʱ��   
-                    DISABLE - �ر�����ʱ��
+                    ENABLE  - 打开外设时钟   
+                    DISABLE - 关闭外设时钟
                    perph:
                     please refer to Peripher CLK control bit define						
 * Return         : None
@@ -99,17 +99,17 @@ void PWR_PeriphClkCfg( UINT8 s, UINT16 perph )
 
 /*******************************************************************************
 * Function Name  : PWR_PeriphWakeUpCfg
-* Description    : ˯�߻���Դ����
+* Description    : 睡眠唤醒源配置
 * Input          : s:  
-                    ENABLE  - �򿪴�����˯�߻��ѹ���   
-                    DISABLE - �رմ�����˯�߻��ѹ���
+                    ENABLE  - 打开此外设睡眠唤醒功能   
+                    DISABLE - 关闭此外设睡眠唤醒功能
                    perph:
-                    RB_SLP_USB_WAKE	    -  USB Ϊ����Դ
-                    RB_SLP_ETH_WAKE	    -  ETH Ϊ����Դ
-                    RB_SLP_RTC_WAKE	    -  RTC Ϊ����Դ
-                    RB_SLP_GPIO_WAKE	-  GPIO Ϊ����Դ
-                    RB_SLP_BAT_WAKE	    -  BAT Ϊ����Դ
-                    ALL     -  ��������
+                    RB_SLP_USB_WAKE	    -  USB 为唤醒源
+                    RB_SLP_ETH_WAKE	    -  ETH 为唤醒源
+                    RB_SLP_RTC_WAKE	    -  RTC 为唤醒源
+                    RB_SLP_GPIO_WAKE	-  GPIO 为唤醒源
+                    RB_SLP_BAT_WAKE	    -  BAT 为唤醒源
+                    ALL     -  以上所有
 * Return         : None
 *******************************************************************************/
 void PWR_PeriphWakeUpCfg( UINT8 s, UINT16 perph )
@@ -131,10 +131,10 @@ void PWR_PeriphWakeUpCfg( UINT8 s, UINT16 perph )
 
 /*******************************************************************************
 * Function Name  : PowerMonitor
-* Description    : ��Դ���
+* Description    : 电源监控
 * Input          : s:  
-                    ENABLE  - �򿪴˹���   
-                    DISABLE - �رմ˹���
+                    ENABLE  - 打开此功能   
+                    DISABLE - 关闭此功能
 * Return         : None
 *******************************************************************************/
 void PowerMonitor( UINT8 s )
@@ -163,7 +163,7 @@ void PowerMonitor( UINT8 s )
 
 /*******************************************************************************
 * Function Name  : LowPower_Idle
-* Description    : �͹���-Idleģʽ
+* Description    : 低功耗-Idle模式
 * Input          : None
 * Return         : None
 *******************************************************************************/
@@ -175,7 +175,7 @@ void LowPower_Idle( void )
 
 /*******************************************************************************
 * Function Name  : EnterCodeUpgrade
-* Description    : ����BOOT����׼����������
+* Description    : 跳入BOOT程序，准备代码升级
 * Input          : None
 * Return         : None
 *******************************************************************************/
@@ -203,12 +203,12 @@ void EnterCodeUpgrade( void )
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
     R32_RTC_TRIG = t;    
-    R8_RTC_MODE_CTRL = 0x2f;    // ����boot���ر�Ҫ����
+    R8_RTC_MODE_CTRL = 0x2f;    // 进入boot下载必要条件
     R8_SAFE_ACCESS_SIG = 0;
 	
 	R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-    R16_CLK_SYS_CFG = 5;		        // ��Ƶ HSI/5=6.4M    
+    R16_CLK_SYS_CFG = 5;		        // 降频 HSI/5=6.4M    
     R8_SAFE_ACCESS_SIG = 0;
     	
 /* ready to BOOT */	

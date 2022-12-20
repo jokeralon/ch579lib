@@ -3,16 +3,16 @@
 #include "ch57x_code_flash.h"
 
 
-// Éè±¸ÃèÊö·û
+// è®¾å¤‡æè¿°ç¬¦
 const UINT8  MyDevDescr[] = 
 {
 	0x12, 0x01, 0x10, 0x01,
     0x00, 0x00, 0x00, DevEP0SIZE,
-    0x44, 0x33, 0x33, 0x35,   // ³§ÉÌIDºÍ²úÆ·ID
+    0x44, 0x33, 0x33, 0x35,   // å‚å•†IDå’Œäº§å“ID
     0x00, 0x01, 0x01, 0x02,
     0x00, 0x01
 };
-// ÅäÖÃÃèÊö·û
+// é…ç½®æè¿°ç¬¦
 const UINT8  MyCfgDescr[] =  
 {
 	0x09, 0x02, 0x20, 0x00, 0x01, 0x01, 0x00, 0x80, 0x32,
@@ -20,11 +20,11 @@ const UINT8  MyCfgDescr[] =
     0x07, 0x05, 0x01, 0x02, 0x40, 0x00, 0x00,
     0x07, 0x05, 0x81, 0x02, 0x40, 0x00, 0x00
 };
-// ÓïÑÔÃèÊö·û
+// è¯­è¨€æè¿°ç¬¦
 const UINT8  MyLangDescr[] = { 0x04, 0x03, 0x09, 0x04 };
-// ³§¼ÒĞÅÏ¢
+// å‚å®¶ä¿¡æ¯
 const UINT8  MyManuInfo[] = { 0x0E, 0x03, 'w', 0, 'c', 0, 'h', 0, '.', 0, 'c', 0, 'n', 0 };
-// ²úÆ·ĞÅÏ¢
+// äº§å“ä¿¡æ¯
 const UINT8  MyProdInfo[] = { 0x0C, 0x03, 'C', 0, 'H', 0, '5', 0, '7', 0, 'x', 0 };
 
 const UINT8 DBINQUITY[] =
@@ -82,14 +82,14 @@ const UINT8  modesense3F[]=
 	0x0b, 0x00, 0x00, 0x08, 
 	(DISK_SEC_NUM>>24)&0xFF, (DISK_SEC_NUM>>16)&0xFF, (DISK_SEC_NUM>>8)&0xFF, DISK_SEC_NUM&0xFF, 
 	00, 00, 02, 00 
-};   //ÎïÀíÉÈÇøÊı
+};   //ç‰©ç†æ‰‡åŒºæ•°
 
 const UINT8  mode5sense3F[]=
 {
 	0x00, 0x06, 0x00, 0x00, 0x08, 0x00, 0x00, 0x08,
 	(DISK_SEC_NUM>>24)&0xFF, (DISK_SEC_NUM>>16)&0xFF, (DISK_SEC_NUM>>8)&0xFF, DISK_SEC_NUM&0xFF,
 	00, 00, 02, 00 
-};  //ÎïÀíÉÈÇøÊı
+};  //ç‰©ç†æ‰‡åŒºæ•°
 
 const UINT8 MAX_LUN[] = {0};
 
@@ -154,20 +154,20 @@ enum _HOST_DEV_DISAGREE
 
 union 
 {
-	unsigned long mDataLength;	//Êı¾İ³¤¶È
+	unsigned long mDataLength;	//æ•°æ®é•¿åº¦
 	unsigned char mdataLen[4];	//
 } LEN;
 
 UINT8 buffer[64]; 
 UINT8 mdCBWTag[4];		//dCBWTag
 MASS_PARA  MassPara;
-UINT8 CH375BULKUP;				//Êı¾İÉÏ´«
-UINT8 CH375BULKDOWN;				//Êı¾İÏÂ´«
-UINT8 CH375CSW;					//CSWÉÏ´«±êÖ¾
-UINT8 BcswStatus;		//CSW×´Ì¬
+UINT8 CH375BULKUP;				//æ•°æ®ä¸Šä¼ 
+UINT8 CH375BULKDOWN;				//æ•°æ®ä¸‹ä¼ 
+UINT8 CH375CSW;					//CSWä¸Šä¼ æ ‡å¿—
+UINT8 BcswStatus;		//CSWçŠ¶æ€
 UINT8 mSenseKey;
 UINT8 mASC;
-UINT8 FSTALL;						//Êı¾İ´íÎó±êÖ¾
+UINT8 FSTALL;						//æ•°æ®é”™è¯¯æ ‡å¿—
 UINT8 lastFSTALL;
 UINT8 pBuf_ReSelect = 0;
 UINT32 Locate_Addr;
@@ -180,7 +180,7 @@ UINT8   SetupReqCode;
 UINT16  SetupReqLen;
 const UINT8 *pDescr;
 
-/******** ÓÃ»§×Ô¶¨Òå·ÖÅä¶ËµãRAM ****************************************/
+/******** ç”¨æˆ·è‡ªå®šä¹‰åˆ†é…ç«¯ç‚¹RAM ****************************************/
 __align(4) UINT8 EP0_Databuf[64];	//ep0(64)
 __align(4) UINT8 EP1_Databuf[64+64];	//ep1_out(64)+ep1_in(64)
 
@@ -206,34 +206,34 @@ void BulkThirteen(unsigned char Case)
 
 			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_T_RES ;
 			FSTALL=1;
-															//ÕâÀïÉÏ´«¶ËµãÉèÖÃÒ»¸öSTALL£¬´ıÖ÷»úÇåµô // may or may-not
+															//è¿™é‡Œä¸Šä¼ ç«¯ç‚¹è®¾ç½®ä¸€ä¸ªSTALLï¼Œå¾…ä¸»æœºæ¸…æ‰ // may or may-not
 			BcswStatus =2;
 			break;
 
 		case CASE4:     									/* Hi>Dn*/
 		case CASE5:     									/* Hi>Di*/
 			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_T_RES ;
-			FSTALL=1;										//ÕâÀïÉÏ´«¶ËµãÉèÖÃÒ»¸öSTALL£¬´ıÖ÷»úÇåµô
+			FSTALL=1;										//è¿™é‡Œä¸Šä¼ ç«¯ç‚¹è®¾ç½®ä¸€ä¸ªSTALLï¼Œå¾…ä¸»æœºæ¸…æ‰
 			BcswStatus= 1;									//CSW_GOOD or CSW_FAIL
 			break;
 
 		case CASE7:    										 /* Hi<Di*/
 		case CASE8:     									/* Hi<>Do */
 			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_T_RES ;
-			FSTALL=1;										//ÕâÀïÉÏ´«¶ËµãÉèÖÃÒ»¸öSTALL£¬´ıÖ÷»úÇåµô
+			FSTALL=1;										//è¿™é‡Œä¸Šä¼ ç«¯ç‚¹è®¾ç½®ä¸€ä¸ªSTALLï¼Œå¾…ä¸»æœºæ¸…æ‰
 			BcswStatus = 2;
 			break;
 
 		case CASE9:     									/* Ho>Dn*/
 		case CASE11:    									/* Ho>Do*/
 			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_R_RES ;
-			FSTALL=1;                                       //ÕâÀïÉÏ´«¶ËµãÉèÖÃÒ»¸öSTALL£¬´ıÖ÷»úÇåµô											
+			FSTALL=1;                                       //è¿™é‡Œä¸Šä¼ ç«¯ç‚¹è®¾ç½®ä¸€ä¸ªSTALLï¼Œå¾…ä¸»æœºæ¸…æ‰											
 			BcswStatus =1;									//CSW_GOOD or CSW_FAIL
 			break;
 
 		case CASE10:    								    /* Ho<>Di */
 		case CASE13:    								    /* Ho<Do*/
-			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_T_RES ;        //ÕâÀïÉÏ´«¶ËµãÉèÖÃÒ»¸öSTALL£¬´ıÖ÷»úÇåµô
+			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_T_RES ;        //è¿™é‡Œä¸Šä¼ ç«¯ç‚¹è®¾ç½®ä¸€ä¸ªSTALLï¼Œå¾…ä¸»æœºæ¸…æ‰
 			FSTALL=1;
 			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_R_RES ;										
 			BcswStatus = 2;
@@ -242,13 +242,13 @@ void BulkThirteen(unsigned char Case)
 		case CASECBW:   									/* invalid CBW */
 			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_T_RES ;
 			FSTALL=1;
-			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_R_RES ;		//ÕâÀï¶ËµãÉèÖÃÒ»¸öSTALL£¬´ıÖ÷»úÇåµô
+			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_R_RES ;		//è¿™é‡Œç«¯ç‚¹è®¾ç½®ä¸€ä¸ªSTALLï¼Œå¾…ä¸»æœºæ¸…æ‰
 			BcswStatus = 2;
 			break;
 
 		case CASECMDFAIL:
 			R8_UEP1_CTRL = R8_UEP1_CTRL | MASK_UEP_T_RES ;
-			FSTALL=1;                                       //ÕâÀïÉÏ´«¶ËµãÉèÖÃÒ»¸öSTALL£¬´ıÖ÷»úÇåµô										
+			FSTALL=1;                                       //è¿™é‡Œä¸Šä¼ ç«¯ç‚¹è®¾ç½®ä¸€ä¸ªSTALLï¼Œå¾…ä¸»æœºæ¸…æ‰										
 			BcswStatus= 1;
 			break;
 
@@ -269,7 +269,7 @@ void UFI_readCapacity(void )
 
 void UFI_inquiry(void )
 {
-	pBuf = (unsigned char*)DBINQUITY;					////²éÑ¯UÅÌĞÅÏ¢
+	pBuf = (unsigned char*)DBINQUITY;					////æŸ¥è¯¢Uç›˜ä¿¡æ¯
 	if(LEN.mDataLength>36) LEN.mDataLength=36;
 	BcswStatus=0;
 	mSenseKey=0;
@@ -278,7 +278,7 @@ void UFI_inquiry(void )
 
 void UFI_read10(void)
 {
-	//¶ÁÈ¡Êı¾İ
+	//è¯»å–æ•°æ®
 	LEN.mDataLength=(((UINT32)MassPara.cbw.cbwcb.buf1[7]<<8) | (UINT32)MassPara.cbw.cbwcb.buf1[8])*DISK_SEC_LEN;
 	Locate_Addr = ((UINT32)MassPara.cbw.cbwcb.buf1[2]<<24) | ((UINT32)MassPara.cbw.cbwcb.buf1[3]<<16) | ((UINT32)MassPara.cbw.cbwcb.buf1[4]<<8) | (UINT32)MassPara.cbw.cbwcb.buf1[5];
 	
@@ -295,7 +295,7 @@ void UFI_read10(void)
 
 void UFI_modeSense(void )
 {
-	//Ä£Ê½ÈÏÊ¶
+	//æ¨¡å¼è®¤è¯†
 	if(MassPara.cbw.cbwcb.buf1[2]==0x3F)
 	{
 		if ( LEN.mDataLength > sizeof(modesense3F) ) LEN.mDataLength = sizeof(modesense3F);
@@ -317,7 +317,7 @@ void UFI_modeSense(void )
 
 void UFI_requestSense(void )
 {
-	//ÇëÇóÈÏÊ¶
+	//è¯·æ±‚è®¤è¯†
 	if ( FSTALL | lastFSTALL ) 
 	{
 		lastFSTALL=FSTALL;
@@ -374,11 +374,11 @@ void UFI_testUnit(void )
 {
 	CH375BULKDOWN=0;
 	CH375BULKUP=0;
-	BcswStatus=0;			//²âÊÔUÅÌÊÇ·ñ×¼±¸ºÃ
+	BcswStatus=0;			//æµ‹è¯•Uç›˜æ˜¯å¦å‡†å¤‡å¥½
 	mSenseKey=0;
 	mASC=0;
 }
-void UFI_perOrMed(void )   //ÔÊĞíÒÆ³ö´ÅÅÌ
+void UFI_perOrMed(void )   //å…è®¸ç§»å‡ºç£ç›˜
 {				
 	BcswStatus=0;
 	mSenseKey=0;
@@ -388,11 +388,11 @@ void UFI_perOrMed(void )   //ÔÊĞíÒÆ³ö´ÅÅÌ
 void UFI_write(void )
 {
 	UINT8 i,num;
-	LEN.mDataLength=(((UINT32)MassPara.cbw.cbwcb.buf1[7]<<8) | (UINT32)MassPara.cbw.cbwcb.buf1[8])*DISK_SEC_LEN;		//Ğ´Êı¾İ³¤¶È
+	LEN.mDataLength=(((UINT32)MassPara.cbw.cbwcb.buf1[7]<<8) | (UINT32)MassPara.cbw.cbwcb.buf1[8])*DISK_SEC_LEN;		//å†™æ•°æ®é•¿åº¦
 	Locate_Addr = ((UINT32)MassPara.cbw.cbwcb.buf1[2]<<24) | ((UINT32)MassPara.cbw.cbwcb.buf1[3]<<16) | ((UINT32)MassPara.cbw.cbwcb.buf1[4]<<8) | (UINT32)MassPara.cbw.cbwcb.buf1[5];
 	Locate_Addr = Locate_Addr*DISK_SEC_LEN;
-	//²Á³ı
-	num = MassPara.cbw.cbwcb.buf1[8];   //´ıĞ´ÉÈÇøÊı
+	//æ“¦é™¤
+	num = MassPara.cbw.cbwcb.buf1[8];   //å¾…å†™æ‰‡åŒºæ•°
 	
 	#ifdef EXTERNAL_FLASH
     const sfud_flash *flash = sfud_get_device_table() + 0;
@@ -413,7 +413,7 @@ void UFI_write(void )
 	mASC=0;
 }
 
-void UFI_staStoUnit(void )  //ÇëÇó×°ÔØĞ¶ÔØÉè±¸
+void UFI_staStoUnit(void )  //è¯·æ±‚è£…è½½å¸è½½è®¾å¤‡
 {     
 	CH375BULKDOWN=0;
 	CH375BULKUP=0;
@@ -423,11 +423,11 @@ void UFI_staStoUnit(void )  //ÇëÇó×°ÔØĞ¶ÔØÉè±¸
 }
 void UFI_verify(void )
 {
-	BcswStatus=0;		//Ğ£Ñé´æ´¢Æ÷¿Õ¼ä
+	BcswStatus=0;		//æ ¡éªŒå­˜å‚¨å™¨ç©ºé—´
 	mSenseKey=0;
 	mASC=0;
-	//ÕâÀïÕâÀïÖ»ÊÇ×÷ÎªÑİÊ¾ËùÒÔÃ»ÓĞÕæÕı¼ì²âÎïÀí´æ´¢Æ÷
-	//µ«Êµ¼ÊÉÏÕâÒ»²½Ò»¶¨Òª´¦Àí
+	//è¿™é‡Œè¿™é‡Œåªæ˜¯ä½œä¸ºæ¼”ç¤ºæ‰€ä»¥æ²¡æœ‰çœŸæ­£æ£€æµ‹ç‰©ç†å­˜å‚¨å™¨
+	//ä½†å®é™…ä¸Šè¿™ä¸€æ­¥ä¸€å®šè¦å¤„ç†
 }
 
 void UFI_modeSense5(void )
@@ -539,18 +539,18 @@ void mCH375BulkOnly(void)
 			{
 				if(MassPara.buf[3]==0x43)
 				{
-					//LEN.mDataLength=BIG_ENDIAN(MassPara.cbw.dCBWDatL);			//×öBOĞ­Òé´¦Àí
-					LEN.mdataLen[3] = *(unsigned char *)(&MassPara.cbw.dCBWDatL);  /* ½«PC»úµÄµÍ×Ö½ÚÔÚÇ°µÄ16Î»×ÖÊı¾İ×ª»»ÎªC51µÄ¸ß×Ö½ÚÔÚÇ°µÄÊı¾İ */
+					//LEN.mDataLength=BIG_ENDIAN(MassPara.cbw.dCBWDatL);			//åšBOåè®®å¤„ç†
+					LEN.mdataLen[3] = *(unsigned char *)(&MassPara.cbw.dCBWDatL);  /* å°†PCæœºçš„ä½å­—èŠ‚åœ¨å‰çš„16ä½å­—æ•°æ®è½¬æ¢ä¸ºC51çš„é«˜å­—èŠ‚åœ¨å‰çš„æ•°æ® */
 					LEN.mdataLen[2] = *( (unsigned char *)(&MassPara.cbw.dCBWDatL) + 1 );
 					LEN.mdataLen[1] = *( (unsigned char *)(&MassPara.cbw.dCBWDatL) + 2 );
 					LEN.mdataLen[0] = *( (unsigned char *)(&MassPara.cbw.dCBWDatL) + 3 );
 					mdCBWTag[0]=MassPara.buf[4];
                     mdCBWTag[1]=MassPara.buf[5];
                     mdCBWTag[2]=MassPara.buf[6];
-	                mdCBWTag[3]=MassPara.buf[7];	//È¡³öÊı¾İ³¤¶È
+	                mdCBWTag[3]=MassPara.buf[7];	//å–å‡ºæ•°æ®é•¿åº¦
 					if(LEN.mDataLength)
 					{
-						CH375BULKDOWN=(MassPara.cbw.bmCBWFlags&0X80)?0:1;	//ÅĞ¶ÏÊÇÉÏ´«»¹ÊÇÏÂ´«Êı¾İ
+						CH375BULKDOWN=(MassPara.cbw.bmCBWFlags&0X80)?0:1;	//åˆ¤æ–­æ˜¯ä¸Šä¼ è¿˜æ˜¯ä¸‹ä¼ æ•°æ®
 						CH375BULKUP=(MassPara.cbw.bmCBWFlags&0X80)?1:0;
 					}
 					CH375CSW = 1;
@@ -571,10 +571,10 @@ void mCH375BulkOnly(void)
 
 void mCH375UpCsw(void)
 {
-	unsigned char i;		//Èç¹ûÊı¾İÎª0
+	unsigned char i;		//å¦‚æœæ•°æ®ä¸º0
 	pBuf=&MassPara.buf[0];
-	CH375CSW=0;				//ÉÏ´«CSW
-	CH375BULKUP=0;			//È¡ÏûÊı¾İÉÏ´«
+	CH375CSW=0;				//ä¸Šä¼ CSW
+	CH375BULKUP=0;			//å–æ¶ˆæ•°æ®ä¸Šä¼ 
 	MassPara.buf[0]=0x55;	//dCSWSignature
 	MassPara.buf[1]=0x53;
 	MassPara.buf[2]=0x42;
@@ -594,11 +594,11 @@ void mCH375UpCsw(void)
 		pBuf++;
 	}
 	R8_UEP1_T_LEN = 13;
-	R8_UEP1_CTRL = (R8_UEP1_CTRL & ~ MASK_UEP_T_RES) | UEP_T_RES_ACK;  // ÔÊĞíÉÏ´«
+	R8_UEP1_CTRL = (R8_UEP1_CTRL & ~ MASK_UEP_T_RES) | UEP_T_RES_ACK;  // å…è®¸ä¸Šä¼ 
 }
 
 //**********************************************************************************
-void CH375bulkUpData(void)    //µ÷ÓÃ¶Ëµã1ÉÏ´«Êı¾İ
+void CH375bulkUpData(void)    //è°ƒç”¨ç«¯ç‚¹1ä¸Šä¼ æ•°æ®
 {											
 	unsigned char len,i;
 	if(LEN.mDataLength>0x40)
@@ -640,7 +640,7 @@ void CH375bulkUpData(void)    //µ÷ÓÃ¶Ëµã1ÉÏ´«Êı¾İ
 		}
 	}
 	R8_UEP1_T_LEN = len;
-	R8_UEP1_CTRL = (R8_UEP1_CTRL & ~ MASK_UEP_T_RES) | UEP_T_RES_ACK;  // ÔÊĞíÉÏ´«
+	R8_UEP1_CTRL = (R8_UEP1_CTRL & ~ MASK_UEP_T_RES) | UEP_T_RES_ACK;  // å…è®¸ä¸Šä¼ 
 }
 
 void mCH375BulkDownData(void)
@@ -649,7 +649,7 @@ void mCH375BulkDownData(void)
 	
 	len = R8_USB_RX_LEN;																								
 	for(i=0;i!=len;i++)						
-		buffer[i]=EP1_Databuf[i];	//½«Êı¾İ¶ÁÈëµ½»º³åÇø
+		buffer[i]=EP1_Databuf[i];	//å°†æ•°æ®è¯»å…¥åˆ°ç¼“å†²åŒº
 	
 	#ifdef EXTERNAL_FLASH
 		//BlukWriteExternalFlash_SPI(Locate_Addr,len,&buffer[0]);
@@ -666,12 +666,12 @@ void mCH375BulkDownData(void)
 	
 	Locate_Addr += len;
 	
-	LEN.mDataLength-=len;		//È«¾ÖÊı¾İ³¤¶È¼õµôµ±Ç°»ñµÃµÄ³¤¶È
+	LEN.mDataLength-=len;		//å…¨å±€æ•°æ®é•¿åº¦å‡æ‰å½“å‰è·å¾—çš„é•¿åº¦
 	
 	if(LEN.mDataLength==0)
-	{							//Èç¹ûÊı¾İÎª0,Ôò´«ËÍCSW
+	{							//å¦‚æœæ•°æ®ä¸º0,åˆ™ä¼ é€CSW
 		CH375BULKDOWN=0;
-		mCH375UpCsw();		     //ÉÏ´«CSW
+		mCH375UpCsw();		     //ä¸Šä¼ CSW
 	}
 }
 
@@ -685,7 +685,7 @@ void USB_DevTransProcess( void )
 	intflag = R8_USB_INT_FG;
 	if( intflag & RB_UIF_TRANSFER )
 	{
-		switch ( R8_USB_INT_ST & ( MASK_UIS_TOKEN | MASK_UIS_ENDP ) )     // ·ÖÎö²Ù×÷ÁîÅÆºÍ¶ËµãºÅ
+		switch ( R8_USB_INT_ST & ( MASK_UIS_TOKEN | MASK_UIS_ENDP ) )     // åˆ†ææ“ä½œä»¤ç‰Œå’Œç«¯ç‚¹å·
 		{
 			case UIS_TOKEN_SETUP:
                 R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_NAK;
@@ -708,15 +708,15 @@ void USB_DevTransProcess( void )
 							len = 1;
 						    if ( SetupReqLen > len )
                             {
-                                SetupReqLen = len;                                 // ÏŞÖÆ×Ü³¤¶È
+                                SetupReqLen = len;                                 // é™åˆ¶æ€»é•¿åº¦
                             }
-                            len = SetupReqLen >= DevEP0SIZE ? DevEP0SIZE : SetupReqLen;  // ±¾´Î´«Êä³¤¶È
-                            memcpy( EP0_Databuf, pDescr, len );                   /* ¼ÓÔØÉÏ´«Êı¾İ */
+                            len = SetupReqLen >= DevEP0SIZE ? DevEP0SIZE : SetupReqLen;  // æœ¬æ¬¡ä¼ è¾“é•¿åº¦
+                            memcpy( EP0_Databuf, pDescr, len );                   /* åŠ è½½ä¸Šä¼ æ•°æ® */
                             SetupReqLen -= len;
                             pDescr += len;	
 						}
                     }
-                    else                            /* ±ê×¼ÇëÇó */
+                    else                            /* æ ‡å‡†è¯·æ±‚ */
                     {
 						switch( SetupReqCode )  
 						{
@@ -750,7 +750,7 @@ void USB_DevTransProcess( void )
 												len = MyLangDescr[0];
 												break;
 											default:
-												errflag = 0xFF;                               // ²»Ö§³ÖµÄ×Ö·û´®ÃèÊö·û
+												errflag = 0xFF;                               // ä¸æ”¯æŒçš„å­—ç¬¦ä¸²æè¿°ç¬¦
 												break;
 										}
 										break;
@@ -759,7 +759,7 @@ void USB_DevTransProcess( void )
 										errflag = 0xff;
 										break;
 								}
-								if( SetupReqLen>len )	SetupReqLen = len;		//Êµ¼ÊĞèÉÏ´«×Ü³¤¶È
+								if( SetupReqLen>len )	SetupReqLen = len;		//å®é™…éœ€ä¸Šä¼ æ€»é•¿åº¦
 								len = (SetupReqLen >= DevEP0SIZE) ? DevEP0SIZE : SetupReqLen;  
 								memcpy( pEP0_DataBuf, pDescr, len );   
 								pDescr += len;
@@ -780,7 +780,7 @@ void USB_DevTransProcess( void )
 								break;
 							
 							case USB_CLEAR_FEATURE:
-								if ( ( pSetupReqPak->bRequestType & USB_REQ_RECIP_MASK ) == USB_REQ_RECIP_ENDP )    // ¶Ëµã
+								if ( ( pSetupReqPak->bRequestType & USB_REQ_RECIP_MASK ) == USB_REQ_RECIP_ENDP )    // ç«¯ç‚¹
 								{
 									switch( (pSetupReqPak->wIndex)&0xff )
 									{
@@ -797,7 +797,7 @@ void USB_DevTransProcess( void )
 										FSTALL = 0;
 										break;
 									default:
-										errflag = 0xFF;                                 // ²»Ö§³ÖµÄ¶Ëµã
+										errflag = 0xFF;                                 // ä¸æ”¯æŒçš„ç«¯ç‚¹
 										break;
 									}
 								}
@@ -823,22 +823,22 @@ void USB_DevTransProcess( void )
 				}
 				else	errflag = 0xff;
 				
-				if( errflag == 0xff)		// ´íÎó»ò²»Ö§³Ö
+				if( errflag == 0xff)		// é”™è¯¯æˆ–ä¸æ”¯æŒ
 				{
 //					SetupReqCode = 0xFF;
                     R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_STALL | UEP_T_RES_STALL;  // STALL
 				}
 				else
 				{
-					if( chtype & 0x80 )		// ÉÏ´«
+					if( chtype & 0x80 )		// ä¸Šä¼ 
 					{
 						len = (SetupReqLen>DevEP0SIZE) ? DevEP0SIZE : SetupReqLen;
 						SetupReqLen -= len;
 					}
-					else len = 0;		// ÏÂ´«	
+					else len = 0;		// ä¸‹ä¼ 	
 					
 					R8_UEP0_T_LEN = len; 
-                    R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_ACK;  // Ä¬ÈÏÊı¾İ°üÊÇDATA1
+                    R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_ACK;  // é»˜è®¤æ•°æ®åŒ…æ˜¯DATA1
 				}				
 				break;
 			
@@ -846,19 +846,19 @@ void USB_DevTransProcess( void )
                 switch( SetupReqCode )
                 {
 					case USB_GET_DESCRIPTOR:
-						len = SetupReqLen >= DevEP0SIZE ? DevEP0SIZE : SetupReqLen;  // ±¾´Î´«Êä³¤¶È
-						memcpy( pEP0_DataBuf, pDescr, len );                    /* ¼ÓÔØÉÏ´«Êı¾İ */
+						len = SetupReqLen >= DevEP0SIZE ? DevEP0SIZE : SetupReqLen;  // æœ¬æ¬¡ä¼ è¾“é•¿åº¦
+						memcpy( pEP0_DataBuf, pDescr, len );                    /* åŠ è½½ä¸Šä¼ æ•°æ® */
 						SetupReqLen -= len;
 						pDescr += len;
 						R8_UEP0_T_LEN = len;
-						R8_UEP0_CTRL ^= RB_UEP_T_TOG;                             // ·­×ª
+						R8_UEP0_CTRL ^= RB_UEP_T_TOG;                             // ç¿»è½¬
 						break;
 					case USB_SET_ADDRESS:
 						R8_USB_DEV_AD = (R8_USB_DEV_AD&RB_UDA_GP_BIT) | SetupReqLen;
 						R8_UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
 						break;
 					default:
-						R8_UEP0_T_LEN = 0;                                      // ×´Ì¬½×¶ÎÍê³ÉÖĞ¶Ï»òÕßÊÇÇ¿ÖÆÉÏ´«0³¤¶ÈÊı¾İ°ü½áÊø¿ØÖÆ´«Êä
+						R8_UEP0_T_LEN = 0;                                      // çŠ¶æ€é˜¶æ®µå®Œæˆä¸­æ–­æˆ–è€…æ˜¯å¼ºåˆ¶ä¸Šä¼ 0é•¿åº¦æ•°æ®åŒ…ç»“æŸæ§åˆ¶ä¼ è¾“
 						R8_UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
 						break;
                 }				
@@ -870,33 +870,33 @@ void USB_DevTransProcess( void )
 				break;
 			
 			case UIS_TOKEN_OUT | 1:
-				if ( R8_USB_INT_ST & RB_UIS_TOG_OK )  // ²»Í¬²½µÄÊı¾İ°ü½«¶ªÆú
+				if ( R8_USB_INT_ST & RB_UIS_TOG_OK )  // ä¸åŒæ­¥çš„æ•°æ®åŒ…å°†ä¸¢å¼ƒ
 				{                      
-					if(CH375BULKDOWN)  mCH375BulkDownData();	//Èç¹ûÉÏ´«Êı¾İ½×¶ÎÔòµ÷ÓÃÊı¾İÉÏ´«
+					if(CH375BULKDOWN)  mCH375BulkDownData();	//å¦‚æœä¸Šä¼ æ•°æ®é˜¶æ®µåˆ™è°ƒç”¨æ•°æ®ä¸Šä¼ 
 					else
-					{	 										//²»ÊÇÊı¾İÏÂ´«ÔòÅĞ¶ÏÊÇ·ñ
+					{	 										//ä¸æ˜¯æ•°æ®ä¸‹ä¼ åˆ™åˆ¤æ–­æ˜¯å¦
 						length = R8_USB_RX_LEN;
-						if(!length) break;								//Êı¾İ°ü³¤¶ÈÎªÁãÔòÌø³ö																		
+						if(!length) break;								//æ•°æ®åŒ…é•¿åº¦ä¸ºé›¶åˆ™è·³å‡º																		
 						for(len=0;len!=length;len++)						
-							MassPara.buf[len] = EP1_Databuf[len];	//½«Êı¾İ¶ÁÈëµ½»º³åÇø
+							MassPara.buf[len] = EP1_Databuf[len];	//å°†æ•°æ®è¯»å…¥åˆ°ç¼“å†²åŒº
 						
 						mCH375BulkOnly();
 						
 						if(!CH375BULKDOWN)
 						{
-							if(CH375BULKUP) CH375bulkUpData();					//µ÷ÓÃÅúÁ¿Êı¾İÉÏ´«
-							else if(!FSTALL) mCH375UpCsw();								//Ã»ÓĞÊı¾İÉÏ´«µ÷ÓÃCSWÉÏ´«
-																			//ÔÚÕâÀï×öÉÏ´«Êı¾İµ÷ÓÃ
+							if(CH375BULKUP) CH375bulkUpData();					//è°ƒç”¨æ‰¹é‡æ•°æ®ä¸Šä¼ 
+							else if(!FSTALL) mCH375UpCsw();								//æ²¡æœ‰æ•°æ®ä¸Šä¼ è°ƒç”¨CSWä¸Šä¼ 
+																			//åœ¨è¿™é‡Œåšä¸Šä¼ æ•°æ®è°ƒç”¨
 						}
 					}	
 				}
 				break;
 			
 			case UIS_TOKEN_IN | 1:				
-				if(CH375BULKUP) CH375bulkUpData();								//µ÷ÓÃÊı¾İÉÏ´«
-				else if(CH375CSW) mCH375UpCsw();								//ÉÏ´«CSW
+				if(CH375BULKUP) CH375bulkUpData();								//è°ƒç”¨æ•°æ®ä¸Šä¼ 
+				else if(CH375CSW) mCH375UpCsw();								//ä¸Šä¼ CSW
 				else
-                R8_UEP1_CTRL = (R8_UEP1_CTRL & ~ MASK_UEP_T_RES) | UEP_T_RES_NAK;      // ÔİÍ£ÉÏ´«
+                R8_UEP1_CTRL = (R8_UEP1_CTRL & ~ MASK_UEP_T_RES) | UEP_T_RES_NAK;      // æš‚åœä¸Šä¼ 
 				break;
 			
 			default :
@@ -913,8 +913,8 @@ void USB_DevTransProcess( void )
 	}
 	else if( intflag & RB_UIF_SUSPEND )
 	{
-		if ( R8_USB_MIS_ST & RB_UMS_SUSPEND ) {;}	// ¹ÒÆğ
-		else		{;}								// »½ĞÑ
+		if ( R8_USB_MIS_ST & RB_UMS_SUSPEND ) {;}	// æŒ‚èµ·
+		else		{;}								// å”¤é†’
 		R8_USB_INT_FG = RB_UIF_SUSPEND;
 	}
 	else
@@ -923,7 +923,7 @@ void USB_DevTransProcess( void )
 	}
 }
 
-void USB_IRQHandler (void)		/* USBÖĞ¶Ï·şÎñ³ÌĞò,Ê¹ÓÃ¼Ä´æÆ÷×é1 */
+void USB_IRQHandler (void)		/* USBä¸­æ–­æœåŠ¡ç¨‹åº,ä½¿ç”¨å¯„å­˜å™¨ç»„1 */
 {
 	USB_DevTransProcess();
 }

@@ -4,6 +4,10 @@
         "spi_flash.h": "c",
         "ch57x_usb_device_msc.h": "c",
         "stdlib.h": "c",
-        "diskio.h": "c"
-    }
+        "diskio.h": "c",
+        "ch57x_common.h": "c",
+        "ch57x_uart.h": "c",
+        "integer.h": "c"
+    },
+    "editor.tabSize": 4
 }

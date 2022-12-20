@@ -10,21 +10,21 @@
 
 #define DevEP0SIZE	0x40
 
-//ÐÞ¸Äºã¶¨ÒåµÄÊ±ºò×¢ÒâÐÞ¸Ä²Á³ýº¯Êý£¬µ±Ç°Îª²Á³ý4kº¯Êý¡£ÐèÒªÏàÓ¦ÐÞ¸ÄÕâ¸öº¯Êý¼´¿É¡£
+//ä¿®æ”¹æ’å®šä¹‰çš„æ—¶å€™æ³¨æ„ä¿®æ”¹æ“¦é™¤å‡½æ•°ï¼Œå½“å‰ä¸ºæ“¦é™¤4kå‡½æ•°ã€‚éœ€è¦ç›¸åº”ä¿®æ”¹è¿™ä¸ªå‡½æ•°å³å¯ã€‚
 
 #ifdef CODE_FLASH
-#define DISK_SEC_NUM   0x00000064       //×ÜÉÈÇøÊý  ¹²100ÎïÀíÉÈÇø
-#define DISK_SEC_LAST  DISK_SEC_NUM-1   //×îºóÒ»¸öÂß¼­ÉÈÇøµØÖ·				  
-#define DISK_SEC_LEN   0x00000200       //ÉÈÇø´óÐ¡  Ã¿¸öÉÈÇø512×Ö½Ú´óÐ¡
+#define DISK_SEC_NUM   0x00000064       //æ€»æ‰‡åŒºæ•°  å…±100ç‰©ç†æ‰‡åŒº
+#define DISK_SEC_LAST  DISK_SEC_NUM-1   //æœ€åŽä¸€ä¸ªé€»è¾‘æ‰‡åŒºåœ°å€				  
+#define DISK_SEC_LEN   0x00000200       //æ‰‡åŒºå¤§å°  æ¯ä¸ªæ‰‡åŒº512å­—èŠ‚å¤§å°
 #endif
 
 #ifdef EXTERNAL_FLASH
-#define DISK_SEC_NUM   1024              //0x00000200       //×ÜÉÈÇøÊý  ¹²100ÎïÀíÉÈÇø
-#define DISK_SEC_LAST  DISK_SEC_NUM-1   //×îºóÒ»¸öÂß¼­ÉÈÇøµØÖ·				  
-#define DISK_SEC_LEN   0x00001000       //ÉÈÇø´óÐ¡  Ã¿¸öÉÈÇø4096×Ö½Ú´óÐ¡
+#define DISK_SEC_NUM   1024              //0x00000200       //æ€»æ‰‡åŒºæ•°  å…±100ç‰©ç†æ‰‡åŒº
+#define DISK_SEC_LAST  DISK_SEC_NUM-1   //æœ€åŽä¸€ä¸ªé€»è¾‘æ‰‡åŒºåœ°å€				  
+#define DISK_SEC_LEN   0x00001000       //æ‰‡åŒºå¤§å°  æ¯ä¸ªæ‰‡åŒº4096å­—èŠ‚å¤§å°
 #endif
  
-/*SCSI£¨Small Computer System Interface£©µÄÖ¸Áî¼¯*/
+/*SCSIï¼ˆSmall Computer System Interfaceï¼‰çš„æŒ‡ä»¤é›†*/
 #define FORMAT_UNIT 	0x04
 #define INQUIRY 		0x12
 #define MODE_SELECT 	0x15
