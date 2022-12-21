@@ -3,7 +3,6 @@
 
 //#include "Headfile.h"
 #include "CH57x_common.h"
-#include "spi_flash.h"
 
 // #define CODE_FLASH
 #define EXTERNAL_FLASH    //W25Q64 -- 8MByte

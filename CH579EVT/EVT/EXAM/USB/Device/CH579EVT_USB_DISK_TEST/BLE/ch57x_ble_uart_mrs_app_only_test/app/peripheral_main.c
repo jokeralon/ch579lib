@@ -11,7 +11,6 @@
 
 #include "CH57x_common.h"
 #include "ch57x_usb_device_msc.h"
-#include "spi_flash.h"
 #include "ff.h"
 #include "hal_device.h"
 #include "hal_spi.h"

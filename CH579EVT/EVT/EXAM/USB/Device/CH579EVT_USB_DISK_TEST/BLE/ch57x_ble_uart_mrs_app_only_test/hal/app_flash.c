@@ -8,7 +8,7 @@ hal_spi_config_t spi0_config = {
     .write = APP_FLASH_FUNC_WRITE,
     .callback = NULL,
 };
-0 
+
 int app_flash_fd = -1;
 #define SPI0_CS_LOW() GPIOA_ResetBits(bSCS)
 #define SPI0_CS_HIGH() GPIOA_SetBits(bSCS)

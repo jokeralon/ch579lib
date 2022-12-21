@@ -2,6 +2,8 @@
 
 #include "ch57x_code_flash.h"
 
+#include "app_flash.h"
+
 
 /*
     ---------------------- Device Descriptor ----------------------
