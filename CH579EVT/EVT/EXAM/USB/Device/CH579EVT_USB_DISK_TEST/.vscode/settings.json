@@ -7,7 +7,15 @@
         "diskio.h": "c",
         "ch57x_common.h": "c",
         "ch57x_uart.h": "c",
-        "integer.h": "c"
+        "integer.h": "c",
+        "bsp_spi.h": "c",
+        "stdio.h": "c",
+        "bsp_log.h": "c",
+        "ch579sfr.h": "c",
+        "hal_device.h": "c",
+        "ff.h": "c",
+        "hal_spi.h": "c",
+        "app_flash.h": "c"
     },
     "editor.tabSize": 4
 }

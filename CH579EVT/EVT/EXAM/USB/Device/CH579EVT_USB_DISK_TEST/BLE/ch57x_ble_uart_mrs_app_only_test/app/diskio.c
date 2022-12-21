@@ -8,7 +8,7 @@
 /*-----------------------------------------------------------------------*/
 
 #include "diskio.h" /* FatFs lower layer API */
-#include "spi_flash.h"
+#include "app_flash.h"
 /* Definitions of physical drive number for each drive */
 // #define DEV_RAM 0 /* Example: Map Ramdisk to physical drive 0 */
 // #define DEV_MMC 1 /* Example: Map MMC/SD card to physical drive 1 */
@@ -112,7 +112,7 @@ DSTATUS disk_initialize(
 		// 	return stat;
 
 	case DEV_SPI:
-		spi_flash_init();
+		app_flash_init();
 		status = disk_status(DEV_SPI);
 		break;
 	default:

@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/BLE/ch57x_ble_uart_mrs_app_only_test/**",
+                "${workspaceFolder}/BLE/ch57x_ble_uart_mrs_app_only_test/hal/include",
+                "${workspaceFolder}/BLE/ch57x_ble_uart_mrs_app_only_test/app/include",
+                "${workspaceFolder}/BLE/ch57x_ble_uart_mrs_app_only_test/bsp/include",
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.19041.0",
+            "compilerPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.32.31326/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64",
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
+    ],
+    "version": 4
+}

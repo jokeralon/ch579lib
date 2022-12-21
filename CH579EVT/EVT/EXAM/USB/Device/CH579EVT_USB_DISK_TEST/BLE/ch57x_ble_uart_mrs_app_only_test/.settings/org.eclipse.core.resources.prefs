@@ -3,3 +3,4 @@ encoding//app/ch57x_usb_device_msc.c=UTF-8
 encoding//app/diskio.c=UTF-8
 encoding//app/include/ch57x_usb_device_msc.h=UTF-8
 encoding//app/peripheral_main.c=UTF-8
+encoding//hal/app_flash.c=UTF-8

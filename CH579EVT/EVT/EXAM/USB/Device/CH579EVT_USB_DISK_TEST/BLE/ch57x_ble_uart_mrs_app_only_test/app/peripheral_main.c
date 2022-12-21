@@ -13,6 +13,11 @@
 #include "ch57x_usb_device_msc.h"
 #include "spi_flash.h"
 #include "ff.h"
+#include "hal_device.h"
+#include "hal_spi.h"
+#include "bsp_spi.h"
+#include "bsp_log.h"
+#include "app_flash.h"
 
 FATFS fs;          /* FatFs文件系统对象 */
 FIL fnew;          /* 文件对象 */
@@ -47,35 +52,6 @@ void DebugInit(void)
 #endif
 }
 
-void fatfs_test(UINT8 *cmd, UINT16 len)
-{
-    if (memcmp(cmd, "mount", len - 1) == 0)
-    {
-        res_flash = f_mount(&fs, "0:", 1);
-        if (res_flash == FR_OK)
-        {
-            PRINT("mount ok\n");
-        }
-    }
-    if (memcmp(cmd, "open", len - 1) == 0)
-    {
-        res_flash = f_open(&fnew, "0:open.txt", FA_CREATE_ALWAYS | FA_WRITE);
-        if (res_flash == FR_OK)
-        {
-            PRINT("open ok\n");
-        }
-    }
-    if (memcmp(cmd, "write", len - 1) == 0)
-    {
-        res_flash = f_write(&fnew, WriteBuffer2, sizeof(WriteBuffer2), &fnum);
-        if (res_flash == FR_OK)
-        {
-            PRINT("write ok\n");
-            PRINT("this file written ok, number of data: %d\n", fnum);
-        }
-        f_close(&fnew);
-    }
-}
 UINT8 work[4096];
 int main()
 {
@@ -85,16 +61,9 @@ int main()
     
     DebugInit();
     
-    PRINT( "Start @ChipID=%02X\n", R8_CHIP_ID );
-    
-    // spi_flash_init();
-    // EraseExternalAllFlash_SPI();
+    LOG_INFO( "Start @ChipID=%02X\n", R8_CHIP_ID );
 
-    // PRINT("erase ok\n");
-    // while (1)
-    // {
-    //     ;
-    // }
+    app_flash_init();
 
     res_flash = f_mount(&fs, "0:", 1);
 
@@ -102,15 +71,15 @@ int main()
     /* 如果没有文件系统就格式化创建创建文件系统 */
     if (res_flash == FR_NO_FILESYSTEM)
     {
-        PRINT("FLASH does not have a file system yet, it will be formatted soon ...\r\n");
+        LOG_INFO("FLASH does not have a file system yet, it will be formatted soon ...\r\n");
         /* 格式化 */
         res_flash=f_mkfs("0:",FM_FAT,0, work, sizeof(work));
 
-        PRINT("f_mkfs ret: %d\n", res_flash);
+        LOG_INFO("f_mkfs ret: %d\n", res_flash);
 
         if (res_flash == FR_OK)
         {
-            PRINT("FLASH have a file system yet\r\n");
+            LOG_INFO("FLASH have a file system yet\r\n");
             /* 格式化后，先取消挂载 */
             res_flash = f_mount(NULL, "0:", 1);
             /* 重新挂载	*/
@@ -118,68 +87,68 @@ int main()
         }
         else
         {
-            PRINT("FLASH format error\r\n");
+            LOG_INFO("FLASH format error\r\n");
             while (1)
                 ;
         }
     }
     else if (res_flash != FR_OK)
     {
-        PRINT("external FLASH mount file system error, code :%d\r\n", res_flash);
+        LOG_INFO("external FLASH mount file system error, code :%d\r\n", res_flash);
         while (1)
             ;
     }
     else
     {
-        PRINT("file system mount ok, Read and write tests are available");
+        LOG_INFO("file system mount ok, Read and write tests are available");
     }
 
     /*----------------------- 文件系统测试：写测试 -------------------*/
     /* 打开文件，每次都以新建的形式打开，属性为可写 */
-    PRINT("\r\n****** File write test is about to be performed... ******\r\n");
+    LOG_INFO("\r\n****** File write test is about to be performed... ******\r\n");
     res_flash = f_open(&fnew, "0:test.txt", FA_CREATE_ALWAYS | FA_WRITE);
     if (res_flash == FR_OK)
     {
-        PRINT("open/create FatFs read/write test file, \"test.txt\" create ok, write date to this file\r\n");
+        LOG_INFO("open/create FatFs read/write test file, \"test.txt\" create ok, write date to this file\r\n");
         /* 将指定存储区内容写入到文件内 */
         res_flash = f_write(&fnew, WriteBuffer, sizeof(WriteBuffer), &fnum);
         if (res_flash == FR_OK)
         {
-            PRINT("this file written ok, number of data: %d\n", fnum);
-            PRINT("writed data as: \r\n%s\r\n", WriteBuffer);
+            LOG_INFO("this file written ok, number of data: %d\n", fnum);
+            LOG_INFO("writed data as: \r\n%s\r\n", WriteBuffer);
         }
         else
         {
-            PRINT("write file error, code: %d\n", res_flash);
+            LOG_INFO("write file error, code: %d\n", res_flash);
         }
         /* 不再读写，关闭文件 */
         f_close(&fnew);
     }
     else
     {
-        PRINT("open/create file error\r\n");
+        LOG_INFO("open/create file error\r\n");
     }
 
     /*------------------- 文件系统测试：读测试 --------------------------*/
-    PRINT("****** File read test coming... ******\r\n");
+    LOG_INFO("****** File read test coming... ******\r\n");
     res_flash = f_open(&fnew, "0:test.txt", FA_OPEN_EXISTING | FA_READ);
     if (res_flash == FR_OK)
     {
-        PRINT("open file ok\r\n");
+        LOG_INFO("open file ok\r\n");
         res_flash = f_read(&fnew, ReadBuffer, sizeof(ReadBuffer), &fnum);
         if (res_flash == FR_OK)
         {
-            PRINT("The file was read successfully. Byte data was read: %d\r\n", fnum);
-            PRINT("The file data obtained by reading is:\r\n%s \r\n", ReadBuffer);
+            LOG_INFO("The file was read successfully. Byte data was read: %d\r\n", fnum);
+            LOG_INFO("The file data obtained by reading is:\r\n%s \r\n", ReadBuffer);
         }
         else
         {
-            PRINT("read file error, code: %d\n", res_flash);
+            LOG_INFO("read file error, code: %d\n", res_flash);
         }
     }
     else
     {
-        PRINT("open file error\r\n");
+        LOG_INFO("open file error\r\n");
     }
     /* 不再读写，关闭文件 */
     f_close(&fnew);
@@ -197,7 +166,7 @@ int main()
         if (uart0_read_flag == 1)
         {
             UART0_SendString(uart0_read_buf, uart0_read_len);
-            fatfs_test(uart0_read_buf, uart0_read_len);
+            // fatfs_test(uart0_read_buf, uart0_read_len);
             uart0_read_len = 0;
             uart0_read_flag = 0;
         }
@@ -223,7 +192,7 @@ void UART0_IRQHandler(void)
     {
     case UART_II_LINE_STAT: // 线路状态错误
         UART0_GetLinSTA();
-        PRINT("UART0 LINE ERROR");
+        LOG_INFO("UART0 LINE ERROR");
         break;
 
     case UART_II_RECV_RDY: // 数据达到设置触发点
