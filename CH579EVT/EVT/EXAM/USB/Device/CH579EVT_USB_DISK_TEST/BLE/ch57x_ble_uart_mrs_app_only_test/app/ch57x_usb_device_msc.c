@@ -2,7 +2,7 @@
 
 #include "ch57x_code_flash.h"
 
-#include "app_flash.h"
+#include "hal_flash.h"
 
 
 /*
@@ -462,7 +462,7 @@ void UFI_write(void )
 	#ifdef EXTERNAL_FLASH
     // const sfud_flash *flash = sfud_get_device_table() + 0;
 	for(i=0;i<num;i++){
-		EraseExternal4KFlash_SPI(Locate_Addr + i*DISK_SEC_LEN); 
+		hal_flash_erase_4k_flash(Locate_Addr + i*DISK_SEC_LEN); 
         // sfud_erase(flash, Locate_Addr + i*DISK_SEC_LEN, 4096);
     }
 	#endif
@@ -681,7 +681,7 @@ void CH375bulkUpData(void)    //调用端点1上传数据
 	if(pBuf_ReSelect)
 	{
 		#ifdef EXTERNAL_FLASH
-			BlukReadExternalFlash_SPI(Locate_Addr,len,&EP1_Databuf[MAX_PACKET_SIZE]);
+			hal_flash_read(Locate_Addr,len,&EP1_Databuf[MAX_PACKET_SIZE]);
         // const sfud_flash *flash = sfud_get_device_table() + 0;
         // sfud_read(flash, Locate_Addr, len, &EP1_Databuf[MAX_PACKET_SIZE]);
 
@@ -717,7 +717,7 @@ void mCH375BulkDownData(void)
 		buffer[i]=EP1_Databuf[i];	//将数据读入到缓冲区
 	
 	#ifdef EXTERNAL_FLASH
-		BlukWriteExternalFlash_SPI(Locate_Addr,len,&buffer[0]);
+		hal_flash_write(Locate_Addr,len,&buffer[0]);
     
         // const sfud_flash *flash = sfud_get_device_table() + 0;
         // sfud_write(flash, Locate_Addr, len, &buffer[0]);

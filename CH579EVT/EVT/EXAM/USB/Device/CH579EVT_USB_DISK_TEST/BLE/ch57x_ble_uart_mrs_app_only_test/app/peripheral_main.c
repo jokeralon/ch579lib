@@ -16,7 +16,7 @@
 #include "hal_spi.h"
 #include "bsp_spi.h"
 #include "bsp_log.h"
-#include "app_flash.h"
+#include "hal_flash.h"
 
 FATFS fs;          /* FatFs文件系统对象 */
 FIL fnew;          /* 文件对象 */
@@ -61,8 +61,6 @@ int main()
     DebugInit();
     
     LOG_INFO( "Start @ChipID=%02X\n", R8_CHIP_ID );
-
-    app_flash_init();
 
     res_flash = f_mount(&fs, "0:", 1);
 

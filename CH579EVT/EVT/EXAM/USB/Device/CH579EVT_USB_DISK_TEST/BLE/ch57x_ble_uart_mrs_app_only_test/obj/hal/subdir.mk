@@ -4,17 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../hal/app_flash.c \
+../hal/hal_flash.c \
 ../hal/hal_device.c \
 ../hal/hal_spi.c 
 
 OBJS += \
-./hal/app_flash.o \
+./hal/hal_flash.o \
 ./hal/hal_device.o \
 ./hal/hal_spi.o 
 
 C_DEPS += \
-./hal/app_flash.d \
+./hal/hal_flash.d \
 ./hal/hal_device.d \
 ./hal/hal_spi.d 
 

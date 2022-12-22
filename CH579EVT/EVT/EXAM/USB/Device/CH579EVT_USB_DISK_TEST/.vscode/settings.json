@@ -15,7 +15,9 @@
         "hal_device.h": "c",
         "ff.h": "c",
         "hal_spi.h": "c",
-        "app_flash.h": "c"
+        "app_flash.h": "c",
+        "string.h": "c",
+        "stdarg.h": "c"
     },
     "editor.tabSize": 4
 }
