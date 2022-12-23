@@ -7,3 +7,8 @@
 # /sources.mk
 # /bsp/
 # /hal/
+/Startup/
+/StdPeriphDriver/
+/app/
+/bsp/
+/hal/

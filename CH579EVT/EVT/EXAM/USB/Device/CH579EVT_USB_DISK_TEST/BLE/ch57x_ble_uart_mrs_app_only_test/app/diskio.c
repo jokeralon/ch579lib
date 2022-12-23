@@ -8,7 +8,7 @@
 /*-----------------------------------------------------------------------*/
 
 #include "diskio.h" /* FatFs lower layer API */
-#include "hal_flash.h"
+#include "app_flash.h"
 /* Definitions of physical drive number for each drive */
 // #define DEV_RAM 0 /* Example: Map Ramdisk to physical drive 0 */
 // #define DEV_MMC 1 /* Example: Map MMC/SD card to physical drive 1 */
@@ -61,7 +61,7 @@ DSTATUS disk_status(
 
 	case DEV_SPI:
 
-		if (SPIFlash_ReadID() == 0XEF16)
+		if (app_flash_read_flashID() == 0XEF16)
 		{
 			/* 设备ID读取结果正确 */
 			status &= ~STA_NOINIT;
@@ -112,7 +112,7 @@ DSTATUS disk_initialize(
 		// 	return stat;
 
 	case DEV_SPI:
-		hal_flash_init();
+		app_flash_init();
 		status = disk_status(DEV_SPI);
 		break;
 	default:
@@ -287,16 +287,16 @@ DRESULT disk_ioctl(
 
 void spi_disk_read(UINT8 *buff, UINT32 sector, UINT16 count)
 {
-	hal_flash_read(sector, count, (PUINT8)buff);
+	app_flash_read(sector, count, (PUINT8)buff);
 }
 
 void spi_disk_write(UINT8 *buff, UINT32 sector, UINT16 count)
 {
-	hal_flash_write(sector, count, (PUINT8)buff);
+	app_flash_write(sector, count, (PUINT8)buff);
 
 	DelayMs(20);
 }
 void spi_disk_erase(UINT32 sector)
 {
-	hal_flash_erase_4k_flash(sector);
+	app_flash_erase_4k_flash(sector);
 }

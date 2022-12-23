@@ -1,12 +1,12 @@
 #include "hal_spi.h"
 
-hal_device_t *hal_spi_device_list[MAX_SPI_NUMBER];
-hal_spi_config_t *local_spi_list[MAX_SPI_NUMBER];
+bsp_device_t *hal_spi_device_list[HAL_SPI_MAX_NUMBER];
+hal_spi_config_t *local_spi_list[HAL_SPI_MAX_NUMBER];
 
 static int hal_spi_find(const char *device_name)
 {
     int index = 0;
-    for (; index < MAX_SPI_NUMBER; index++)
+    for (; index < HAL_SPI_MAX_NUMBER; index++)
     {
         if (local_spi_list[index] == NULL)
             continue;
@@ -24,7 +24,7 @@ int hal_spi_open(const char *pathname, int flags)
     int i = 0;
     i = hal_spi_find(pathname);
     if (i < 0)
-        return i;
+        return HAL_SPI_FAIL;
 
     return (*local_spi_list[i]).init();
 }
@@ -32,7 +32,7 @@ int hal_spi_open(const char *pathname, int flags)
 int hal_spi_write(int fd, void *buf, int count)
 {
     hal_spi_data_buff_t *spi_data = (hal_spi_data_buff_t *)buf;
-    for (int i = 0; i < MAX_SPI_NUMBER; i++)
+    for (int i = 0; i < HAL_SPI_MAX_NUMBER; i++)
     {
         if (local_spi_list[i] == NULL)
             continue;
@@ -47,7 +47,7 @@ int hal_spi_write(int fd, void *buf, int count)
 int hal_spi_read(int fd, void *buf, int count)
 {
     hal_spi_data_buff_t *spi_data = (hal_spi_data_buff_t *)buf;
-    for (int i = 0; i < MAX_SPI_NUMBER; i++)
+    for (int i = 0; i < HAL_SPI_MAX_NUMBER; i++)
     {
         if (local_spi_list[i] == NULL)
             continue;
@@ -61,13 +61,13 @@ int hal_spi_read(int fd, void *buf, int count)
 
 int hal_spi_close(int fd)
 {
-    for (int i = 0; i < MAX_SPI_NUMBER; i++)
+    for (int i = 0; i < HAL_SPI_MAX_NUMBER; i++)
     {
         if (local_spi_list[i] == NULL)
             continue;
         if (local_spi_list[i]->fd == fd)
         {
-            return (*local_spi_list[i]).init();
+            return (*local_spi_list[i]).deinit();
         }
     }
 
@@ -78,7 +78,7 @@ int hal_spi_init(hal_spi_config_t *spi_config)
     if (spi_config == NULL)
         return HAL_SPI_FAIL;
 
-    for (int index = 0; index < MAX_SPI_NUMBER; index++)
+    for (int index = 0; index < HAL_SPI_MAX_NUMBER; index++)
     {
         if (hal_spi_device_list[index] != NULL)
         {
@@ -89,13 +89,13 @@ int hal_spi_init(hal_spi_config_t *spi_config)
             }
         }
     }
-    for (int index = 0; index < MAX_SPI_NUMBER; index++)
+    for (int index = 0; index < HAL_SPI_MAX_NUMBER; index++)
     {
         if (hal_spi_device_list[index] == NULL)
         {
             local_spi_list[index] = spi_config;
 
-            hal_spi_device_list[index] = malloc(sizeof(hal_device_t));
+            hal_spi_device_list[index] = malloc(sizeof(bsp_device_t));
             memcpy(hal_spi_device_list[index]->name, spi_config->name, sizeof(spi_config->name));
 
             hal_spi_device_list[index]->open = hal_spi_open;
@@ -103,7 +103,7 @@ int hal_spi_init(hal_spi_config_t *spi_config)
             hal_spi_device_list[index]->read = hal_spi_read;
             hal_spi_device_list[index]->close = hal_spi_close;
 
-            local_spi_list[index]->fd = hal_device_register(hal_spi_device_list[index]);
+            local_spi_list[index]->fd = bsp_device_register(hal_spi_device_list[index]);
 
             if (local_spi_list[index]->fd < 0)
                 return HAL_SPI_FAIL;

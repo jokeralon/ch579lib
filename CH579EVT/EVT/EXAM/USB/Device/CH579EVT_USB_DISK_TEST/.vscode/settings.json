@@ -12,12 +12,20 @@
         "stdio.h": "c",
         "bsp_log.h": "c",
         "ch579sfr.h": "c",
-        "hal_device.h": "c",
+        "bsp_device.h": "c",
         "ff.h": "c",
         "hal_spi.h": "c",
         "app_flash.h": "c",
         "string.h": "c",
-        "stdarg.h": "c"
+        "stdarg.h": "c",
+        "hal_log.h": "c",
+        "bsp_uart.h": "c",
+        "stdint.h": "c",
+        "app_uart.h": "c",
+        "hal_uart.h": "c",
+        "bsp_led.h": "c",
+        "hal_led.h": "c",
+        "app_led.h": "c"
     },
     "editor.tabSize": 4
 }

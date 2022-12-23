@@ -5,12 +5,11 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "CH57x_common.h"
-
-#include "hal_device.h"
+#include "bsp_spi.h"
+#include "bsp_device.h"
 #include "bsp_log.h"
 
-#define MAX_SPI_NUMBER  2
+#define HAL_SPI_MAX_NUMBER  BSP_SPI_MAX_NUMBER
 
 typedef void (*hal_spi_callback_t)(void *param, uint8_t event);
 typedef int (*hal_spi_init_t)(void);
@@ -35,7 +34,7 @@ typedef enum hal_spi_event_e
     HAL_SPI_EVENT_WRITE_FAIL,
     HAL_SPI_EVENT_READ_OK,
     HAL_SPI_EVENT_READ_FAIL,
-}hal_spi_event_e;
+}hal_spi_event_t;
 
 typedef struct hal_spi_data_buff_t
 {

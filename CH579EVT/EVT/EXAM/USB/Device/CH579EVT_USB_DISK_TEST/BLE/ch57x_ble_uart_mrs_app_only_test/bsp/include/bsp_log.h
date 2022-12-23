@@ -16,10 +16,7 @@
 #define LOG_LEVEL LEVEL_DEBUG
 
 
-int bsp_log_send_error(const char *__format, ...);
-int bsp_log_send_warn(const char *__format, ...);
-int bsp_log_send_info(const char *__format, ...);
-int bsp_log_send_debug(const char *__format, ...);
+int bsp_log_send_write(int level, const char *__format, ...);
 
 // windows:
 // #define filename(x) strrchr(x,'\\')?strrchr(x,'\\')+1:x
@@ -60,9 +57,9 @@ int bsp_log_send_debug(const char *__format, ...);
 // #define LOG_DEBUG(fmt, ...) PRINT("[DEBUG] %-17s(%d):" fmt, filename(__FILE__), __LINE__, ##__VA_ARGS__)
 // #endif
 
-#define LOG_ERROR(fmt, ...) bsp_log_send_error("[ERROR] %-17s(%d):" fmt, filename(__FILE__), __LINE__, ##__VA_ARGS__)
-#define LOG_WARN(fmt, ...) bsp_log_send_warn("[WARN ] %-17s(%d):" fmt, filename(__FILE__), __LINE__, ##__VA_ARGS__)
-#define LOG_INFO(fmt, ...) bsp_log_send_info("[INFO ] %-17s(%d):" fmt, filename(__FILE__), __LINE__, ##__VA_ARGS__)
-#define LOG_DEBUG(fmt, ...) bsp_log_send_debug("[DEBUG] %-17s(%d):" fmt, filename(__FILE__), __LINE__, ##__VA_ARGS__)
+#define LOG_ERROR(fmt, ...)     bsp_log_send_write(LEVEL_ERROR, "[ERROR] %-17s(%d):" fmt, filename(__FILE__), __LINE__, ##__VA_ARGS__)
+#define LOG_WARN(fmt, ...)      bsp_log_send_write(LEVEL_WARN,  "[WARN ] %-17s(%d):" fmt, filename(__FILE__), __LINE__, ##__VA_ARGS__)
+#define LOG_INFO(fmt, ...)      bsp_log_send_write(LEVEL_INFO, "[INFO ] %-17s(%d):" fmt, filename(__FILE__), __LINE__, ##__VA_ARGS__)
+#define LOG_DEBUG(fmt, ...)     bsp_log_send_write(LEVEL_DEBUG, "[DEBUG] %-17s(%d):" fmt, filename(__FILE__), __LINE__, ##__VA_ARGS__)
 
 #endif

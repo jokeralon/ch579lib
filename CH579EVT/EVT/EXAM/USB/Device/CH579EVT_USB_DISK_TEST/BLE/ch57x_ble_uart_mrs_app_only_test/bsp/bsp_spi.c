@@ -14,7 +14,6 @@ int bsp_spi0_init()
 
 int bsp_spi0_deinit()
 {
-    
     ;
 }
 

@@ -5,6 +5,7 @@
 #include "CH57x_common.h"
 #include "bsp_log.h"
 
+#define BSP_SPI_MAX_NUMBER  1
 
 int bsp_spi0_init();
 

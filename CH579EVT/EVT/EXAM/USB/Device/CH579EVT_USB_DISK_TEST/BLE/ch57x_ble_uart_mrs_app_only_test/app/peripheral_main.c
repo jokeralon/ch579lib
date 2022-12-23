@@ -12,11 +12,13 @@
 #include "CH57x_common.h"
 #include "ch57x_usb_device_msc.h"
 #include "ff.h"
-#include "hal_device.h"
+#include "bsp_device.h"
 #include "hal_spi.h"
 #include "bsp_spi.h"
 #include "bsp_log.h"
-#include "hal_flash.h"
+#include "app_flash.h"
+#include "app_uart.h"
+#include "app_led.h"
 
 FATFS fs;          /* FatFs文件系统对象 */
 FIL fnew;          /* 文件对象 */
@@ -54,13 +56,28 @@ void DebugInit(void)
 UINT8 work[4096];
 int main()
 {
-    SetSysClock( CLK_SOURCE_HSE_32MHz );
-    PWR_UnitModCfg( ENABLE, UNIT_SYS_PLL );		// ��PLL
+    SetSysClock(CLK_SOURCE_HSE_32MHz);
+    PWR_UnitModCfg(ENABLE, UNIT_SYS_PLL); // ��PLL
     DelayMs(5);
-    
-    DebugInit();
-    
-    LOG_INFO( "Start @ChipID=%02X\n", R8_CHIP_ID );
+
+    app_uart_init();
+    app_led1_init();
+
+    int led1_fd = bsp_device_open("led1", 0);
+    int uart_fd = bsp_device_open("uart0", 0);
+
+    hal_led_data_buff_t led_data = {
+        .status = 1,
+    };
+    hal_uart_data_buff_t uart_msg = {
+        .buff = WriteBuffer2,
+        .len = sizeof("asdfghjklzxcvbnmqwertyuiop\r\n"),
+    };
+
+    bsp_device_write(led1_fd, &led_data, 0);
+    bsp_device_write(uart_fd, &uart_msg, 0);
+
+    LOG_INFO("Start @ChipID=%02X\n", R8_CHIP_ID);
 
     res_flash = f_mount(&fs, "0:", 1);
 
@@ -70,7 +87,7 @@ int main()
     {
         LOG_INFO("FLASH does not have a file system yet, it will be formatted soon ...\r\n");
         /* 格式化 */
-        res_flash=f_mkfs("0:",FM_FAT,0, work, sizeof(work));
+        res_flash = f_mkfs("0:", FM_FAT, 0, work, sizeof(work));
 
         LOG_INFO("f_mkfs ret: %d\n", res_flash);
 

@@ -1,79 +1,79 @@
-#include "hal_flash.h"
+#include "app_flash.h"
 
 hal_spi_config_t spi0_config = {
-    .name = HAL_FLASH_DEVICE_NAME,
-    .init = HAL_FLASH_FUNC_INIT,
-    .deinit = HAL_FLASH_FUNC_DEINIT,
-    .read = HAL_FLASH_FUNC_READ,
-    .write = HAL_FLASH_FUNC_WRITE,
+    .name = APP_FLASH_DEVICE_NAME,
+    .init = APP_FLASH_FUNC_INIT,
+    .deinit = APP_FLASH_FUNC_DEINIT,
+    .read = APP_FLASH_FUNC_READ,
+    .write = APP_FLASH_FUNC_WRITE,
     .callback = NULL,
 };
 
-int hal_flash_fd = -1;
+int app_flash_fd = -1;
 
 
 
 /*******************************************************************************
- * Function Name  : hal_flash_read_status_reg
+ * Function Name  : app_flash_read_status_reg
  * Description    : 用来读取状态寄存器,并返回状态寄存器的值
  * Input          : None
  * Output         : None
  * Return         : ExFlashRegStatus
  *******************************************************************************/
-uint8_t hal_flash_read_status_reg()
+uint8_t app_flash_read_status_reg()
 {
     UINT8 ExFlashRegStatus;
 
     hal_spi_data_buff_t spi_data_buff = {
-        .cmd = HAL_FLASH_CMD_STATUS1,
+        .cmd = APP_FLASH_CMD_STATUS1,
         .addr = 0x00,
         .addr_len = 0,
         .len = 1,
         .buff = &ExFlashRegStatus,
     };
 
-    hal_device_read(hal_flash_fd, &spi_data_buff, 0);
+    bsp_device_read(app_flash_fd, &spi_data_buff, 0);
 
     return ExFlashRegStatus;
 }
 
 /*******************************************************************************
- * Function Name  : hal_flash_wait_busy
+ * Function Name  : app_flash_wait_busy
  * Description    : 等待芯片空闲(在执行Byte-Program, Sector-Erase, Block-Erase, Chip-Erase操作后)
  * Input          : None
  * Output         : None
  * Return         : None
  *******************************************************************************/
-void hal_flash_wait_busy(void)
+void app_flash_wait_busy(void)
 {
-    while ((hal_flash_read_status_reg()) & 0x01 == 0x01)
+    while ((app_flash_read_status_reg()) & 0x01 == 0x01)
     {
         ; // 等待直到Flash空闲
     }
 }
 
 /*******************************************************************************
- * Function Name  : hal_flash_write_enable
+ * Function Name  : app_flash_write_enable
  * Description    : 写使能,同样可以用于使能写状态寄存器
  * Input          : None
  * Output         : None
  * Return         : None
  *******************************************************************************/
-void hal_flash_write_enable(void)
+void app_flash_write_enable(void)
 {
     hal_spi_data_buff_t spi_data_buff = {
-        .cmd = HAL_FLASH_CMD_WR_ENABLE,
+        .cmd = APP_FLASH_CMD_WR_ENABLE,
         .addr = 0x00,
         .addr_len = 0,
         .len = 0,
         .buff = NULL,
     };
 
-    hal_device_write(hal_flash_fd, &spi_data_buff, 0);
+    bsp_device_write(app_flash_fd, &spi_data_buff, 0);
 }
 
 /*******************************************************************************
- * Function Name  : hal_flash_write_bytes
+ * Function Name  : app_flash_write_bytes
  * Description    : 页写；SPI在一页(0~65535)内写入少于256个字节的数据
  * Input          : RcvBuffer:数据存储区
  *                  StarAddr:开始写入的地址
@@ -81,89 +81,85 @@ void hal_flash_write_enable(void)
  * Output         : None
  * Return         : None
  *******************************************************************************/
-static void hal_flash_write_bytes(UINT32 StarAddr, uint16_t addr_len, UINT16 Len, PUINT8 RcvBuffer)
+static void app_flash_write_bytes(UINT32 StarAddr, uint16_t addr_len, UINT16 Len, PUINT8 RcvBuffer)
 {
     UINT16 i;
-    hal_flash_write_enable(); // SET WEL
+    app_flash_write_enable(); // SET WEL
     hal_spi_data_buff_t spi_data_buff = {
-        .cmd = HAL_FLASH_CMD_PAGE_PROG,
+        .cmd = APP_FLASH_CMD_PAGE_PROG,
         .addr = StarAddr,
         .addr_len = addr_len,
         .len = Len,
         .buff = RcvBuffer,
     };
 
-    hal_device_write(hal_flash_fd, &spi_data_buff, 0);
-    hal_flash_wait_busy(); // 等待写入结束
+    bsp_device_write(app_flash_fd, &spi_data_buff, 0);
+    app_flash_wait_busy(); // 等待写入结束
 }
 /*******************************************************************************
  * Function Name  : ReadExternalFlash_SPI
  * Description    : 读取地址的数据.
  *******************************************************************************/
-static void hal_flash_read_bytes(UINT32 StarAddr, uint16_t addr_len, UINT16 Len, PUINT8 RcvBuffer)
+static void app_flash_read_bytes(UINT32 StarAddr, uint16_t addr_len, UINT16 Len, PUINT8 RcvBuffer)
 {
     hal_spi_data_buff_t spi_data_buff = {
-        .cmd = HAL_FLASH_CMD_READ_DATA,
+        .cmd = APP_FLASH_CMD_READ_DATA,
         .addr = StarAddr,
         .addr_len = addr_len,
         .len = Len,
         .buff = RcvBuffer,
     };
 
-    hal_device_read(hal_flash_fd, &spi_data_buff, 0);
+    bsp_device_read(app_flash_fd, &spi_data_buff, 0);
 }
 
 
 /*******************************************************************************
- * Function Name  : hal_flash_erase_4k_flash
+ * Function Name  : app_flash_erase_4k_flash
  * Description    : 擦除4K Flash  擦除一个扇区
  * Input          : Dst_Addr 0-1 ffff ffff ,清除任意地址所在的扇区。
  * Output         : None
  * Return         : None
  *******************************************************************************/
-void hal_flash_erase_4k_flash(UINT32 Dst_Addr)
+void app_flash_erase_4k_flash(UINT32 Dst_Addr)
 {
-    hal_flash_write_enable();
-    hal_flash_wait_busy();
+    app_flash_write_enable();
+    app_flash_wait_busy();
 
     hal_spi_data_buff_t spi_data_buff = {
-        .cmd = HAL_FLASH_CMD_ERASE_4KBYTE,
+        .cmd = APP_FLASH_CMD_ERASE_4KBYTE,
         .addr = Dst_Addr,
         .addr_len = 3,
         .len = 0,
         .buff = NULL,
     };
 
-    hal_device_write(hal_flash_fd, &spi_data_buff, 0);
-    hal_flash_wait_busy();
+    bsp_device_write(app_flash_fd, &spi_data_buff, 0);
+    app_flash_wait_busy();
 }
 /*******************************************************************************
- * Function Name  : hal_flash_erase_4k_flash
+ * Function Name  : app_flash_erase_4k_flash
  * Description    : 擦除全部flash
  * Input          : None
  * Output         : None
  * Return         : None
  *******************************************************************************/
-void hal_flash_erase_all_flash(void)
+void app_flash_erase_all_flash(void)
 {
-    hal_flash_write_enable();
-    hal_flash_wait_busy();
-#if USER_BSP_LIB == 0
-    SPI0_CS_LOW();
-    SPI0_MasterSendByte(HAL_FLASH_CMD_ERASE_CHIP); // 扇区擦除命令
-    SPI0_CS_HIGH();
-#else
+    app_flash_write_enable();
+    app_flash_wait_busy();
+
     hal_spi_data_buff_t spi_data_buff = {
-        .cmd = HAL_FLASH_CMD_ERASE_CHIP,
+        .cmd = APP_FLASH_CMD_ERASE_CHIP,
         .addr = 0x00,
         .addr_len = 0,
         .len = 0,
         .buff = NULL,
     };
 
-    hal_device_write(hal_flash_fd, &spi_data_buff, 0);
-#endif
-    hal_flash_wait_busy();
+    bsp_device_write(app_flash_fd, &spi_data_buff, 0);
+
+    app_flash_wait_busy();
 }
 /*******************************************************************************
  * Function Name  : EraseExternalFlash_SPI
@@ -172,32 +168,25 @@ void hal_flash_erase_all_flash(void)
  * Output         : None
  * Return         : None
  *******************************************************************************/
-void hal_flash_erase_32k_flash(UINT32 Dst_Addr)
+void app_flash_erase_32k_flash(UINT32 Dst_Addr)
 {
-    hal_flash_write_enable();
-    hal_flash_wait_busy();
-#if USER_BSP_LIB == 0
-    SPI0_CS_LOW();
-    SPI0_MasterSendByte(HAL_FLASH_CMD_ERASE_32KBYTE);   // 32K擦除命令
-    SPI0_MasterSendByte(((Dst_Addr & 0xFFFFFF) >> 16)); // 发送3字节地址
-    SPI0_MasterSendByte(((Dst_Addr & 0xFFFF) >> 8));
-    SPI0_MasterSendByte(Dst_Addr & 0xFF);
-    SPI0_CS_HIGH();
-#else
+    app_flash_write_enable();
+    app_flash_wait_busy();
+
     hal_spi_data_buff_t spi_data_buff = {
-        .cmd = HAL_FLASH_CMD_ERASE_32KBYTE,
+        .cmd = APP_FLASH_CMD_ERASE_32KBYTE,
         .addr = Dst_Addr,
         .addr_len = 3,
         .len = 0,
         .buff = NULL,
     };
 
-    hal_device_write(hal_flash_fd, &spi_data_buff, 0);
-#endif
-    hal_flash_wait_busy();
+    bsp_device_write(app_flash_fd, &spi_data_buff, 0);
+
+    app_flash_wait_busy();
 }
 /*******************************************************************************
- * Function Name  : hal_flash_write
+ * Function Name  : app_flash_write
  * Description    : 无检验写SPI FLASH
  *                  必须确保所写的地址范围内的数据全部为0XFF,否则在非0XFF处写入的数据将失败!
  *                  具有自动换页功能
@@ -208,7 +197,7 @@ void hal_flash_erase_32k_flash(UINT32 Dst_Addr)
  * Output         : None
  * Return         : None
  *******************************************************************************/
-void hal_flash_write(UINT32 StarAddr, UINT16 Len, PUINT8 SendBuffer)
+void app_flash_write(UINT32 StarAddr, UINT16 Len, PUINT8 SendBuffer)
 {
     UINT16 pageremain;
 
@@ -219,7 +208,7 @@ void hal_flash_write(UINT32 StarAddr, UINT16 Len, PUINT8 SendBuffer)
     }
     while (1)
     {
-        hal_flash_write_bytes(StarAddr, 3, pageremain, SendBuffer);
+        app_flash_write_bytes(StarAddr, 3, pageremain, SendBuffer);
         if (Len == pageremain)
         {
             break; // 写入结束了
@@ -242,7 +231,7 @@ void hal_flash_write(UINT32 StarAddr, UINT16 Len, PUINT8 SendBuffer)
 }
 
 /*******************************************************************************
-* Function Name  : hal_flash_read
+* Function Name  : app_flash_read
 * Description    : 读取起始地址(StarAddr)内多个字节(Len)的数据.存入缓冲区RcvBuffer中
 * Input          : StarAddr -Destination Address 000000H - 1FFFFFH
                    Len 读取数据长度
@@ -250,7 +239,7 @@ void hal_flash_write(UINT32 StarAddr, UINT16 Len, PUINT8 SendBuffer)
 * Output         : None
 * Return         : None
 // *******************************************************************************/
-void hal_flash_read(UINT32 StarAddr, UINT16 Len, PUINT8 RcvBuffer)
+void app_flash_read(UINT32 StarAddr, UINT16 Len, PUINT8 RcvBuffer)
 {
 
     UINT16 pageremain;
@@ -262,7 +251,7 @@ void hal_flash_read(UINT32 StarAddr, UINT16 Len, PUINT8 RcvBuffer)
     }
     while (1)
     {
-        hal_flash_read_bytes(StarAddr, 3, pageremain, RcvBuffer);
+        app_flash_read_bytes(StarAddr, 3, pageremain, RcvBuffer);
         if (Len == pageremain)
         {
             break; // 写入结束了
@@ -285,7 +274,7 @@ void hal_flash_read(UINT32 StarAddr, UINT16 Len, PUINT8 RcvBuffer)
 }
 
 /*******************************************************************************
- * Function Name  : SPIFlash_ReadID
+ * Function Name  : app_flash_read_flashID
  * Description    : SPI Flash读取芯片ID
  * Input          : None
  * Output         : None
@@ -295,39 +284,27 @@ void hal_flash_read(UINT32 StarAddr, UINT16 Len, PUINT8 RcvBuffer)
  *                  0XEF16,表示芯片型号为W25Q64
  *                  0XEF17,表示芯片型号为W25Q128
  *******************************************************************************/
-UINT16 SPIFlash_ReadID(void)
+UINT16 app_flash_read_flashID(void)
 {
     UINT16 temp = 0;
-#if USER_BSP_LIB == 0
-    SPI0_CS_LOW();
-    SPI0_MasterSendByte(HAL_FLASH_CMD_DEVICE_ID); // 读取ID命令
-    SPI0_MasterSendByte(0x00);
-    SPI0_MasterSendByte(0x00);
-    SPI0_MasterSendByte(0x00);
 
-    temp = SPI0_MasterRecvByte();
-    temp = temp << 8;
-    temp |= SPI0_MasterRecvByte();
-    SPI0_CS_HIGH();
-#else
     uint8_t id[2];
     hal_spi_data_buff_t spi_data_buff = {
-        .cmd = HAL_FLASH_CMD_DEVICE_ID,
+        .cmd = APP_FLASH_CMD_DEVICE_ID,
         .addr = 0,
         .addr_len = 3,
         .len = 2,
         .buff = id,
     };
 
-    hal_device_read(hal_flash_fd, &spi_data_buff, 0);
+    bsp_device_read(app_flash_fd, &spi_data_buff, 0);
 
     temp = (id[0] << 8) | id[1];
 
-#endif
-    return 0xEF16;
+    return temp;
 }
 
-int hal_flash_init()
+int app_flash_init()
 {
 
     if (hal_spi_init(&spi0_config) == HAL_SPI_OK)
@@ -338,11 +315,11 @@ int hal_flash_init()
         LOG_INFO("app flash init error\n");
     }
 
-    hal_flash_fd = hal_device_open(HAL_FLASH_DEVICE_NAME, 0);
+    app_flash_fd = bsp_device_open(APP_FLASH_DEVICE_NAME, 0);
 
-    if (hal_flash_fd >= 0)
+    if (app_flash_fd >= 0)
     {
-        LOG_INFO("app flash open ok, fd: %d\n", hal_flash_fd);
+        LOG_INFO("app flash open ok, fd: %d\n", app_flash_fd);
 
         return 0;
     }
