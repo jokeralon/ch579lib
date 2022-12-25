@@ -6,6 +6,7 @@
 C_SRCS += \
 ../app/app_flash.c \
 ../app/app_led.c \
+../app/app_key.c \
 ../app/app_uart.c \
 ../app/ch57x_code_flash.c \
 ../app/ch57x_usb_device_msc.c \
@@ -18,6 +19,7 @@ C_SRCS += \
 OBJS += \
 ./app/app_flash.o \
 ./app/app_led.o \
+./app/app_key.o \
 ./app/app_uart.o \
 ./app/ch57x_code_flash.o \
 ./app/ch57x_usb_device_msc.o \
@@ -30,6 +32,7 @@ OBJS += \
 C_DEPS += \
 ./app/app_flash.d \
 ./app/app_led.d \
+./app/app_key.d \
 ./app/app_uart.d \
 ./app/ch57x_code_flash.d \
 ./app/ch57x_usb_device_msc.d \

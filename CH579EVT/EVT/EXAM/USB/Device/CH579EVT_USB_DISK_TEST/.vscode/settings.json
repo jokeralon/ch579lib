@@ -25,7 +25,9 @@
         "hal_uart.h": "c",
         "bsp_led.h": "c",
         "hal_led.h": "c",
-        "app_led.h": "c"
+        "app_led.h": "c",
+        "bsp_key.h": "c",
+        "app_key.h": "c"
     },
     "editor.tabSize": 4
 }

@@ -8,6 +8,9 @@ int bsp_uart0_init()
     GPIOB_ModeCfg(bRXD0, GPIO_ModeIN_PU);
 
     UART0_DefInit();
+    UART0_ByteTrigCfg(UART_1BYTE_TRIG);
+    UART0_INTCfg(ENABLE, RB_IER_LINE_STAT | RB_IER_RECV_RDY);
+    NVIC_EnableIRQ(UART0_IRQn);
     
     return 0;
 }

@@ -6,6 +6,7 @@
 C_SRCS += \
 ../bsp/bsp_device.c \
 ../bsp/bsp_led.c \
+../bsp/bsp_key.c \
 ../bsp/bsp_log.c \
 ../bsp/bsp_spi.c \
 ../bsp/bsp_uart.c 
@@ -13,6 +14,7 @@ C_SRCS += \
 OBJS += \
 ./bsp/bsp_device.o \
 ./bsp/bsp_led.o \
+./bsp/bsp_key.o \
 ./bsp/bsp_log.o \
 ./bsp/bsp_spi.o \
 ./bsp/bsp_uart.o 
@@ -20,6 +22,7 @@ OBJS += \
 C_DEPS += \
 ./bsp/bsp_device.d \
 ./bsp/bsp_led.d \
+./bsp/bsp_key.d \
 ./bsp/bsp_log.d \
 ./bsp/bsp_spi.d \
 ./bsp/bsp_uart.d 

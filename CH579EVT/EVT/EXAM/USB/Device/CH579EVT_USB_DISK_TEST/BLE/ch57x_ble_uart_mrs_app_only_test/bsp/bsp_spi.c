@@ -1,6 +1,6 @@
 #include "bsp_spi.h"
 
-int bsp_spi0_init()
+int __bsp_spi0_init()
 {
     GPIOA_SetBits(bMOSI | bSCK0 | bSCS);
     GPIOA_ModeCfg(bMOSI | bSCK0 | bSCS, GPIO_ModeOut_PP_5mA); // MOSI/SCK/CS
@@ -12,7 +12,7 @@ int bsp_spi0_init()
     SPI0_CLKCfg(4);
 }
 
-int bsp_spi0_deinit()
+int __bsp_spi0_deinit()
 {
     ;
 }
@@ -21,13 +21,10 @@ int bsp_spi0_deinit()
  * Function Name  : ReadExternalFlash_SPI
  * Description    : 读取地址的数据.
  *******************************************************************************/
-int bsp_spi0_read(uint8_t cmd, uint32_t addr, uint16_t addr_len, uint16_t len, uint8_t *buff)
+int __bsp_spi0_read(uint8_t cmd, uint32_t addr, uint16_t addr_len, uint16_t len, uint8_t *buff)
 {
     GPIOA_ResetBits(bSCS);
     SPI0_MasterSendByte(cmd);                 // 读命令
-    // SPI0_MasterSendByte(((addr & 0xFFFFFF) >> 16)); // 发送3字节地址
-    // SPI0_MasterSendByte(((addr & 0xFFFF) >> 8));
-    // SPI0_MasterSendByte(addr & 0xFF);
     
     for( int i=0; i< addr_len; i++ )
     {
@@ -39,15 +36,11 @@ int bsp_spi0_read(uint8_t cmd, uint32_t addr, uint16_t addr_len, uint16_t len, u
     GPIOA_SetBits(bSCS);
 }
 
-int bsp_spi0_write(uint8_t cmd, uint32_t addr, uint16_t addr_len, uint16_t len, uint8_t *buff)
+int __bsp_spi0_write(uint8_t cmd, uint32_t addr, uint16_t addr_len, uint16_t len, uint8_t *buff)
 {
     GPIOA_ResetBits(bSCS);
     SPI0_MasterSendByte(cmd);                 // 发送写页命令
-    // SPI0_MasterSendByte(((addr & 0xFFFFFF) >> 16)); // 发送24bit地址
-    // SPI0_MasterSendByte(((addr & 0xFFFF) >> 8));
-    // SPI0_MasterSendByte(addr & 0xFF);
 
-    
     for( int i=0; i< addr_len; i++ )
     {
         uint8_t temp = (((addr) >> ( (addr_len-i-1)*8 )) & 0xff);

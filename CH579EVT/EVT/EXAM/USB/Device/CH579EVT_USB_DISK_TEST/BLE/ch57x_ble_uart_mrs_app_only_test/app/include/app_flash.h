@@ -23,12 +23,6 @@
 
 
 #if (APP_FLASH_USER_SPI_NUMBER   ==  0)
-/********************************* 引脚定义 ************************************
- *    PA3  <===========>  SCS
- *    PA0  <===========>  SCK
- *    PA1  <===========>  DI/MOSI
- *    PA2  <===========>  DO/MISO
- *******************************************************************************/
 #define APP_FLASH_FUNC_INIT                 bsp_spi0_init
 #define APP_FLASH_FUNC_DEINIT               bsp_spi0_deinit
 #define APP_FLASH_FUNC_READ                 bsp_spi0_read

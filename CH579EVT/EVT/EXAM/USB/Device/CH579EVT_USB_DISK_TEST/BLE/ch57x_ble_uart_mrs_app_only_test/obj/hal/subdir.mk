@@ -5,18 +5,21 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../hal/hal_led.c \
+../hal/hal_key.c \
 ../hal/hal_log.c \
 ../hal/hal_spi.c \
 ../hal/hal_uart.c 
 
 OBJS += \
 ./hal/hal_led.o \
+./hal/hal_key.o \
 ./hal/hal_log.o \
 ./hal/hal_spi.o \
 ./hal/hal_uart.o 
 
 C_DEPS += \
 ./hal/hal_led.d \
+./hal/hal_key.d \
 ./hal/hal_log.d \
 ./hal/hal_spi.d \
 ./hal/hal_uart.d 

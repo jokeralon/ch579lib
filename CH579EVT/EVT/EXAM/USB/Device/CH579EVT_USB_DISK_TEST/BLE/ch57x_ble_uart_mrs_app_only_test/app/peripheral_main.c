@@ -19,6 +19,7 @@
 #include "app_flash.h"
 #include "app_uart.h"
 #include "app_led.h"
+#include "app_key.h"
 
 FATFS fs;          /* FatFs文件系统对象 */
 FIL fnew;          /* 文件对象 */
@@ -27,7 +28,7 @@ UINT fnum;         /* 文件成功读写数量 */
 UINT8 uart0_read_len = 0;
 UINT8 uart0_read_flag = 0;
 UINT8 uart0_read_timeout = 0;
-UINT8 uart0_read_buf[1024] = {0};
+UINT8 uart0_read_buf[31] = {0};
 BYTE ReadBuffer[1024] = {0}; /* 读缓冲区 */
 BYTE WriteBuffer[] =         /* 写缓冲区*/
     "fatfs test !!!!!!!!!!!!\r\n";
@@ -62,9 +63,11 @@ int main()
 
     app_uart_init();
     app_led1_init();
+    app_key1_init();
 
     int led1_fd = bsp_device_open("led1", 0);
     int uart_fd = bsp_device_open("uart0", 0);
+    int key1_fd = bsp_device_open("key1", 0);
 
     hal_led_data_buff_t led_data = {
         .status = 1,
@@ -108,7 +111,9 @@ int main()
     }
     else if (res_flash != FR_OK)
     {
-        LOG_INFO("external FLASH mount file system error, code :%d\r\n", res_flash);
+        LOG_ERROR("external FLASH mount file system error, code :%d\r\n", res_flash);
+        app_flash_erase_all_flash();
+        LOG_ERROR("erase all flash, wait for reset device...\r\n");
         while (1)
             ;
     }
@@ -177,23 +182,65 @@ int main()
 
     while (1)
     {
-        if (uart0_read_flag == 1)
-        {
-            UART0_SendString(uart0_read_buf, uart0_read_len);
-            // fatfs_test(uart0_read_buf, uart0_read_len);
-            uart0_read_len = 0;
-            uart0_read_flag = 0;
-        }
-        else
+
+        if (bsp_device_read(key1_fd, NULL, 0) == 0)
         {
             DelayMs(20);
-            uart0_read_timeout++;
-            if (uart0_read_timeout > 10)
+            if (bsp_device_read(key1_fd, NULL, 0) == 0)
             {
-                uart0_read_timeout = 0;
-                memset(uart0_read_buf, '\0', sizeof(uart0_read_buf));
-                uart0_read_len = 0;
-                uart0_read_flag = 0;
+                bsp_device_write(uart_fd, &uart_msg, 0);
+                res_flash = f_mount(&fs, "0:", 1);
+                if (res_flash == FR_OK)
+                {
+                    LOG_INFO("f_mount file ok\r\n");
+                }
+                res_flash = f_open(&fnew, "0:log.txt", FA_CREATE_ALWAYS | FA_WRITE);
+                if (res_flash == FR_OK)
+                {
+                    LOG_INFO("f_open file ok\r\n");
+                    res_flash = f_printf(&fnew, "%s", "test\n");
+                    if (res_flash == FR_OK)
+                    {
+                        LOG_INFO("f_printf file ok\r\n");
+                    }
+                    else
+                    {
+                        LOG_ERROR("f_printf file fail, err_code: %d\r\n", res_flash);
+                    }
+                }
+                while (1)
+                {
+                    if (uart0_read_flag == 1)
+                    {
+                        res_flash = f_printf(&fnew, "%s\n", uart0_read_buf);
+                        if (res_flash > 0)
+                        {
+                            LOG_INFO("f_printf file ok\r\n");
+                            f_close(&fnew);
+                            f_mount(NULL, "0:", 1);
+                        }
+                        else
+                        {
+                            LOG_ERROR("f_printf file fail, err_code: %d\r\n", res_flash);
+                        }
+                        UART0_SendString(uart0_read_buf, uart0_read_len);
+                        uart0_read_len = 0;
+                        uart0_read_flag = 0;
+                        break;
+                    }
+                    else
+                    {
+                        DelayMs(20);
+                        uart0_read_timeout++;
+                        if (uart0_read_timeout > 10)
+                        {
+                            uart0_read_timeout = 0;
+                            memset(uart0_read_buf, '\0', sizeof(uart0_read_buf));
+                            uart0_read_len = 0;
+                            uart0_read_flag = 0;
+                        }
+                    }
+                }
             }
         }
     }

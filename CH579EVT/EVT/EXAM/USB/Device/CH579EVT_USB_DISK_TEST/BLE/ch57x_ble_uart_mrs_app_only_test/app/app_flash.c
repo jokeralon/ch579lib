@@ -319,7 +319,7 @@ int app_flash_init()
 
     if (app_flash_fd >= 0)
     {
-        LOG_INFO("app flash open ok, fd: %d\n", app_flash_fd);
+        LOG_INFO("app flash open ok, fd: %d\r\n", app_flash_fd);
 
         return 0;
     }
