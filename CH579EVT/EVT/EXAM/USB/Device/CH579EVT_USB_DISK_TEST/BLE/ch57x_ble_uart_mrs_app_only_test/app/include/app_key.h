@@ -5,6 +5,7 @@
 #include "bsp_log.h"
 #include "bsp_device.h"
 #include "hal_key.h"
+#include "hal_device.h"
 
 #define APP_KEY1_DEVICE_NAME                "key1"
 

@@ -9,11 +9,18 @@ hal_led_config_t led1_config = {
     .callback = NULL,
 };
 
+hal_device_t *led_green_dev = NULL;
+hal_device_t *led_blue_dev = NULL;
+
 int app_led_fd = -1;
 
 int app_led1_init()
 {
     int ret = hal_led_init(&led1_config);
+
+    led_green_dev = hal_device_find("led_green");
+    led_blue_dev = hal_device_find("led_blue");
+
     
     if (ret != HAL_LED_OK)
         return -1;

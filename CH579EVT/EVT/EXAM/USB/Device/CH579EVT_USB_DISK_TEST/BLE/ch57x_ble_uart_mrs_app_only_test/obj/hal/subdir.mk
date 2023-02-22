@@ -8,6 +8,7 @@ C_SRCS += \
 ../hal/hal_key.c \
 ../hal/hal_log.c \
 ../hal/hal_spi.c \
+../hal/hal_device.c \
 ../hal/hal_uart.c 
 
 OBJS += \
@@ -15,6 +16,7 @@ OBJS += \
 ./hal/hal_key.o \
 ./hal/hal_log.o \
 ./hal/hal_spi.o \
+./hal/hal_device.o \
 ./hal/hal_uart.o 
 
 C_DEPS += \
@@ -22,6 +24,7 @@ C_DEPS += \
 ./hal/hal_key.d \
 ./hal/hal_log.d \
 ./hal/hal_spi.d \
+./hal/hal_device.d \
 ./hal/hal_uart.d 
 
 

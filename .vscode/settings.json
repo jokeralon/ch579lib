@@ -2,6 +2,13 @@
     "files.associations": {
         "ch57x_usb_device_msc.h": "c",
         "ch57x_code_flash.h": "c",
-        "ch57x_common.h": "c"
+        "ch57x_common.h": "c",
+        "hal_key.h": "c",
+        "bsp_key.h": "c",
+        "stdint.h": "c",
+        "bsp_led.h": "c",
+        "hal_device.h": "c",
+        "app_key.h": "c",
+        "app_led.h": "c"
     }
 }

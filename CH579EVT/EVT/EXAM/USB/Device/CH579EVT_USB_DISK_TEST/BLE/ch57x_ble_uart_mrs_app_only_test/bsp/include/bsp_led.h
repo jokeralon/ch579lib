@@ -4,6 +4,21 @@
 #include <stdio.h>
 #include "stdint.h"
 #include "CH57x_common.h"
+#include "hal_device.h"
+#include "hal_utils.h"
+#include "bsp_gpio.h"
+
+
+typedef struct led_param_s
+{
+    const char *name;
+    UINT32 pin;
+    GPIOModeTypeDef mode;
+    void (*cfg_gpio_func) ( UINT32 pin, GPIOModeTypeDef mode );
+    void (*set_gpio_func) ( UINT32 pin, UINT32 onoff );
+    int (*read_gpio_func) ( UINT32 pin );
+    hal_device_t dev;
+}led_param_t;
 
 #define BSP_LED_MAX_NUMBER      2
 

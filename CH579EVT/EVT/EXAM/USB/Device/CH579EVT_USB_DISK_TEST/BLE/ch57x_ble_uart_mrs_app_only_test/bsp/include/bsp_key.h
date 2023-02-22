@@ -5,6 +5,27 @@
 #include "stdint.h"
 #include "CH57x_common.h"
 #include "bsp_log.h"
+#include "bsp_gpio.h"
+#include "hal_device.h"
+#include "hal_utils.h"
+
+typedef struct key_init_s
+{
+    UINT32 key_gpio_pin;
+    GPIOModeTypeDef key_gpio_mode;
+    void (*key_gpio_set ) ( UINT32 pin, GPIOModeTypeDef mode );
+}key_init_t;
+
+typedef struct key_param_s
+{
+    const char *name;
+    UINT32 pin;
+    GPIOModeTypeDef mode;
+    void (*cfg_gpio_func) ( UINT32 pin, GPIOModeTypeDef mode );
+    void (*set_gpio_func) ( UINT32 pin, UINT32 onoff );
+    int (*read_gpio_func) ( UINT32 pin );
+    hal_device_t dev;
+}key_param_t;
 
 #define BSP_KEY_MAX_NUMBER      1
 
@@ -12,6 +33,8 @@
 #define BSP_KEY_PORT_GPIOB      1
 
 #define BSP_KEY1_ENABLE         1
+
+
 
 #if BSP_KEY1_ENABLE == 1
 
@@ -48,5 +71,7 @@
     #define bsp_key1_write(x)
     #define bsp_key1_read()  
 #endif
+
+
 
 #endif

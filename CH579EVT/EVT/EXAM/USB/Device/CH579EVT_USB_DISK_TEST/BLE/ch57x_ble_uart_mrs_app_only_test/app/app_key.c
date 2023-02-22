@@ -1,5 +1,7 @@
 #include "app_key.h"
 
+hal_device_t *key_dev = NULL;
+
 hal_key_config_t key1_config = {
     .name = APP_KEY1_DEVICE_NAME,
     .init = APP_KEY1_FUNC_INIT,
@@ -14,6 +16,7 @@ int app_key_fd = -1;
 int app_key1_init()
 {
     int ret = hal_key_init(&key1_config);
+    key_dev = hal_device_find("key1");
     
     if (ret != HAL_KEY_OK)
         return -1;

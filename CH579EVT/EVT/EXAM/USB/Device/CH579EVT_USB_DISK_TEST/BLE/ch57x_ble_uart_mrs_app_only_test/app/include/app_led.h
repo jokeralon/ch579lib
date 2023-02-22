@@ -5,6 +5,7 @@
 #include "bsp_log.h"
 #include "bsp_device.h"
 #include "hal_led.h"
+#include "hal_device.h"
 
 #define APP_LED1_DEVICE_NAME                "led1"
 
