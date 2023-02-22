@@ -19,29 +19,16 @@ int app_led1_init()
     int ret = hal_led_init(&led1_config);
 
     led_green_dev = hal_device_find("led_green");
+    HAL_DEV_NULL_CHECK(led_green_dev);
     led_blue_dev = hal_device_find("led_blue");
+    HAL_DEV_NULL_CHECK(led_blue_dev);
 
-    
-    if (ret != HAL_LED_OK)
-        return -1;
+    HAL_CHECK(hal_device_init(led_green_dev));
+    HAL_CHECK(hal_device_init(led_blue_dev));
 
-    app_led_fd = bsp_device_open(APP_LED1_DEVICE_NAME, 0);
+    HAL_CHECK(hal_device_ctrl(led_green_dev, 0, NULL));
+    HAL_CHECK(hal_device_ctrl(led_blue_dev, 0, NULL));
 
-    if (app_led_fd >= 0)
-    {
-        
-        LOG_INFO("app flash open ok, fd: %d\n", app_led_fd);
-
-        hal_led_data_buff_t led_data = {
-            .status = 1,
-        };
-
-        bsp_device_write(app_led_fd, &led_data, 0);
-
-        return 0;
-    }
-
-    LOG_ERROR("app flash init error\n");
 
     return -1;
 }

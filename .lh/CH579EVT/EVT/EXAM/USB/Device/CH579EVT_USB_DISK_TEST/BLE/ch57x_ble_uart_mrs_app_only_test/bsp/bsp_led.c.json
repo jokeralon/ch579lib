@@ -1,0 +1,78 @@
+{
+    "sourceFile": "CH579EVT/EVT/EXAM/USB/Device/CH579EVT_USB_DISK_TEST/BLE/ch57x_ble_uart_mrs_app_only_test/bsp/bsp_led.c",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 15,
+            "patches": [
+                {
+                    "date": 1677078889036,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1677078936893,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -114,10 +114,10 @@\n void bsp_led_register(void)\r\n {\r\n     for (int i = 0; i < array_size(led_list); i++)\r\n     {\r\n-        if(hal_device_register(&key_list[i].dev)==HAL_OK)\r\n-            LOG_DEBUG(\"key register %d ok\\r\\n\", i);\r\n+        if(hal_device_register(&led_list[i].dev)==HAL_OK)\r\n+            LOG_DEBUG(\"led register %d ok\\r\\n\", i);\r\n         else\r\n-            LOG_ERROR(\"key register %d error\\r\\n\", i);\r\n+            LOG_ERROR(\"led register %d error\\r\\n\", i);\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1677078955997,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -114,8 +114,10 @@\n void bsp_led_register(void)\r\n {\r\n     for (int i = 0; i < array_size(led_list); i++)\r\n     {\r\n+                key_list[i].dev.name = key_list[i].name;\r\n+        key_list[i].dev.dops = &dops;\r\n         if(hal_device_register(&led_list[i].dev)==HAL_OK)\r\n             LOG_DEBUG(\"led register %d ok\\r\\n\", i);\r\n         else\r\n             LOG_ERROR(\"led register %d error\\r\\n\", i);\r\n"
+                },
+                {
+                    "date": 1677078962372,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -114,10 +114,10 @@\n void bsp_led_register(void)\r\n {\r\n     for (int i = 0; i < array_size(led_list); i++)\r\n     {\r\n-                key_list[i].dev.name = key_list[i].name;\r\n-        key_list[i].dev.dops = &dops;\r\n+        led_list[i].dev.name = led_list[i].name;\r\n+        led_list[i].dev.dops = &dops;\r\n         if(hal_device_register(&led_list[i].dev)==HAL_OK)\r\n             LOG_DEBUG(\"led register %d ok\\r\\n\", i);\r\n         else\r\n             LOG_ERROR(\"led register %d error\\r\\n\", i);\r\n"
+                },
+                {
+                    "date": 1677079019706,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -87,9 +87,9 @@\n \r\n     return HAL_ERROR;\r\n }\r\n \r\n-int __bsp_key_control(hal_device_t *dev, int cmd, void *args)\r\n+int __bsp_led_control(hal_device_t *dev, int cmd, void *args)\r\n {\r\n     HAL_DEV_NULL_CHECK(dev);\r\n     HAL_DEV_INIT_CHECK(dev);\r\n     for (int i = 0; i < array_size(led_list); i++)\r\n"
+                },
+                {
+                    "date": 1677079026676,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,11 +95,11 @@\n     for (int i = 0; i < array_size(led_list); i++)\r\n     {\r\n         if (strcmp(dev->name, led_list[i].name) == 0)\r\n         {\r\n-            UINT32 key_gpio_pin = led_list[i].pin;\r\n+            UINT32 led_gpio_pin = led_list[i].pin;\r\n \r\n-            led_list[i].set_gpio_func(key_gpio_pin, cmd);\r\n+            led_list[i].set_gpio_func(led_gpio_pin, cmd);\r\n \r\n             return HAL_OK;\r\n         }\r\n     }\r\n@@ -107,9 +107,9 @@\n }\r\n \r\n static hal_device_ops_t dops = {\r\n     .init = __bsp_led_init,\r\n-    .control = __bsp_key_control,\r\n+    .control = __bsp_led_control,\r\n };\r\n \r\n void bsp_led_register(void)\r\n {\r\n"
+                },
+                {
+                    "date": 1677079035031,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -75,12 +75,12 @@\n     for (int i = 0; i < array_size(led_list); i++)\r\n     {\r\n         if (strcmp(dev->name, led_list[i].name) == 0)\r\n         {\r\n-            UINT32 key_gpio_pin = led_list[i].pin;\r\n-            GPIOModeTypeDef key_gpio_mode = led_list[i].mode;\r\n+            UINT32 led_gpio_pin = led_list[i].pin;\r\n+            GPIOModeTypeDef led_gpio_pin = led_list[i].mode;\r\n \r\n-            led_list[i].cfg_gpio_func(key_gpio_pin, key_gpio_mode);\r\n+            led_list[i].cfg_gpio_func(led_gpio_pin, key_gpio_mode);\r\n \r\n             return HAL_OK;\r\n         }\r\n     }\r\n"
+                },
+                {
+                    "date": 1677079113880,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,11 +76,11 @@\n     {\r\n         if (strcmp(dev->name, led_list[i].name) == 0)\r\n         {\r\n             UINT32 led_gpio_pin = led_list[i].pin;\r\n-            GPIOModeTypeDef led_gpio_pin = led_list[i].mode;\r\n+            GPIOModeTypeDef led_gpio_mode = led_list[i].mode;\r\n \r\n-            led_list[i].cfg_gpio_func(led_gpio_pin, key_gpio_mode);\r\n+            led_list[i].cfg_gpio_func(led_gpio_pin, led_gpio_pin);\r\n \r\n             return HAL_OK;\r\n         }\r\n     }\r\n"
+                },
+                {
+                    "date": 1677079554078,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n         {\r\n             UINT32 led_gpio_pin = led_list[i].pin;\r\n             GPIOModeTypeDef led_gpio_mode = led_list[i].mode;\r\n \r\n-            led_list[i].cfg_gpio_func(led_gpio_pin, led_gpio_pin);\r\n+            led_list[i].cfg_gpio_func(led_gpio_pin, led_gpio_mode);\r\n \r\n             return HAL_OK;\r\n         }\r\n     }\r\n@@ -89,10 +89,10 @@\n }\r\n \r\n int __bsp_led_control(hal_device_t *dev, int cmd, void *args)\r\n {\r\n-    HAL_DEV_NULL_CHECK(dev);\r\n-    HAL_DEV_INIT_CHECK(dev);\r\n+    // HAL_DEV_NULL_CHECK(dev);\r\n+    // HAL_DEV_INIT_CHECK(dev);\r\n     for (int i = 0; i < array_size(led_list); i++)\r\n     {\r\n         if (strcmp(dev->name, led_list[i].name) == 0)\r\n         {\r\n"
+                },
+                {
+                    "date": 1677079577908,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,10 +89,10 @@\n }\r\n \r\n int __bsp_led_control(hal_device_t *dev, int cmd, void *args)\r\n {\r\n-    // HAL_DEV_NULL_CHECK(dev);\r\n-    // HAL_DEV_INIT_CHECK(dev);\r\n+    HAL_DEV_NULL_CHECK(dev);\r\n+    HAL_DEV_INIT_CHECK(dev);\r\n     for (int i = 0; i < array_size(led_list); i++)\r\n     {\r\n         if (strcmp(dev->name, led_list[i].name) == 0)\r\n         {\r\n"
+                },
+                {
+                    "date": 1677079588432,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -97,8 +97,9 @@\n         if (strcmp(dev->name, led_list[i].name) == 0)\r\n         {\r\n             UINT32 led_gpio_pin = led_list[i].pin;\r\n \r\n+            LOG_DEBUG\r\n             led_list[i].set_gpio_func(led_gpio_pin, cmd);\r\n \r\n             return HAL_OK;\r\n         }\r\n"
+                },
+                {
+                    "date": 1677079599012,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -97,9 +97,9 @@\n         if (strcmp(dev->name, led_list[i].name) == 0)\r\n         {\r\n             UINT32 led_gpio_pin = led_list[i].pin;\r\n \r\n-            LOG_DEBUG\r\n+            LOG_DEBUG(\"%s set\");\r\n             led_list[i].set_gpio_func(led_gpio_pin, cmd);\r\n \r\n             return HAL_OK;\r\n         }\r\n"
+                },
+                {
+                    "date": 1677079609607,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -97,9 +97,9 @@\n         if (strcmp(dev->name, led_list[i].name) == 0)\r\n         {\r\n             UINT32 led_gpio_pin = led_list[i].pin;\r\n \r\n-            LOG_DEBUG(\"%s set\");\r\n+            LOG_DEBUG(\"%s setup : %d\");\r\n             led_list[i].set_gpio_func(led_gpio_pin, cmd);\r\n \r\n             return HAL_OK;\r\n         }\r\n"
+                },
+                {
+                    "date": 1677079615649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -97,9 +97,9 @@\n         if (strcmp(dev->name, led_list[i].name) == 0)\r\n         {\r\n             UINT32 led_gpio_pin = led_list[i].pin;\r\n \r\n-            LOG_DEBUG(\"%s setup : %d\");\r\n+            LOG_DEBUG(\"%s setup : %d\\r\\n\", dev.);\r\n             led_list[i].set_gpio_func(led_gpio_pin, cmd);\r\n \r\n             return HAL_OK;\r\n         }\r\n"
+                },
+                {
+                    "date": 1677079666368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,15 +91,17 @@\n int __bsp_led_control(hal_device_t *dev, int cmd, void *args)\r\n {\r\n     HAL_DEV_NULL_CHECK(dev);\r\n     HAL_DEV_INIT_CHECK(dev);\r\n+            LOG_DEBUG(\"%s setup : %d\\r\\n\", dev->name, cmd);\r\n+\r\n     for (int i = 0; i < array_size(led_list); i++)\r\n     {\r\n         if (strcmp(dev->name, led_list[i].name) == 0)\r\n         {\r\n             UINT32 led_gpio_pin = led_list[i].pin;\r\n \r\n-            LOG_DEBUG(\"%s setup : %d\\r\\n\", dev.);\r\n+            LOG_DEBUG(\"%s setup : %d\\r\\n\", dev->name, cmd);\r\n             led_list[i].set_gpio_func(led_gpio_pin, cmd);\r\n \r\n             return HAL_OK;\r\n         }\r\n"
+                },
+                {
+                    "date": 1677083799468,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n #include \"bsp_led.h\"\r\n \r\n static led_param_t led_list[] =\r\n     {\r\n-        {\"led_blue\", BSP_LED1_PIN, GPIO_ModeOut_PP_5mA, bsp_gpioa_cfgpin, bsp_gpioa_setpin, bsp_gpioa_readpin, {0}},\r\n+        {\"led_blue\", BSP_LED1_PIN, GPIO_ModeOut_PP_5mA, bsp_gpioa_cfgpin, bsp_gpioa_setpin, bsp_gpioa_readpin, {.}},\r\n         {\"led_green\", BSP_LED2_PIN, GPIO_ModeOut_PP_5mA, bsp_gpioa_cfgpin, bsp_gpioa_setpin, bsp_gpioa_readpin, {0}},\r\n };\r\n \r\n int __bsp_led1_init()\r\n"
+                }
+            ],
+            "date": 1677078889036,
+            "name": "Commit-0",
+            "content": "#include \"bsp_led.h\"\r\n\r\nstatic led_param_t led_list[] =\r\n    {\r\n        {\"led_blue\", BSP_LED1_PIN, GPIO_ModeOut_PP_5mA, bsp_gpioa_cfgpin, bsp_gpioa_setpin, bsp_gpioa_readpin, {0}},\r\n        {\"led_green\", BSP_LED2_PIN, GPIO_ModeOut_PP_5mA, bsp_gpioa_cfgpin, bsp_gpioa_setpin, bsp_gpioa_readpin, {0}},\r\n};\r\n\r\nint __bsp_led1_init()\r\n{\r\n    bsp_led1_init_func(GPIO_ModeOut_PP_5mA);\r\n    return 0;\r\n}\r\n\r\nint __bsp_led1_deinit()\r\n{\r\n    return 0;\r\n}\r\n\r\nint __bsp_led1_write(int status)\r\n{\r\n    if (status == 0)\r\n    {\r\n        bsp_led1_off_func();\r\n        return 0;\r\n    }\r\n    else if (status == 1)\r\n    {\r\n        bsp_led1_on_func();\r\n        return 0;\r\n    }\r\n    return -1;\r\n}\r\n\r\nint __bsp_led1_read()\r\n{\r\n    return bsp_led1_readpin_func();\r\n}\r\n\r\nint __bsp_led2_init()\r\n{\r\n    bsp_led2_init_func(GPIO_ModeOut_PP_5mA);\r\n    return 0;\r\n}\r\n\r\nint __bsp_led2_deinit()\r\n{\r\n    return 0;\r\n}\r\n\r\nint __bsp_led2_write(int status)\r\n{\r\n    if (status == 0)\r\n    {\r\n        bsp_led2_off_func();\r\n        return 0;\r\n    }\r\n    else if (status == 1)\r\n    {\r\n        bsp_led2_on_func();\r\n        return 0;\r\n    }\r\n    return -1;\r\n}\r\n\r\nint __bsp_led2_read()\r\n{\r\n    return bsp_led2_readpin_func();\r\n}\r\n\r\nint __bsp_led_init(hal_device_t *dev)\r\n{\r\n    HAL_DEV_NULL_CHECK(dev);\r\n\r\n    for (int i = 0; i < array_size(led_list); i++)\r\n    {\r\n        if (strcmp(dev->name, led_list[i].name) == 0)\r\n        {\r\n            UINT32 key_gpio_pin = led_list[i].pin;\r\n            GPIOModeTypeDef key_gpio_mode = led_list[i].mode;\r\n\r\n            led_list[i].cfg_gpio_func(key_gpio_pin, key_gpio_mode);\r\n\r\n            return HAL_OK;\r\n        }\r\n    }\r\n\r\n    return HAL_ERROR;\r\n}\r\n\r\nint __bsp_key_control(hal_device_t *dev, int cmd, void *args)\r\n{\r\n    HAL_DEV_NULL_CHECK(dev);\r\n    HAL_DEV_INIT_CHECK(dev);\r\n    for (int i = 0; i < array_size(led_list); i++)\r\n    {\r\n        if (strcmp(dev->name, led_list[i].name) == 0)\r\n        {\r\n            UINT32 key_gpio_pin = led_list[i].pin;\r\n\r\n            led_list[i].set_gpio_func(key_gpio_pin, cmd);\r\n\r\n            return HAL_OK;\r\n        }\r\n    }\r\n    return HAL_ERROR;\r\n}\r\n\r\nstatic hal_device_ops_t dops = {\r\n    .init = __bsp_led_init,\r\n    .control = __bsp_key_control,\r\n};\r\n\r\nvoid bsp_led_register(void)\r\n{\r\n    for (int i = 0; i < array_size(led_list); i++)\r\n    {\r\n        if(hal_device_register(&key_list[i].dev)==HAL_OK)\r\n            LOG_DEBUG(\"key register %d ok\\r\\n\", i);\r\n        else\r\n            LOG_ERROR(\"key register %d error\\r\\n\", i);\r\n    }\r\n}\r\n"
+        }
+    ]
+}

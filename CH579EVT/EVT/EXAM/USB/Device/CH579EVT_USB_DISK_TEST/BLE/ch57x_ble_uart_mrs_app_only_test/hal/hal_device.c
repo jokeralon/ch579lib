@@ -1,7 +1,19 @@
 #include "hal_device.h"
 #include <string.h>
 
-hal_device_t *hdev_list = NULL;
+static hal_device_t *hdev_list = NULL;
+
+static void hal_device_printf()
+{
+    hal_device_t *cur = hdev_list;
+    int i=0;
+    while (cur!=NULL)
+    {
+        LOG_DEBUG("device[%d]:%s\r\n", i,cur->name);
+        cur = cur->next;
+    }
+    
+}
 
 // 查找设备是否存在
 static int hal_device_is_exists(hal_device_t *dev)
@@ -10,7 +22,7 @@ static int hal_device_is_exists(hal_device_t *dev)
     hal_device_t *cur = hdev_list;
     while (NULL != cur)
     {
-        if(stecmp(cur->name, dev->name) == 0)
+        if(strcmp(cur->name, dev->name) == 0)
             return HAL_ERROR;
         cur = cur->next;
     }
@@ -21,19 +33,40 @@ static int hal_device_is_exists(hal_device_t *dev)
 static int hal_device_inster(hal_device_t *dev)
 {
     hal_device_t *cur = hdev_list;
-    if( NULL == dev )
-        return HAL_ERROR;
-    if(NULL == cur)
+
+    if( hdev_list == NULL )
     {
         hdev_list = dev;
-        hdev_list->next = NULL;
+        dev->next = NULL;
+        LOG_ERROR("%s\r\n", hdev_list->name);
     }else
     {
-        while(NULL != cur)
+        while (cur->next)
+        {
             cur = cur->next;
-        cur->next = dev;
-        dev->next = NULL;
+        }
+        cur = dev;
+        cur->next = NULL;
+        LOG_ERROR("%s\r\n", cur->name);
     }
+
+hal_device_printf();
+    
+
+
+    // if(NULL == cur)
+    // {
+    //     cur = dev;
+    //     LOG_ERROR("%s\r\n", cur->name);
+    //     cur->next = NULL;
+    // }else
+    // {
+    //     while(NULL != cur)
+    //         cur = cur->next;
+    //     cur->next = dev;
+    //     dev->next = NULL;
+    //     LOG_ERROR("%s\r\n", cur->name);
+    // }
     return HAL_OK;
 }
 
@@ -42,21 +75,28 @@ int hal_device_register(hal_device_t *dev)
 {
     HAL_DEV_NULL_CHECK(dev);
 
-    if((NULL==dev->name) || (NULL==dev->dops) || (hal_device_is_exists(dev)==HAL_ERROR))
-    {
-        return HAL_ERROR;
-    }
+    LOG_DEBUG("register : %s\r\n", dev->name);
+
+    // if((NULL==dev->name) || (NULL==dev->dops) || (hal_device_is_exists(dev)==HAL_ERROR))
+    // {
+    //     return HAL_ERROR;
+    // }
     return hal_device_inster(dev);
 }
 
 hal_device_t *hal_device_find(const char *name)
 {
     HAL_DEV_NULL_CHECK(name);
+    LOG_DEBUG("find : %s\r\n", name);
     hal_device_t *cur = hdev_list;
     while (NULL != cur)
     {
+        LOG_DEBUG("|%s| |%s|\r\n",cur->name, name);
         if(strcmp(cur->name, name) == 0)
+        {
+            LOG_DEBUG("===\r\n");
             return cur;
+        }
         cur = cur->next;
     }
     return NULL;
@@ -106,6 +146,19 @@ int hal_device_cfg(hal_device_t *dev, void *args, void *var)
 
     if(dev->dops->config)
         return dev->dops->config(dev, args, var);
+
+    return HAL_ERROR;
+}
+
+/*
+    驱动初始化
+*/
+int hal_device_init(hal_device_t *dev)
+{
+    HAL_DEV_NULL_CHECK(dev);
+
+    if(dev->dops->init)
+        return dev->dops->init(dev);
 
     return HAL_ERROR;
 }

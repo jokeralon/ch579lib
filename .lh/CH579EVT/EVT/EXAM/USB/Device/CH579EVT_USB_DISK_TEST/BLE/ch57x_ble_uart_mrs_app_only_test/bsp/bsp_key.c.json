@@ -1,0 +1,50 @@
+{
+    "sourceFile": "CH579EVT/EVT/EXAM/USB/Device/CH579EVT_USB_DISK_TEST/BLE/ch57x_ble_uart_mrs_app_only_test/bsp/bsp_key.c",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1677078801029,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1677078806916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,7 +80,7 @@\n     for (int i = 0; i < array_size(key_list); i++)\r\n     {\r\n         key_list[i].dev.name = key_list[i].name;\r\n         key_list[i].dev.dops = &dops;\r\n-        if(hal_device_register(&key_list[i].dev);\r\n+        if(hal_device_register(&key_list[i].dev) ==)\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1677078820934,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,7 +80,8 @@\n     for (int i = 0; i < array_size(key_list); i++)\r\n     {\r\n         key_list[i].dev.name = key_list[i].name;\r\n         key_list[i].dev.dops = &dops;\r\n-        if(hal_device_register(&key_list[i].dev) ==)\r\n+        if(hal_device_register(&key_list[i].dev)==HAL_OK)\r\n+            LOG_DEBUG();\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1677078826423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,7 +81,7 @@\n     {\r\n         key_list[i].dev.name = key_list[i].name;\r\n         key_list[i].dev.dops = &dops;\r\n         if(hal_device_register(&key_list[i].dev)==HAL_OK)\r\n-            LOG_DEBUG();\r\n+            LOG_DEBUG(\"key \");\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1677078831477,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,7 +81,7 @@\n     {\r\n         key_list[i].dev.name = key_list[i].name;\r\n         key_list[i].dev.dops = &dops;\r\n         if(hal_device_register(&key_list[i].dev)==HAL_OK)\r\n-            LOG_DEBUG(\"key \");\r\n+            LOG_DEBUG(\"key register ok\\r\\n\");\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1677078838923,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,6 +82,8 @@\n         key_list[i].dev.name = key_list[i].name;\r\n         key_list[i].dev.dops = &dops;\r\n         if(hal_device_register(&key_list[i].dev)==HAL_OK)\r\n             LOG_DEBUG(\"key register ok\\r\\n\");\r\n+        else\r\n+            LOG_ERROR(\"key register ok\\r\\n\");\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1677078845801,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,9 @@\n     {\r\n         key_list[i].dev.name = key_list[i].name;\r\n         key_list[i].dev.dops = &dops;\r\n         if(hal_device_register(&key_list[i].dev)==HAL_OK)\r\n-            LOG_DEBUG(\"key register ok\\r\\n\");\r\n+            LOG_DEBUG(\"key register %d ok\\r\\n\");\r\n         else\r\n             LOG_ERROR(\"key register ok\\r\\n\");\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1677078851732,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,9 @@\n     {\r\n         key_list[i].dev.name = key_list[i].name;\r\n         key_list[i].dev.dops = &dops;\r\n         if(hal_device_register(&key_list[i].dev)==HAL_OK)\r\n-            LOG_DEBUG(\"key register %d ok\\r\\n\");\r\n+            LOG_DEBUG(\"key register %d ok\\r\\n\", i);\r\n         else\r\n-            LOG_ERROR(\"key register ok\\r\\n\");\r\n+            LOG_ERROR(\"key register %ok\\r\\n\");\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1677078858538,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,7 +83,7 @@\n         key_list[i].dev.dops = &dops;\r\n         if(hal_device_register(&key_list[i].dev)==HAL_OK)\r\n             LOG_DEBUG(\"key register %d ok\\r\\n\", i);\r\n         else\r\n-            LOG_ERROR(\"key register %ok\\r\\n\");\r\n+            LOG_ERROR(\"key register %d error\\r\\n\", i);\r\n     }\r\n }\r\n"
+                }
+            ],
+            "date": 1677078801029,
+            "name": "Commit-0",
+            "content": "#include \"bsp_key.h\"\r\n\r\nstatic key_param_t key_list[] =\r\n    {\r\n        {\"key1\", GPIO_Pin_22, GPIO_ModeIN_PU, bsp_gpiob_cfgpin, bsp_gpioa_setpin, bsp_gpiob_readpin, {0}},\r\n};\r\n\r\nint __bsp_key1_init()\r\n{\r\n    bsp_key1_init_func(GPIO_ModeIN_PU);\r\n    LOG_DEBUG(\"key1 init\\n\");\r\n    return 0;\r\n}\r\n\r\nint __bsp_key1_deinit()\r\n{\r\n    return 0;\r\n}\r\n\r\nint __bsp_key1_write(int status)\r\n{\r\n    if (status == 0)\r\n    {\r\n        bsp_key1_off_func();\r\n        return 0;\r\n    }\r\n    else if (status == 1)\r\n    {\r\n        bsp_key1_on_func();\r\n        return 0;\r\n    }\r\n    return -1;\r\n}\r\n\r\nint __bsp_key1_read()\r\n{\r\n    return bsp_key1_readpin_func();\r\n}\r\n\r\nint __bsp_key_init(hal_device_t *dev)\r\n{\r\n    HAL_DEV_NULL_CHECK(dev);\r\n    for (int i = 0; i < array_size(key_list); i++)\r\n    {\r\n        if (strcmp(dev->name, key_list[i].name) == 0)\r\n        {\r\n            key_list[i].dev.init_flag = 1;\r\n            UINT32 key_gpio_pin = key_list[i].pin;\r\n            GPIOModeTypeDef key_gpio_mode = key_list[i].mode;\r\n\r\n            key_list[i].cfg_gpio_func(key_gpio_pin, key_gpio_mode);\r\n            return HAL_OK;\r\n        }\r\n    }\r\n    return HAL_ERROR;\r\n}\r\n\r\nint __bsp_key_read(hal_device_t *dev, int pos, void *buffer, int size)\r\n{\r\n    HAL_DEV_NULL_CHECK(dev);\r\n    HAL_DEV_INIT_CHECK(dev);\r\n    for (int i = 0; i < array_size(key_list); i++)\r\n    {\r\n        if (strcmp(dev->name, key_list[i].name) == 0)\r\n        {\r\n            UINT32 key_gpio_pin = key_list[i].pin;\r\n            return (key_list[i].read_gpio_func(key_gpio_pin));\r\n        }\r\n    }\r\n    return HAL_ERROR;\r\n}\r\n\r\nstatic hal_device_ops_t dops = {\r\n    .init = __bsp_key_init,\r\n    .read = __bsp_key_read,\r\n};\r\n\r\nvoid bsp_key_register(void)\r\n{\r\n    for (int i = 0; i < array_size(key_list); i++)\r\n    {\r\n        key_list[i].dev.name = key_list[i].name;\r\n        key_list[i].dev.dops = &dops;\r\n        if(hal_device_register(&key_list[i].dev);\r\n    }\r\n}\r\n"
+        }
+    ]
+}

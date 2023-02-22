@@ -1,0 +1,90 @@
+{
+    "sourceFile": "CH579EVT/EVT/EXAM/USB/Device/CH579EVT_USB_DISK_TEST/BLE/ch57x_ble_uart_mrs_app_only_test/app/app_led.c",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 18,
+            "patches": [
+                {
+                    "date": 1677078212902,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1677078219858,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,26 +20,8 @@\n \r\n     led_green_dev = hal_device_find(\"led_green\");\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n \r\n-    \r\n-    if (ret != HAL_LED_OK)\r\n-        return -1;\r\n \r\n-    if (app_led_fd >= 0)\r\n-    {\r\n-        \r\n-        LOG_INFO(\"app flash open ok, fd: %d\\n\", app_led_fd);\r\n \r\n-        hal_led_data_buff_t led_data = {\r\n-            .status = 1,\r\n-        };\r\n-\r\n-        bsp_device_write(app_led_fd, &led_data, 0);\r\n-\r\n-        return 0;\r\n-    }\r\n-\r\n-    LOG_ERROR(\"app flash init error\\n\");\r\n-\r\n     return -1;\r\n }\r\n"
+                },
+                {
+                    "date": 1677078485603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     int ret = hal_led_init(&led1_config);\r\n \r\n     led_green_dev = hal_device_find(\"led_green\");\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n+    \r\n \r\n \r\n-\r\n     return -1;\r\n }\r\n"
+                },
+                {
+                    "date": 1677078490836,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     int ret = hal_led_init(&led1_config);\r\n \r\n     led_green_dev = hal_device_find(\"led_green\");\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n-    \r\n+    hal_device_init();\r\n \r\n \r\n     return -1;\r\n }\r\n"
+                },
+                {
+                    "date": 1677078499706,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,28 @@\n+#include \"app_led.h\"\r\n+\r\n+hal_led_config_t led1_config = {\r\n+    .name = APP_LED1_DEVICE_NAME,\r\n+    .init = APP_LED1_FUNC_INIT,\r\n+    .deinit = APP_LED1_FUNC_DEINIT,\r\n+    .read = APP_LED1_FUNC_READ,\r\n+    .write = APP_LED1_FUNC_WRITE,\r\n+    .callback = NULL,\r\n+};\r\n+\r\n+hal_device_t *led_green_dev = NULL;\r\n+hal_device_t *led_blue_dev = NULL;\r\n+\r\n+int app_led_fd = -1;\r\n+\r\n+int app_led1_init()\r\n+{\r\n+    int ret = hal_led_init(&led1_config);\r\n+\r\n+    led_green_dev = hal_device_find(\"led_green\");\r\n+    led_blue_dev = hal_device_find(\"led_blue\");\r\n+    hal_device_init(led_green_dev);\r\n+    hal_device_init(led_blue_dev);\r\n+\r\n+\r\n+    return -1;\r\n+}\r\n"
+                },
+                {
+                    "date": 1677078508973,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,30 @@\n+#include \"app_led.h\"\r\n+\r\n+hal_led_config_t led1_config = {\r\n+    .name = APP_LED1_DEVICE_NAME,\r\n+    .init = APP_LED1_FUNC_INIT,\r\n+    .deinit = APP_LED1_FUNC_DEINIT,\r\n+    .read = APP_LED1_FUNC_READ,\r\n+    .write = APP_LED1_FUNC_WRITE,\r\n+    .callback = NULL,\r\n+};\r\n+\r\n+hal_device_t *led_green_dev = NULL;\r\n+hal_device_t *led_blue_dev = NULL;\r\n+\r\n+int app_led_fd = -1;\r\n+\r\n+int app_led1_init()\r\n+{\r\n+    int ret = hal_led_init(&led1_config);\r\n+\r\n+    led_green_dev = hal_device_find(\"led_green\");\r\n+    led_blue_dev = hal_device_find(\"led_blue\");\r\n+    hal_device_init(led_green_dev);\r\n+    hal_device_init(led_blue_dev);\r\n+\r\n+    hal_device_cfg();\r\n+\r\n+\r\n+    return -1;\r\n+}\r\n"
+                },
+                {
+                    "date": 1677078514492,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,64 +22,9 @@\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n     hal_device_init(led_green_dev);\r\n     hal_device_init(led_blue_dev);\r\n \r\n-    hal_device_cfg();\r\n+    hal_device_cfg(led_green_dev,);\r\n \r\n \r\n     return -1;\r\n }\r\n-#include \"app_led.h\"\r\n-\r\n-hal_led_config_t led1_config = {\r\n-    .name = APP_LED1_DEVICE_NAME,\r\n-    .init = APP_LED1_FUNC_INIT,\r\n-    .deinit = APP_LED1_FUNC_DEINIT,\r\n-    .read = APP_LED1_FUNC_READ,\r\n-    .write = APP_LED1_FUNC_WRITE,\r\n-    .callback = NULL,\r\n-};\r\n-\r\n-hal_device_t *led_green_dev = NULL;\r\n-hal_device_t *led_blue_dev = NULL;\r\n-\r\n-int app_led_fd = -1;\r\n-\r\n-int app_led1_init()\r\n-{\r\n-    int ret = hal_led_init(&led1_config);\r\n-\r\n-    led_green_dev = hal_device_find(\"led_green\");\r\n-    led_blue_dev = hal_device_find(\"led_blue\");\r\n-    hal_device_init(led_green_dev);\r\n-    hal_device_init(led_blue_dev);\r\n-\r\n-\r\n-    return -1;\r\n-}\r\n-#include \"app_led.h\"\r\n-\r\n-hal_led_config_t led1_config = {\r\n-    .name = APP_LED1_DEVICE_NAME,\r\n-    .init = APP_LED1_FUNC_INIT,\r\n-    .deinit = APP_LED1_FUNC_DEINIT,\r\n-    .read = APP_LED1_FUNC_READ,\r\n-    .write = APP_LED1_FUNC_WRITE,\r\n-    .callback = NULL,\r\n-};\r\n-\r\n-hal_device_t *led_green_dev = NULL;\r\n-hal_device_t *led_blue_dev = NULL;\r\n-\r\n-int app_led_fd = -1;\r\n-\r\n-int app_led1_init()\r\n-{\r\n-    int ret = hal_led_init(&led1_config);\r\n-\r\n-    led_green_dev = hal_device_find(\"led_green\");\r\n-    led_blue_dev = hal_device_find(\"led_blue\");\r\n-    hal_device_init();\r\n-\r\n-\r\n-    return -1;\r\n-}\r\n"
+                },
+                {
+                    "date": 1677078522631,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n     hal_device_init(led_green_dev);\r\n     hal_device_init(led_blue_dev);\r\n \r\n-    hal_device_cfg(led_green_dev,);\r\n+    hal_device_ctrl(led_green_dev, NULL);\r\n \r\n \r\n     return -1;\r\n }\r\n"
+                },
+                {
+                    "date": 1677078528909,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,30 @@\n+#include \"app_led.h\"\r\n+\r\n+hal_led_config_t led1_config = {\r\n+    .name = APP_LED1_DEVICE_NAME,\r\n+    .init = APP_LED1_FUNC_INIT,\r\n+    .deinit = APP_LED1_FUNC_DEINIT,\r\n+    .read = APP_LED1_FUNC_READ,\r\n+    .write = APP_LED1_FUNC_WRITE,\r\n+    .callback = NULL,\r\n+};\r\n+\r\n+hal_device_t *led_green_dev = NULL;\r\n+hal_device_t *led_blue_dev = NULL;\r\n+\r\n+int app_led_fd = -1;\r\n+\r\n+int app_led1_init()\r\n+{\r\n+    int ret = hal_led_init(&led1_config);\r\n+\r\n+    led_green_dev = hal_device_find(\"led_green\");\r\n+    led_blue_dev = hal_device_find(\"led_blue\");\r\n+    hal_device_init(led_green_dev);\r\n+    hal_device_init(led_blue_dev);\r\n+\r\n+    hal_device_ctrl(led_green_dev, 1, NULL);\r\n+\r\n+\r\n+    return -1;\r\n+}\r\n"
+                },
+                {
+                    "date": 1677078619685,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,42 +19,14 @@\n     int ret = hal_led_init(&led1_config);\r\n \r\n     led_green_dev = hal_device_find(\"led_green\");\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n+    \r\n     hal_device_init(led_green_dev);\r\n     hal_device_init(led_blue_dev);\r\n \r\n     hal_device_ctrl(led_green_dev, 1, NULL);\r\n+    hal_device_ctrl(led_blue_dev, 1, NULL);\r\n \r\n \r\n     return -1;\r\n }\r\n-#include \"app_led.h\"\r\n-\r\n-hal_led_config_t led1_config = {\r\n-    .name = APP_LED1_DEVICE_NAME,\r\n-    .init = APP_LED1_FUNC_INIT,\r\n-    .deinit = APP_LED1_FUNC_DEINIT,\r\n-    .read = APP_LED1_FUNC_READ,\r\n-    .write = APP_LED1_FUNC_WRITE,\r\n-    .callback = NULL,\r\n-};\r\n-\r\n-hal_device_t *led_green_dev = NULL;\r\n-hal_device_t *led_blue_dev = NULL;\r\n-\r\n-int app_led_fd = -1;\r\n-\r\n-int app_led1_init()\r\n-{\r\n-    int ret = hal_led_init(&led1_config);\r\n-\r\n-    led_green_dev = hal_device_find(\"led_green\");\r\n-    led_blue_dev = hal_device_find(\"led_blue\");\r\n-    hal_device_init(led_green_dev);\r\n-    hal_device_init(led_blue_dev);\r\n-\r\n-    hal_device_ctrl(led_green_dev, NULL);\r\n-\r\n-\r\n-    return -1;\r\n-}\r\n"
+                },
+                {
+                    "date": 1677079487933,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,14 +19,14 @@\n     int ret = hal_led_init(&led1_config);\r\n \r\n     led_green_dev = hal_device_find(\"led_green\");\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n-    \r\n+\r\n     hal_device_init(led_green_dev);\r\n     hal_device_init(led_blue_dev);\r\n \r\n-    hal_device_ctrl(led_green_dev, 1, NULL);\r\n-    hal_device_ctrl(led_blue_dev, 1, NULL);\r\n+    hal_device_ctrl(led_green_dev, 0, NULL);\r\n+    hal_device_ctrl(led_blue_dev, 0, NULL);\r\n \r\n \r\n     return -1;\r\n }\r\n"
+                },
+                {
+                    "date": 1677079779699,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,32 @@\n+#include \"app_led.h\"\r\n+\r\n+hal_led_config_t led1_config = {\r\n+    .name = APP_LED1_DEVICE_NAME,\r\n+    .init = APP_LED1_FUNC_INIT,\r\n+    .deinit = APP_LED1_FUNC_DEINIT,\r\n+    .read = APP_LED1_FUNC_READ,\r\n+    .write = APP_LED1_FUNC_WRITE,\r\n+    .callback = NULL,\r\n+};\r\n+\r\n+hal_device_t *led_green_dev = NULL;\r\n+hal_device_t *led_blue_dev = NULL;\r\n+\r\n+int app_led_fd = -1;\r\n+\r\n+int app_led1_init()\r\n+{\r\n+    int ret = hal_led_init(&led1_config);\r\n+\r\n+    led_green_dev = hal_device_find(\"led_green\");\r\n+    led_blue_dev = hal_device_find(\"led_blue\");\r\n+\r\n+    HAL_CHECKhal_device_init(led_green_dev);\r\n+    hal_device_init(led_blue_dev);\r\n+\r\n+    hal_device_ctrl(led_green_dev, 0, NULL);\r\n+    hal_device_ctrl(led_blue_dev, 0, NULL);\r\n+\r\n+\r\n+    return -1;\r\n+}\r\n"
+                },
+                {
+                    "date": 1677079784849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,45 +20,13 @@\n \r\n     led_green_dev = hal_device_find(\"led_green\");\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n \r\n-    HAL_CHECKhal_device_init(led_green_dev);\r\n+    HAL_CHECK(hal_device_init(led_green_dev));\r\n     hal_device_init(led_blue_dev);\r\n \r\n     hal_device_ctrl(led_green_dev, 0, NULL);\r\n     hal_device_ctrl(led_blue_dev, 0, NULL);\r\n \r\n \r\n     return -1;\r\n }\r\n-#include \"app_led.h\"\r\n-\r\n-hal_led_config_t led1_config = {\r\n-    .name = APP_LED1_DEVICE_NAME,\r\n-    .init = APP_LED1_FUNC_INIT,\r\n-    .deinit = APP_LED1_FUNC_DEINIT,\r\n-    .read = APP_LED1_FUNC_READ,\r\n-    .write = APP_LED1_FUNC_WRITE,\r\n-    .callback = NULL,\r\n-};\r\n-\r\n-hal_device_t *led_green_dev = NULL;\r\n-hal_device_t *led_blue_dev = NULL;\r\n-\r\n-int app_led_fd = -1;\r\n-\r\n-int app_led1_init()\r\n-{\r\n-    int ret = hal_led_init(&led1_config);\r\n-\r\n-    led_green_dev = hal_device_find(\"led_green\");\r\n-    led_blue_dev = hal_device_find(\"led_blue\");\r\n-\r\n-    hal_device_init(led_green_dev);\r\n-    hal_device_init(led_blue_dev);\r\n-\r\n-    hal_device_ctrl(led_green_dev, 0, NULL);\r\n-    hal_device_ctrl(led_blue_dev, 0, NULL);\r\n-\r\n-\r\n-    return -1;\r\n-}\r\n"
+                },
+                {
+                    "date": 1677079794038,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,12 +21,12 @@\n     led_green_dev = hal_device_find(\"led_green\");\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n \r\n     HAL_CHECK(hal_device_init(led_green_dev));\r\n-    hal_device_init(led_blue_dev);\r\n+    HAL_CHECK（hal_device_init(led_blue_dev);\r\n+（\r\n+    HAL_CHECK（hal_device_ctrl(led_green_dev, 0, NULL);\r\n+    HAL_CHECK（hal_device_ctrl(led_blue_dev, 0, NULL);\r\n \r\n-    hal_device_ctrl(led_green_dev, 0, NULL);\r\n-    hal_device_ctrl(led_blue_dev, 0, NULL);\r\n \r\n-\r\n     return -1;\r\n }\r\n"
+                },
+                {
+                    "date": 1677079799250,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,12 +21,12 @@\n     led_green_dev = hal_device_find(\"led_green\");\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n \r\n     HAL_CHECK(hal_device_init(led_green_dev));\r\n-    HAL_CHECK（hal_device_init(led_blue_dev);\r\n-（\r\n-    HAL_CHECK（hal_device_ctrl(led_green_dev, 0, NULL);\r\n-    HAL_CHECK（hal_device_ctrl(led_blue_dev, 0, NULL);\r\n+    HAL_CHECK(hal_device_init(led_blue_dev));\r\n \r\n+    HAL_CHECK(hal_device_ctrl(led_green_dev, 0, NULL);\r\n+    HAL_CHECK(hal_device_ctrl(led_blue_dev, 0, NULL);\r\n \r\n+\r\n     return -1;\r\n }\r\n"
+                },
+                {
+                    "date": 1677080016960,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,15 +18,16 @@\n {\r\n     int ret = hal_led_init(&led1_config);\r\n \r\n     led_green_dev = hal_device_find(\"led_green\");\r\n+    \r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n \r\n     HAL_CHECK(hal_device_init(led_green_dev));\r\n     HAL_CHECK(hal_device_init(led_blue_dev));\r\n \r\n-    HAL_CHECK(hal_device_ctrl(led_green_dev, 0, NULL);\r\n-    HAL_CHECK(hal_device_ctrl(led_blue_dev, 0, NULL);\r\n+    HAL_CHECK(hal_device_ctrl(led_green_dev, 0, NULL));\r\n+    HAL_CHECK(hal_device_ctrl(led_blue_dev, 0, NULL));\r\n \r\n \r\n     return -1;\r\n }\r\n"
+                },
+                {
+                    "date": 1677080030200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n {\r\n     int ret = hal_led_init(&led1_config);\r\n \r\n     led_green_dev = hal_device_find(\"led_green\");\r\n-    \r\n+    HAL_DEV_INIT_CHECK();\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n \r\n     HAL_CHECK(hal_device_init(led_green_dev));\r\n     HAL_CHECK(hal_device_init(led_blue_dev));\r\n"
+                },
+                {
+                    "date": 1677080037149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,10 +18,11 @@\n {\r\n     int ret = hal_led_init(&led1_config);\r\n \r\n     led_green_dev = hal_device_find(\"led_green\");\r\n-    HAL_DEV_INIT_CHECK();\r\n+    HAL_DEV_INIT_CHECK(led_green_dev);\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n+    HAL_DEV_INIT_CHECK(led_blue_dev);\r\n \r\n     HAL_CHECK(hal_device_init(led_green_dev));\r\n     HAL_CHECK(hal_device_init(led_blue_dev));\r\n \r\n"
+                },
+                {
+                    "date": 1677080238257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n {\r\n     int ret = hal_led_init(&led1_config);\r\n \r\n     led_green_dev = hal_device_find(\"led_green\");\r\n-    HAL_DEV_INIT_CHECK(led_green_dev);\r\n+    HAL_DEV_NULL_CHECK(led_green_dev);\r\n     led_blue_dev = hal_device_find(\"led_blue\");\r\n     HAL_DEV_INIT_CHECK(led_blue_dev);\r\n \r\n     HAL_CHECK(hal_device_init(led_green_dev));\r\n"
+                }
+            ],
+            "date": 1677078212902,
+            "name": "Commit-0",
+            "content": "#include \"app_led.h\"\r\n\r\nhal_led_config_t led1_config = {\r\n    .name = APP_LED1_DEVICE_NAME,\r\n    .init = APP_LED1_FUNC_INIT,\r\n    .deinit = APP_LED1_FUNC_DEINIT,\r\n    .read = APP_LED1_FUNC_READ,\r\n    .write = APP_LED1_FUNC_WRITE,\r\n    .callback = NULL,\r\n};\r\n\r\nhal_device_t *led_green_dev = NULL;\r\nhal_device_t *led_blue_dev = NULL;\r\n\r\nint app_led_fd = -1;\r\n\r\nint app_led1_init()\r\n{\r\n    int ret = hal_led_init(&led1_config);\r\n\r\n    led_green_dev = hal_device_find(\"led_green\");\r\n    led_blue_dev = hal_device_find(\"led_blue\");\r\n\r\n    \r\n    if (ret != HAL_LED_OK)\r\n        return -1;\r\n\r\n    if (app_led_fd >= 0)\r\n    {\r\n        \r\n        LOG_INFO(\"app flash open ok, fd: %d\\n\", app_led_fd);\r\n\r\n        hal_led_data_buff_t led_data = {\r\n            .status = 1,\r\n        };\r\n\r\n        bsp_device_write(app_led_fd, &led_data, 0);\r\n\r\n        return 0;\r\n    }\r\n\r\n    LOG_ERROR(\"app flash init error\\n\");\r\n\r\n    return -1;\r\n}\r\n"
+        }
+    ]
+}

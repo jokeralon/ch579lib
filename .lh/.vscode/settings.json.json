@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".vscode/settings.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1677080440213,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1677080440213,
+            "name": "Commit-0",
+            "content": "{\r\n    \"files.associations\": {\r\n        \"ch57x_usb_device_msc.h\": \"c\",\r\n        \"ch57x_code_flash.h\": \"c\",\r\n        \"ch57x_common.h\": \"c\",\r\n        \"hal_key.h\": \"c\",\r\n        \"bsp_key.h\": \"c\",\r\n        \"stdint.h\": \"c\",\r\n        \"bsp_led.h\": \"c\",\r\n        \"hal_device.h\": \"c\",\r\n        \"app_key.h\": \"c\",\r\n        \"app_led.h\": \"c\",\r\n        \"typeinfo\": \"c\"\r\n    }\r\n}"
+        }
+    ]
+}

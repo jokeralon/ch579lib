@@ -81,6 +81,9 @@ void bsp_key_register(void)
     {
         key_list[i].dev.name = key_list[i].name;
         key_list[i].dev.dops = &dops;
-        hal_device_register(&key_list[i].dev);
+        if(hal_device_register(&key_list[i].dev)==HAL_OK)
+            LOG_DEBUG("key register %d ok\r\n", i);
+        else
+            LOG_ERROR("key register %d error\r\n", i);
     }
 }

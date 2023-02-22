@@ -23,12 +23,12 @@ int app_uart_init()
     if (app_uart_fd >= 0)
     {
         
-        LOG_INFO("app flash open ok, fd: %d\n", app_uart_fd);
+        LOG_INFO("app flash open ok, fd: %d\r\n", app_uart_fd);
 
         return 0;
     }
 
-    LOG_ERROR("app flash init error\n");
+    LOG_ERROR("app flash init error\r\n");
 
     return -1;
 }

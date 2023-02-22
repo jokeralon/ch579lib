@@ -9,6 +9,7 @@
         "bsp_led.h": "c",
         "hal_device.h": "c",
         "app_key.h": "c",
-        "app_led.h": "c"
+        "app_led.h": "c",
+        "typeinfo": "c"
     }
 }

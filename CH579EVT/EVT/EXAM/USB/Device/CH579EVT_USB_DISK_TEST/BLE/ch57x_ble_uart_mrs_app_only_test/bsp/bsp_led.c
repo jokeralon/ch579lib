@@ -76,10 +76,10 @@ int __bsp_led_init(hal_device_t *dev)
     {
         if (strcmp(dev->name, led_list[i].name) == 0)
         {
-            UINT32 key_gpio_pin = led_list[i].pin;
-            GPIOModeTypeDef key_gpio_mode = led_list[i].mode;
+            UINT32 led_gpio_pin = led_list[i].pin;
+            GPIOModeTypeDef led_gpio_mode = led_list[i].mode;
 
-            led_list[i].cfg_gpio_func(key_gpio_pin, key_gpio_mode);
+            led_list[i].cfg_gpio_func(led_gpio_pin, led_gpio_mode);
 
             return HAL_OK;
         }
@@ -88,17 +88,20 @@ int __bsp_led_init(hal_device_t *dev)
     return HAL_ERROR;
 }
 
-int __bsp_key_control(hal_device_t *dev, int cmd, void *args)
+int __bsp_led_control(hal_device_t *dev, int cmd, void *args)
 {
     HAL_DEV_NULL_CHECK(dev);
     HAL_DEV_INIT_CHECK(dev);
+            LOG_DEBUG("%s setup : %d\r\n", dev->name, cmd);
+
     for (int i = 0; i < array_size(led_list); i++)
     {
         if (strcmp(dev->name, led_list[i].name) == 0)
         {
-            UINT32 key_gpio_pin = led_list[i].pin;
+            UINT32 led_gpio_pin = led_list[i].pin;
 
-            led_list[i].set_gpio_func(key_gpio_pin, cmd);
+            LOG_DEBUG("%s setup : %d\r\n", dev->name, cmd);
+            led_list[i].set_gpio_func(led_gpio_pin, cmd);
 
             return HAL_OK;
         }
@@ -108,7 +111,7 @@ int __bsp_key_control(hal_device_t *dev, int cmd, void *args)
 
 static hal_device_ops_t dops = {
     .init = __bsp_led_init,
-    .control = __bsp_key_control,
+    .control = __bsp_led_control,
 };
 
 void bsp_led_register(void)
@@ -117,6 +120,9 @@ void bsp_led_register(void)
     {
         led_list[i].dev.name = led_list[i].name;
         led_list[i].dev.dops = &dops;
-        hal_device_register(&led_list[i].dev);
+        if(hal_device_register(&led_list[i].dev)==HAL_OK)
+            LOG_DEBUG("led register %d ok\r\n", i);
+        else
+            LOG_ERROR("led register %d error\r\n", i);
     }
 }

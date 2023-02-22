@@ -1,0 +1,134 @@
+{
+    "sourceFile": "CH579EVT/EVT/EXAM/USB/Device/CH579EVT_USB_DISK_TEST/BLE/ch57x_ble_uart_mrs_app_only_test/hal/include/hal_device.h",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 29,
+            "patches": [
+                {
+                    "date": 1677078478724,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1677078784107,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,9 @@\n #ifndef __HAL_DEVICE_H__\r\n #define __HAL_DEVICE_H__\r\n \r\n+#include \"bsp_log.\"\r\n+\r\n #define HAL_TRUE    1\r\n #define HAL_FALSE   0\r\n \r\n #define HAL_OK      0\r\n"
+                },
+                {
+                    "date": 1677079702015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n #ifndef __HAL_DEVICE_H__\r\n #define __HAL_DEVICE_H__\r\n \r\n-#include \"bsp_log.\"\r\n+#include \"bsp_log.h\"\r\n \r\n #define HAL_TRUE    1\r\n #define HAL_FALSE   0\r\n \r\n@@ -24,9 +24,17 @@\n         return HAL_ERROR;\\\r\n     }\\\r\n }\r\n \r\n+#define HAL_DEV_INIT_CHECK(x) \\\r\n+{\\\r\n+    if(x->init_flag != 1)\\\r\n+    {\\\r\n+        return HAL_ERROR;\\\r\n+    }\\\r\n+}\r\n \r\n+\r\n typedef struct hal_device_ops_s hal_device_ops_t;\r\n typedef struct hal_device_s hal_device_t;\r\n \r\n struct hal_device_s\r\n"
+                },
+                {
+                    "date": 1677079711329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,11 +24,11 @@\n         return HAL_ERROR;\\\r\n     }\\\r\n }\r\n \r\n-#define HAL_DEV_INIT_CHECK(x) \\\r\n+#define HAL_CHECK(x) \\\r\n {\\\r\n-    if(x->init_flag != 1)\\\r\n+    if(x != 1)\\\r\n     {\\\r\n         return HAL_ERROR;\\\r\n     }\\\r\n }\r\n"
+                },
+                {
+                    "date": 1677079718803,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n }\r\n \r\n #define HAL_CHECK(x) \\\r\n {\\\r\n-    if(x != 1)\\\r\n+    if(x != HAL_OK)\\\r\n     {\\\r\n         return HAL_ERROR;\\\r\n     }\\\r\n }\r\n"
+                },
+                {
+                    "date": 1677079726616,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n #define HAL_CHECK(x) \\\r\n {\\\r\n     if(x != HAL_OK)\\\r\n     {\\\r\n-        return HAL_ERROR;\\\r\n+        LOG_ERROR()\\\r\n     }\\\r\n }\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1677079737691,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,11 +26,11 @@\n }\r\n \r\n #define HAL_CHECK(x) \\\r\n {\\\r\n-    if(x != HAL_OK)\\\r\n+    if(x!= HAL_OK)\\\r\n     {\\\r\n-        LOG_ERROR()\\\r\n+        LOG_ERROR(\"\");\\\r\n     }\\\r\n }\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1677079743051,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n #define HAL_CHECK(x) \\\r\n {\\\r\n     if(x!= HAL_OK)\\\r\n     {\\\r\n-        LOG_ERROR(\"\");\\\r\n+        LOG_ERROR(\"HAL ERROR \");\\\r\n     }\\\r\n }\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1677079752138,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n #define HAL_CHECK(x) \\\r\n {\\\r\n     if(x!= HAL_OK)\\\r\n     {\\\r\n-        LOG_ERROR(\"HAL ERROR \");\\\r\n+        LOG_ERROR(\"HAL ERROR CODE: %d\");\\\r\n     }\\\r\n }\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1677079765466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n #define HAL_CHECK(x) \\\r\n {\\\r\n     if(x!= HAL_OK)\\\r\n     {\\\r\n-        LOG_ERROR(\"HAL ERROR CODE: %d\");\\\r\n+        LOG_ERROR(\"HAL ERROR CODE: %d!\\r\\n\", x);\\\r\n     }\\\r\n }\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1677079920381,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,9 @@\n #define HAL_DEV_INIT_CHECK(x) \\\r\n {\\\r\n     if(x->init_flag != 1)\\\r\n     {\\\r\n+        \r\n         return HAL_ERROR;\\\r\n     }\\\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1677079927113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n #define HAL_DEV_INIT_CHECK(x) \\\r\n {\\\r\n     if(x->init_flag != 1)\\\r\n     {\\\r\n-        \r\n+        LOG_ERROR(\"\");\r\n         return HAL_ERROR;\\\r\n     }\\\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1677079937254,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,8 @@\n #define HAL_DEV_INIT_CHECK(x) \\\r\n {\\\r\n     if(x->init_flag != 1)\\\r\n     {\\\r\n-        LOG_ERROR(\"\");\r\n         return HAL_ERROR;\\\r\n     }\\\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1677079966394,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n #define HAL_FALSE   0\r\n \r\n #define HAL_OK      0\r\n #define HAL_ERROR   -1\r\n+#define HAL_\r\n \r\n #define HAL_DEV_NULL_CHECK(x) \\\r\n {\\\r\n     if(NULL==x)\\\r\n"
+                },
+                {
+                    "date": 1677079973020,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,15 +7,15 @@\n #define HAL_FALSE   0\r\n \r\n #define HAL_OK      0\r\n #define HAL_ERROR   -1\r\n-#define HAL_\r\n+#define HAL_NULL    -2\r\n \r\n #define HAL_DEV_NULL_CHECK(x) \\\r\n {\\\r\n     if(NULL==x)\\\r\n     {\\\r\n-        return HAL_ERROR;\\\r\n+        return HAL_NULL;\\\r\n     }\\\r\n }\r\n \r\n #define HAL_DEV_INIT_CHECK(x) \\\r\n"
+                },
+                {
+                    "date": 1677080089199,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,8 +13,9 @@\n #define HAL_DEV_NULL_CHECK(x) \\\r\n {\\\r\n     if(NULL==x)\\\r\n     {\\\r\n+        L\r\n         return HAL_NULL;\\\r\n     }\\\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1677080095840,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n #define HAL_DEV_NULL_CHECK(x) \\\r\n {\\\r\n     if(NULL==x)\\\r\n     {\\\r\n-        L\r\n+        LOG_ERROR(\"\");\r\n         return HAL_NULL;\\\r\n     }\\\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1677080106278,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n #define HAL_DEV_NULL_CHECK(x) \\\r\n {\\\r\n     if(NULL==x)\\\r\n     {\\\r\n-        LOG_ERROR(\"\");\r\n+        LOG_ERROR(\"HAL PARAM NULL\");\r\n         return HAL_NULL;\\\r\n     }\\\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1677080112718,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n #define HAL_DEV_NULL_CHECK(x) \\\r\n {\\\r\n     if(NULL==x)\\\r\n     {\\\r\n-        LOG_ERROR(\"HAL PARAM NULL\");\r\n+        LOG_ERROR(\"HAL PARAM NULL!\\r\\n\");\\\r\n         return HAL_NULL;\\\r\n     }\\\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1677080186398,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n {\\\r\n     if(NULL==x)\\\r\n     {\\\r\n         LOG_ERROR(\"HAL PARAM NULL!\\r\\n\");\\\r\n-        return HAL_NULL;\\\r\n+        // return HAL_NULL;\\\r\n     }\\\r\n }\r\n \r\n #define HAL_DEV_INIT_CHECK(x) \\\r\n"
+                },
+                {
+                    "date": 1677080192205,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,17 +14,15 @@\n {\\\r\n     if(NULL==x)\\\r\n     {\\\r\n         LOG_ERROR(\"HAL PARAM NULL!\\r\\n\");\\\r\n-        // return HAL_NULL;\\\r\n     }\\\r\n }\r\n \r\n #define HAL_DEV_INIT_CHECK(x) \\\r\n {\\\r\n     if(x->init_flag != 1)\\\r\n     {\\\r\n-        return HAL_ERROR;\\\r\n     }\\\r\n }\r\n \r\n #define HAL_CHECK(x) \\\r\n"
+                },
+                {
+                    "date": 1677080197802,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,9 @@\n #define HAL_DEV_INIT_CHECK(x) \\\r\n {\\\r\n     if(x->init_flag != 1)\\\r\n     {\\\r\n+        LOG_ERROR(\"HAL PARAM NULL!\\r\\n\");\\\r\n     }\\\r\n }\r\n \r\n #define HAL_CHECK(x) \\\r\n"
+                },
+                {
+                    "date": 1677080204353,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n #define HAL_DEV_INIT_CHECK(x) \\\r\n {\\\r\n     if(x->init_flag != 1)\\\r\n     {\\\r\n-        LOG_ERROR(\"HAL PARAM NULL!\\r\\n\");\\\r\n+        LOG_ERROR(\"HAL NOT INIT NULL!\\r\\n\");\\\r\n     }\\\r\n }\r\n \r\n #define HAL_CHECK(x) \\\r\n"
+                },
+                {
+                    "date": 1677083875493,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n #define HAL_DEV_INIT_CHECK(x) \\\r\n {\\\r\n     if(x->init_flag != 1)\\\r\n     {\\\r\n-        LOG_ERROR(\"HAL NOT INIT NULL!\\r\\n\");\\\r\n+        LOG_ERROR(\"HAL NOT INIT!\\r\\n\");\\\r\n     }\\\r\n }\r\n \r\n #define HAL_CHECK(x) \\\r\n@@ -46,9 +46,9 @@\n     void *argv;\r\n     int init_flag;\r\n     int data;\r\n     hal_device_t *next;\r\n-};\r\n+};hal_device_t\r\n \r\n struct hal_device_ops_s \r\n {\r\n     int (*init) (hal_device_t *dev);\r\n"
+                },
+                {
+                    "date": 1677083883673,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,9 +46,9 @@\n     void *argv;\r\n     int init_flag;\r\n     int data;\r\n     hal_device_t *next;\r\n-};hal_device_t\r\n+}hal_device_t;\r\n \r\n struct hal_device_ops_s \r\n {\r\n     int (*init) (hal_device_t *dev);\r\n"
+                },
+                {
+                    "date": 1677083898639,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,94 @@\n+#ifndef __HAL_DEVICE_H__\r\n+#define __HAL_DEVICE_H__\r\n+\r\n+#include \"bsp_log.h\"\r\n+\r\n+#define HAL_TRUE    1\r\n+#define HAL_FALSE   0\r\n+\r\n+#define HAL_OK      0\r\n+#define HAL_ERROR   -1\r\n+#define HAL_NULL    -2\r\n+\r\n+#define HAL_DEV_NULL_CHECK(x) \\\r\n+{\\\r\n+    if(NULL==x)\\\r\n+    {\\\r\n+        LOG_ERROR(\"HAL PARAM NULL!\\r\\n\");\\\r\n+    }\\\r\n+}\r\n+\r\n+#define HAL_DEV_INIT_CHECK(x) \\\r\n+{\\\r\n+    if(x->init_flag != 1)\\\r\n+    {\\\r\n+        LOG_ERROR(\"HAL NOT INIT!\\r\\n\");\\\r\n+    }\\\r\n+}\r\n+\r\n+#define HAL_CHECK(x) \\\r\n+{\\\r\n+    if(x!= HAL_OK)\\\r\n+    {\\\r\n+        LOG_ERROR(\"HAL ERROR CODE: %d!\\r\\n\", x);\\\r\n+    }\\\r\n+}\r\n+\r\n+\r\n+typedef struct hal_device_ops_s hal_device_ops_t;\r\n+typedef struct hal_device_s hal_device_t;\r\n+\r\n+struct hal_device_s\r\n+{\r\n+    const char *name;\r\n+    const hal_device_ops_t *dops;\r\n+    void *owner;\r\n+    void *argv;\r\n+    int init_flag;\r\n+    int data;\r\n+    hal_device_t *next;\r\n+}hal_device_t;\r\n+\r\n+struct hal_device_ops_s \r\n+{\r\n+    int (*init) (hal_device_t *dev);\r\n+    int (*open) (hal_device_t *dev, int oflag);\r\n+    int (*close) (hal_device_t *dev);\r\n+    int  (*read)   (hal_device_t *dev, int pos, void *buffer, int size);\r\n+    int  (*write)  (hal_device_t *dev, int pos, const void *buffer, int size);\r\n+    int  (*control)(hal_device_t *dev, int cmd, void *args);\r\n+\tint  (*config) (hal_device_t *dev, void *args, void *var);\r\n+};\r\n+\r\n+\r\n+// 驱动注册\r\n+int hal_device_register(hal_device_t *dev);\r\n+\r\n+hal_device_t *hal_device_find(const char *name);\r\n+\r\n+\r\n+/*\r\n+    驱动读\r\n+*/\r\n+int hal_device_read(hal_device_t *dev,  int pos, void *buffer, int size);\r\n+/*\r\n+    驱动写\r\n+*/\r\n+int hal_device_write(hal_device_t *dev, int pos, const void *buffer, int size);\r\n+/*\r\n+    驱动控制\r\n+*/\r\n+int hal_device_ctrl(hal_device_t *dev,  int cmd, void *arg);\r\n+/*\r\n+    驱动配置\r\n+*/\r\n+int hal_device_cfg(hal_device_t *dev, void *args, void *var);\r\n+/*\r\n+    驱动初始化\r\n+*/\r\n+int hal_device_init(hal_device_t *dev);\r\n+/*\r\n+    设置驱动属于哪个任务\r\n+*/\r\n+void hal_device_set_owner(hal_device_t *dev, const void *owner);\r\n+#endif\r\n"
+                },
+                {
+                    "date": 1677083909145,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,9 @@\n     void *owner;\r\n     void *argv;\r\n     int init_flag;\r\n     int data;\r\n-    hal_device_t *next;\r\n+    struct  *next;\r\n }hal_device_t;\r\n \r\n struct hal_device_ops_s \r\n {\r\n@@ -91,98 +91,4 @@\n     设置驱动属于哪个任务\r\n */\r\n void hal_device_set_owner(hal_device_t *dev, const void *owner);\r\n #endif\r\n-#ifndef __HAL_DEVICE_H__\r\n-#define __HAL_DEVICE_H__\r\n-\r\n-#include \"bsp_log.h\"\r\n-\r\n-#define HAL_TRUE    1\r\n-#define HAL_FALSE   0\r\n-\r\n-#define HAL_OK      0\r\n-#define HAL_ERROR   -1\r\n-#define HAL_NULL    -2\r\n-\r\n-#define HAL_DEV_NULL_CHECK(x) \\\r\n-{\\\r\n-    if(NULL==x)\\\r\n-    {\\\r\n-        LOG_ERROR(\"HAL PARAM NULL!\\r\\n\");\\\r\n-    }\\\r\n-}\r\n-\r\n-#define HAL_DEV_INIT_CHECK(x) \\\r\n-{\\\r\n-    if(x->init_flag != 1)\\\r\n-    {\\\r\n-        LOG_ERROR(\"HAL NOT INIT!\\r\\n\");\\\r\n-    }\\\r\n-}\r\n-\r\n-#define HAL_CHECK(x) \\\r\n-{\\\r\n-    if(x!= HAL_OK)\\\r\n-    {\\\r\n-        LOG_ERROR(\"HAL ERROR CODE: %d!\\r\\n\", x);\\\r\n-    }\\\r\n-}\r\n-\r\n-\r\n-typedef struct hal_device_ops_s hal_device_ops_t;\r\n-typedef struct hal_device_s hal_device_t;\r\n-\r\n-struct hal_device_s\r\n-{\r\n-    const char *name;\r\n-    const hal_device_ops_t *dops;\r\n-    void *owner;\r\n-    void *argv;\r\n-    int init_flag;\r\n-    int data;\r\n-    hal_device_t *next;\r\n-}hal_device_t;\r\n-\r\n-struct hal_device_ops_s \r\n-{\r\n-    int (*init) (hal_device_t *dev);\r\n-    int (*open) (hal_device_t *dev, int oflag);\r\n-    int (*close) (hal_device_t *dev);\r\n-    int  (*read)   (hal_device_t *dev, int pos, void *buffer, int size);\r\n-    int  (*write)  (hal_device_t *dev, int pos, const void *buffer, int size);\r\n-    int  (*control)(hal_device_t *dev, int cmd, void *args);\r\n-\tint  (*config) (hal_device_t *dev, void *args, void *var);\r\n-};\r\n-\r\n-\r\n-// 驱动注册\r\n-int hal_device_register(hal_device_t *dev);\r\n-\r\n-hal_device_t *hal_device_find(const char *name);\r\n-\r\n-\r\n-/*\r\n-    驱动读\r\n-*/\r\n-int hal_device_read(hal_device_t *dev,  int pos, void *buffer, int size);\r\n-/*\r\n-    驱动写\r\n-*/\r\n-int hal_device_write(hal_device_t *dev, int pos, const void *buffer, int size);\r\n-/*\r\n-    驱动控制\r\n-*/\r\n-int hal_device_ctrl(hal_device_t *dev,  int cmd, void *arg);\r\n-/*\r\n-    驱动配置\r\n-*/\r\n-int hal_device_cfg(hal_device_t *dev, void *args, void *var);\r\n-/*\r\n-    驱动初始化\r\n-*/\r\n-int hal_device_init(hal_device_t *dev);\r\n-/*\r\n-    设置驱动属于哪个任务\r\n-*/\r\n-void hal_device_set_owner(hal_device_t *dev, const void *owner);\r\n-#endif\r\n"
+                },
+                {
+                    "date": 1677083935754,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,23 +45,14 @@\n     void *owner;\r\n     void *argv;\r\n     int init_flag;\r\n     int data;\r\n-    struct  *next;\r\n+    struct hal_device_s *next;\r\n }hal_device_t;\r\n \r\n-struct hal_device_ops_s \r\n-{\r\n-    int (*init) (hal_device_t *dev);\r\n-    int (*open) (hal_device_t *dev, int oflag);\r\n-    int (*close) (hal_device_t *dev);\r\n-    int  (*read)   (hal_device_t *dev, int pos, void *buffer, int size);\r\n-    int  (*write)  (hal_device_t *dev, int pos, const void *buffer, int size);\r\n-    int  (*control)(hal_device_t *dev, int cmd, void *args);\r\n-\tint  (*config) (hal_device_t *dev, void *args, void *var);\r\n-};\r\n \r\n \r\n+\r\n // 驱动注册\r\n int hal_device_register(hal_device_t *dev);\r\n \r\n hal_device_t *hal_device_find(const char *name);\r\n"
+                },
+                {
+                    "date": 1677083944238,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,8 +37,19 @@\n \r\n typedef struct hal_device_ops_s hal_device_ops_t;\r\n typedef struct hal_device_s hal_device_t;\r\n \r\n+struct hal_device_ops_s \r\n+{\r\n+    int (*init) (hal_device_t *dev);\r\n+    int (*open) (hal_device_t *dev, int oflag);\r\n+    int (*close) (hal_device_t *dev);\r\n+    int  (*read)   (hal_device_t *dev, int pos, void *buffer, int size);\r\n+    int  (*write)  (hal_device_t *dev, int pos, const void *buffer, int size);\r\n+    int  (*control)(hal_device_t *dev, int cmd, void *args);\r\n+\tint  (*config) (hal_device_t *dev, void *args, void *var);\r\n+};\r\n+\r\n struct hal_device_s\r\n {\r\n     const char *name;\r\n     const hal_device_ops_t *dops;\r\n@@ -46,9 +57,9 @@\n     void *argv;\r\n     int init_flag;\r\n     int data;\r\n     struct hal_device_s *next;\r\n-}hal_device_t;\r\n+};\r\n \r\n \r\n \r\n \r\n"
+                },
+                {
+                    "date": 1677083966105,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,9 +51,9 @@\n \r\n struct hal_device_s\r\n {\r\n     const char *name;\r\n-    const hal_device_ops_t *dops;\r\n+    const struct hal_device_ops_s  *dops;\r\n     void *owner;\r\n     void *argv;\r\n     int init_flag;\r\n     int data;\r\n"
+                }
+            ],
+            "date": 1677078478724,
+            "name": "Commit-0",
+            "content": "#ifndef __HAL_DEVICE_H__\r\n#define __HAL_DEVICE_H__\r\n\r\n#define HAL_TRUE    1\r\n#define HAL_FALSE   0\r\n\r\n#define HAL_OK      0\r\n#define HAL_ERROR   -1\r\n\r\n#define HAL_DEV_NULL_CHECK(x) \\\r\n{\\\r\n    if(NULL==x)\\\r\n    {\\\r\n        return HAL_ERROR;\\\r\n    }\\\r\n}\r\n\r\n#define HAL_DEV_INIT_CHECK(x) \\\r\n{\\\r\n    if(x->init_flag != 1)\\\r\n    {\\\r\n        return HAL_ERROR;\\\r\n    }\\\r\n}\r\n\r\n\r\ntypedef struct hal_device_ops_s hal_device_ops_t;\r\ntypedef struct hal_device_s hal_device_t;\r\n\r\nstruct hal_device_s\r\n{\r\n    const char *name;\r\n    const hal_device_ops_t *dops;\r\n    void *owner;\r\n    void *argv;\r\n    int init_flag;\r\n    int data;\r\n    hal_device_t *next;\r\n};\r\n\r\nstruct hal_device_ops_s \r\n{\r\n    int (*init) (hal_device_t *dev);\r\n    int (*open) (hal_device_t *dev, int oflag);\r\n    int (*close) (hal_device_t *dev);\r\n    int  (*read)   (hal_device_t *dev, int pos, void *buffer, int size);\r\n    int  (*write)  (hal_device_t *dev, int pos, const void *buffer, int size);\r\n    int  (*control)(hal_device_t *dev, int cmd, void *args);\r\n\tint  (*config) (hal_device_t *dev, void *args, void *var);\r\n};\r\n\r\n\r\n// 驱动注册\r\nint hal_device_register(hal_device_t *dev);\r\n\r\nhal_device_t *hal_device_find(const char *name);\r\n\r\n\r\n/*\r\n    驱动读\r\n*/\r\nint hal_device_read(hal_device_t *dev,  int pos, void *buffer, int size);\r\n/*\r\n    驱动写\r\n*/\r\nint hal_device_write(hal_device_t *dev, int pos, const void *buffer, int size);\r\n/*\r\n    驱动控制\r\n*/\r\nint hal_device_ctrl(hal_device_t *dev,  int cmd, void *arg);\r\n/*\r\n    驱动配置\r\n*/\r\nint hal_device_cfg(hal_device_t *dev, void *args, void *var);\r\n/*\r\n    驱动初始化\r\n*/\r\nint hal_device_init(hal_device_t *dev);\r\n/*\r\n    设置驱动属于哪个任务\r\n*/\r\nvoid hal_device_set_owner(hal_device_t *dev, const void *owner);\r\n#endif\r\n"
+        }
+    ]
+}

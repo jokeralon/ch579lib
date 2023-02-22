@@ -1,0 +1,18 @@
+{
+    "sourceFile": "CH579EVT/EVT/EXAM/USB/Device/CH579EVT_USB_DISK_TEST/BLE/ch57x_ble_uart_mrs_app_only_test/app/app_uart.c",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1677083137501,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1677083137501,
+            "name": "Commit-0",
+            "content": "#include \"app_uart.h\"\r\n\r\nhal_uart_config_t uart0_config = {\r\n    .name = APP_UART_DEVICE_NAME,\r\n    .init = APP_UART_FUNC_INIT,\r\n    .deinit = APP_UART_FUNC_DEINIT,\r\n    .read = APP_UART_FUNC_READ,\r\n    .write = APP_UART_FUNC_WRITE,\r\n    .callback = NULL,\r\n};\r\n\r\nint app_uart_fd = -1;\r\n\r\nint app_uart_init()\r\n{\r\n    int ret = hal_uart_init(&uart0_config);\r\n    \r\n    if (ret != HAL_UART_OK)\r\n        return -1;\r\n\r\n    app_uart_fd = bsp_device_open(APP_UART_DEVICE_NAME, 0);\r\n\r\n    if (app_uart_fd >= 0)\r\n    {\r\n        \r\n        LOG_INFO(\"app flash open ok, fd: %d\\r\\n\", app_uart_fd);\r\n\r\n        return 0;\r\n    }\r\n\r\n    LOG_ERROR(\"app flash init error\\n\");\r\n\r\n    return -1;\r\n}\r\n"
+        }
+    ]
+}

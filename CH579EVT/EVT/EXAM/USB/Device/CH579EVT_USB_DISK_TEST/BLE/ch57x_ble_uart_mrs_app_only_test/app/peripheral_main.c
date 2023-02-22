@@ -20,6 +20,7 @@
 #include "app_uart.h"
 #include "app_led.h"
 #include "app_key.h"
+#include "hal_device.h"
 
 FATFS fs;          /* FatFs文件系统对象 */
 FIL fnew;          /* 文件对象 */
@@ -61,7 +62,12 @@ int main()
     PWR_UnitModCfg(ENABLE, UNIT_SYS_PLL); // ��PLL
     DelayMs(5);
 
+
+
     app_uart_init();
+
+bsp_led_register();
+bsp_key_register();
     app_led1_init();
     app_key1_init();
 
@@ -77,8 +83,10 @@ int main()
         .len = sizeof("asdfghjklzxcvbnmqwertyuiop\r\n"),
     };
 
-    bsp_device_write(led1_fd, &led_data, 0);
-    bsp_device_write(uart_fd, &uart_msg, 0);
+    // bsp_device_write(led1_fd, &led_data, 0);
+    // bsp_device_write(uart_fd, &uart_msg, 0);
+
+
 
     LOG_INFO("Start @ChipID=%02X\n", R8_CHIP_ID);
 
